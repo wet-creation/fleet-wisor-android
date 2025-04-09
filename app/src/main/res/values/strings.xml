@@ -288,16 +288,12 @@
     <string name="new_group_name">Назва нової групи</string>
     <string name="group_type">Тип групи</string>
 
-    <string name="new_scheme_require_auth">Для створення власної схеми необхідно авторизуватися</string>
 
+    <string name="main_menu_text">Головна</string>
+    <string name="cars_text">Машини</string>
+    <string name="drivers_text">Водії</string>
+    <string name="profile_text">Профіль</string>
 
-
-    <string name="onboarding_welcome_title">Ласкаво просимо!</string>
-    <string name="onboarding_welcome_text">Мобільний застосунок «Агросвіт» — це широкий асортимент засобів захисту рослин, насіння, мікродобрив та ін. в Вашому смартфоні. </string>
-    <string name="onboarding_discount_title">Знижка за реєстрацію</string>
-    <string name="onboarding_discount_text" tools:ignore="TypographyDashes">Увага! Повний функціонал застосунку доступний лише зареєстрованим користувачам! Також на них чекає постійна знижка в розмірі 3-5% та участь у програмі лояльності.</string>
-    <string name="onboarding_scheme_title">Обери свою схему захисту рослин</string>
-    <string name="onboarding_scheme_text">Створюйте свої або користуйтеся рекомендованими та перевіреними схемами захисту рослин! Дізнайтеся вартість будь-якої з них та подавайте заявку на придбання препаратів.</string>
     <string name="permission_notification_request">Цьому додатку потрібен дозвіл на надсилання сповіщень, щоб ви могли отримувати важливі повідомлення та оновлення.</string>
     <string name="permission_notification_denied">Здається, ви назавжди відхилили дозвіл на надсилання сповіщень. Ви можете надати його в налаштуваннях додатка.</string>
     <string name="grant_permission">Надати дозвіл</string>

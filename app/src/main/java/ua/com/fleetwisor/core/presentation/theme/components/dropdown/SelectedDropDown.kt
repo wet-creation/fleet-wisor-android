@@ -35,7 +35,6 @@ import ua.com.agroswit.theme.components.select_controls.DropDownItemList
 import ua.com.agroswit.theme.components.select_controls.DropDownItemState
 
 
-
 @Composable
 fun SelectedDropDown(
     modifier: Modifier = Modifier,
@@ -56,39 +55,14 @@ fun SelectedDropDown(
             .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .height(containerHeight)
-                .border(
-                    width = 1.dp,
-                    color = if(expanded) FleetWisorTheme.colors.brandPrimaryNormal else FleetWisorTheme.colors.neutralSecondaryLight,
-                    shape = RoundedCornerShape(size = 4.dp)
-                )
-                .background(
-                    color = FleetWisorTheme.colors.neutralPrimaryLight,
-                    shape = RoundedCornerShape(size = 4.dp)
-                )
-                .padding(horizontal = 4.dp, vertical = 1.dp)
-                .clickable { expanded = !expanded }
-                .fillMaxWidth()
-        ) {
-            Text(
-                text = items()[selectedItemIndex].text,
-                style = FleetWisorTheme.typography.labelLargeR,
-                color = FleetWisorTheme.colors.neutralSecondaryDark
-            )
-            Icon(
-                painter = if (expanded) FleetWisorTheme.icons.arrowUp else FleetWisorTheme.icons.arrowDown,
-                contentDescription = null,
-                tint = FleetWisorTheme.colors.neutralSecondaryDark,
-                modifier = Modifier
-                    .padding(1.dp)
-                    .width(12.dp)
-                    .height(12.dp)
-            )
-        }
+        SelectedDropDownElement(
+            textItem = items()[selectedItemIndex].text,
+            containerHeight = containerHeight,
+            expanded = expanded,
+            onClick = {
+                expanded = !expanded
+            }
+        )
         if (overlapping)
             DropdownMenu(
                 expanded = expanded,
@@ -168,6 +142,51 @@ fun SelectedDropDown(
         }
     }
 }
+
+
+@Composable
+fun SelectedDropDownElement(
+    modifier: Modifier = Modifier,
+    textItem: String,
+    containerHeight: Dp = 20.dp,
+    expanded: Boolean = false,
+    onClick: () -> Unit
+) {
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+            .height(containerHeight)
+            .border(
+                width = 1.dp,
+                color = if (expanded) FleetWisorTheme.colors.brandPrimaryNormal else FleetWisorTheme.colors.neutralSecondaryLight,
+                shape = RoundedCornerShape(size = 4.dp)
+            )
+            .background(
+                color = FleetWisorTheme.colors.neutralPrimaryLight,
+                shape = RoundedCornerShape(size = 4.dp)
+            )
+            .padding(horizontal = 4.dp, vertical = 1.dp)
+            .clickable { onClick() }
+            .fillMaxWidth()
+    ) {
+        Text(
+            text = textItem,
+            style = FleetWisorTheme.typography.labelLargeR,
+            color = FleetWisorTheme.colors.neutralSecondaryDark
+        )
+        Icon(
+            painter = if (expanded) FleetWisorTheme.icons.arrowUp else FleetWisorTheme.icons.arrowDown,
+            contentDescription = null,
+            tint = FleetWisorTheme.colors.neutralSecondaryDark,
+            modifier = Modifier
+                .padding(1.dp)
+                .width(12.dp)
+                .height(12.dp)
+        )
+    }
+}
+
 
 @Preview
 @Composable

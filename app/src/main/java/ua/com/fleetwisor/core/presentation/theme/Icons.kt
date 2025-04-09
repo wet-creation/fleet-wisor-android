@@ -216,6 +216,25 @@ class AgroswitIcon {
     val edit: Painter
         @Composable
         get() = painterResource(id = R.drawable.edit)
+    val money: Painter
+        @Composable
+        get() = painterResource(id = R.drawable.money)
+    val gasMeter: Painter
+        @Composable
+        get() = painterResource(id = R.drawable.gas_meter)
+    val gasStation: Painter
+        @Composable
+        get() = painterResource(id = R.drawable.gas_station)
+    val gasFluid: Painter
+        @Composable
+        get() = painterResource(id = R.drawable.opacity)
+    val tool: Painter
+        @Composable
+        get() = painterResource(id = R.drawable.tool)
+    val homeService: Painter
+        @Composable
+        get() = painterResource(id = R.drawable.home_service)
+
 }
 
 internal val LocaleIcon = staticCompositionLocalOf { AgroswitIcon() }

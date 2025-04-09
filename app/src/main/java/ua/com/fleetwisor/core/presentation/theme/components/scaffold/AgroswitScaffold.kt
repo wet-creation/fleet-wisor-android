@@ -1,4 +1,4 @@
-package ua.com.agroswit.theme.components.scaffold
+package ua.com.fleetwisor.core.presentation.theme.components.scaffold
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
@@ -6,6 +6,7 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import ua.com.agroswit.theme.components.scaffold.AgroswitBackground
 
 var bottomBar: @Composable () -> Unit = {}
 

@@ -67,16 +67,17 @@ fun AgroswitTopAppBar(
 @Composable
 fun SimpleFilledAgroswitTopAppBar(
     title: String,
-    onBackArrowPress: () -> Unit
+    onBackArrowPress: (() -> Unit)? = null
 ) {
     AgroswitTopAppBar(
         modifier = Modifier.fillMaxWidth(),
         startItem = {
-            Icon(
-                painter = FleetWisorTheme.icons.arrowBack, contentDescription = null,
-                tint = FleetWisorTheme.colors.neutralPrimaryLight,
-                modifier = Modifier.clickable(onClick = onBackArrowPress)
-            )
+            if (onBackArrowPress != null)
+                Icon(
+                    painter = FleetWisorTheme.icons.arrowBack, contentDescription = null,
+                    tint = FleetWisorTheme.colors.neutralPrimaryLight,
+                    modifier = Modifier.clickable(onClick = onBackArrowPress)
+                )
         },
         colors = topAppBarAgroswitColors.copy(containerColor = FleetWisorTheme.colors.brandPrimaryNormal)
     ) {
@@ -110,12 +111,12 @@ private fun AgroswitTopAppBarPrev() {
 
 
         endItems =
-        listOf(ComposeWrapper {
-            Icon(
-                painter = FleetWisorTheme.icons.profile,
-                contentDescription = ""
-            )
-        })
+            listOf(ComposeWrapper {
+                Icon(
+                    painter = FleetWisorTheme.icons.profile,
+                    contentDescription = ""
+                )
+            })
     ) {
         Row {
             Text(text = "BABA")
