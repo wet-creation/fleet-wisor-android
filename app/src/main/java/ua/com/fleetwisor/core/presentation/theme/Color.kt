@@ -1,34 +1,34 @@
-package ua.com.agroswit.theme
+package ua.com.fleetwisor.core.presentation.theme
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 
-internal val LightBrandPrimaryNormal = Color(0xFF00742F)
-internal val LightBrandPrimaryExtraLight = Color(0xFFD5ECDE)
-internal val LightBrandPrimaryLight = Color(0xFFAED3BD)
-internal val LightBrandPrimaryMedium = Color(0xFF4D9E6E)
-internal val LightBrandPrimaryDark = Color(0xFF005723)
-internal val LightBrandSecondaryNormal = Color(0xFFFFED00)
-internal val LightNeutralPrimaryNormal = Color(0xFFF7FFFA)
+internal val LightBrandPrimaryNormal = Color(0xFF1E3A5F)
+internal val LightBrandPrimaryExtraLight = Color(0xFFD6E4F0)
+internal val LightBrandPrimaryLight = Color(0xFF7BA0C0)
+internal val LightBrandPrimaryMedium = Color(0xFF3E658F)
+internal val LightBrandPrimaryDark = Color(0xFF162D4A)
+internal val LightBrandSecondaryNormal = Color(0xFFF5A623)
+internal val LightNeutralPrimaryNormal = Color(0xFFF8F9FA)
 internal val LightNeutralPrimaryLight = Color(0xFFFFFFFF)
-internal val LightNeutralPrimaryDark = Color(0xFFF4F8F6)
-internal val LightNeutralSecondaryNormal = Color(0xFFAEAEAE)
-internal val LightNeutralSecondaryLight = Color(0xFFDCDCDC)
-internal val LightNeutralSecondaryMedium = Color(0xFF6D6D6D)
-internal val LightNeutralSecondaryDark = Color(0xFF171716)
-internal val LightErrorNormal = Color(0xFFFBA9A9)
-internal val LightErrorLight = Color(0xFFFFF6F6)
-internal val LightErrorDark = Color(0xFFE12B2B)
+internal val LightNeutralPrimaryDark = Color(0xFFE4E7EB)
+internal val LightNeutralSecondaryNormal = Color(0xFFB0B8C5)
+internal val LightNeutralSecondaryLight = Color(0xFFD6DBE0)
+internal val LightNeutralSecondaryMedium = Color(0xFF6C757D)
+internal val LightNeutralSecondaryDark = Color(0xFF212529)
+internal val LightErrorNormal = Color(0xFFD9534F)
+internal val LightErrorLight = Color(0xFFF8D7DA)
+internal val LightErrorDark = Color(0xFFC82333)
 
-internal val LightHerbicideColor = Color(0xFF2DA93D)
-internal val LightDesiccantColor = Color(0xFFFFED00)
-internal val LightInsecticideColor = Color(0xFFE60077)
+internal val LightHerbicideColor = Color(0xFF388E3C)
+internal val LightDesiccantColor = Color(0xFFFFC107)
+internal val LightInsecticideColor = Color(0xFFC62828)
 internal val LightPoisonerColor = Color(0xFFDCDCDC)
-internal val LightFungicideColor = Color(0xFF006EB8)
-internal val LightMicroFertilizerColor = Color(0xFF36E4CD)
-internal val LightBioProductColor = Color(0xFF76FF88)
+internal val LightFungicideColor = Color(0xFF1565C0)
+internal val LightMicroFertilizerColor = Color(0xFF00897B)
+internal val LightBioProductColor = Color(0xFF4CAF50)
 
 internal val LightLabelTodo = Color(0xFFFF720D)
 internal val LightLabelInProgress = Color(0xFF2263E2)
