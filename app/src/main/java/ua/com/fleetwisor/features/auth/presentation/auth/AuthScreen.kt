@@ -2,7 +2,6 @@ package ua.com.fleetwisor.features.auth.presentation.auth
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,16 +19,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.koinViewModel
 import ua.com.agroswit.theme.components.buttons.standart.PrimaryButton
-import ua.com.agroswit.theme.components.buttons.standart.SecondLargeButton
 import ua.com.agroswit.theme.components.buttons.standart.SecondaryNormalButton
 import ua.com.agroswit.theme.components.scaffold.AgroswitBackground
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
-import ua.com.fleetwisor.core.presentation.ui.utils.emptyUiText
 
 @Composable
 fun AuthScreenRoot(
-    viewModel: AuthStateViewModel = koinViewModel()
+    viewModel: AuthViewModel = koinViewModel()
 ) {
     AuthScreen(
         state = viewModel.state,

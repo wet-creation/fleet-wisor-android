@@ -1,6 +1,7 @@
 package ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,39 +14,42 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.serialization.Serializable
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
-import ua.com.fleetwisor.core.presentation.ui.utils.UiText
 import ua.com.fleetwisor.core.presentation.ui.utils.noRippleClickable
 
+@Serializable
 sealed class BottomNavBarMenu(
-    val title: UiText,
+    @StringRes val title: Int,
     @DrawableRes val activeIcon: Int,
     @DrawableRes val icon: Int
 ) {
+    @Serializable
     data object Menu : BottomNavBarMenu(
-        title = UiText.StringResource(R.string.main_menu_text),
+        title = (R.string.main_menu_text),
         icon = R.drawable.home_outlined,
         activeIcon = R.drawable.home_filled
     )
-
+    @Serializable
     data object Cars : BottomNavBarMenu(
-        title = UiText.StringResource(R.string.cars_text),
+        title = (R.string.cars_text),
         icon = R.drawable.cars_otlined,
         activeIcon = R.drawable.car_filled
     )
-
+    @Serializable
     data object Drivers : BottomNavBarMenu(
-        title = UiText.StringResource(R.string.drivers_text),
+        title = (R.string.drivers_text),
         icon = R.drawable.driver_outlined,
         activeIcon = R.drawable.driver_filled
     )
-
+    @Serializable
     data object Profile : BottomNavBarMenu(
-        title = UiText.StringResource(R.string.profile_text),
+        title = (R.string.profile_text),
         icon = R.drawable.person_outlined,
         activeIcon = R.drawable.person_filled
     )
@@ -106,7 +110,7 @@ fun BottomNavBarItem(
             contentDescription = ""
         )
         Text(
-            text = bottBottomNavBarMenu.title.asString(),
+            text = stringResource(bottBottomNavBarMenu.title),
             textAlign = TextAlign.Center,
             color = if (active) FleetWisorTheme.colors.brandSecondaryNormal else FleetWisorTheme.colors.neutralPrimaryLight,
             style = if (active) FleetWisorTheme.typography.labelMediumSB else FleetWisorTheme.typography.labelMediumR
