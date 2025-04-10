@@ -40,6 +40,7 @@ private fun MainMenuScreen(
     onAction: (MainMenuAction) -> Unit
 ) {
     AgroswitScaffold(
+        hasBottomBar = true,
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
                 title = stringResource(R.string.main_menu_text)

@@ -23,11 +23,17 @@ import ua.com.fleetwisor.core.presentation.theme.components.fields.AuthTextField
 
 @Composable
 fun RegisterScreenRoot(
-    viewModel: RegisterViewModel = koinViewModel()
+    viewModel: RegisterViewModel = koinViewModel(),
+    navigateLogin: () -> Unit
 ) {
     RegisterScreen(
         state = viewModel.state,
-        onAction = viewModel::onAction
+        onAction = {
+            viewModel.onAction(it)
+            when (it) {
+                RegisterAction.NavigateLogin -> navigateLogin()
+            }
+        }
     )
 }
 
@@ -44,7 +50,8 @@ private fun RegisterScreen(
             verticalArrangement = Arrangement.spacedBy(
                 36.dp,
                 Alignment.CenterVertically
-            )
+            ),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(painter = painterResource(R.drawable.full_logo), contentDescription = "")
             Column(
@@ -93,7 +100,9 @@ private fun RegisterScreen(
                 PrimaryButton(
                     modifier = Modifier.fillMaxWidth(),
                     text = stringResource(R.string.signup_text)
-                ) { }
+                ) {
+                    onAction(RegisterAction.NavigateLogin)
+                }
 
             }
 

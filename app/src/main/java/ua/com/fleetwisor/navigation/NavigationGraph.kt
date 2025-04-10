@@ -37,13 +37,28 @@ fun NavigationRoot(
         startDestination = AuthGraph.Auth,
     ) {
         composable<AuthGraph.Auth> {
-            AuthScreenRoot()
+            AuthScreenRoot(
+                navigateLogin = {
+                    navController.navigate(AuthGraph.Login)
+                },
+                navigateRegister = {
+                    navController.navigate(AuthGraph.Register)
+
+                }
+            )
         }
         composable<AuthGraph.Login> {
-            LoginScreenRoot()
+            LoginScreenRoot {
+                navController.navigate(BottomNavBarMenu.Menu) {
+                    popUpTo(0)
+                }
+            }
         }
         composable<AuthGraph.Register> {
-            RegisterScreenRoot()
+            RegisterScreenRoot {
+
+                navController.navigate(AuthGraph.Login)
+            }
         }
 
         profileGraph(navController)
@@ -117,6 +132,7 @@ fun NavDestination.routeClass(): KClass<*>? {
                 .firstOrNull()
         }
 }
+
 fun NavBackStackEntry.routeClass(): KClass<*>? {
     return this.destination.routeClass()
 }

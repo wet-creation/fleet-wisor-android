@@ -23,11 +23,17 @@ import ua.com.fleetwisor.core.presentation.theme.components.fields.AuthTextField
 
 @Composable
 fun LoginScreenRoot(
-    viewModel: LoginViewModel = koinViewModel()
+    viewModel: LoginViewModel = koinViewModel(),
+    navigateMainMenu : () -> Unit
 ) {
     LoginScreen(
         state = viewModel.state,
-        onAction = viewModel::onAction
+        onAction = {
+            viewModel.onAction(it)
+            when(it) {
+                LoginAction.NavigateMainMenu -> navigateMainMenu()
+            }
+        }
     )
 }
 
@@ -44,12 +50,13 @@ private fun LoginScreen(
             verticalArrangement = Arrangement.spacedBy(
                 40.dp,
                 Alignment.CenterVertically
-            )
+            ),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(painter = painterResource(R.drawable.full_logo), contentDescription = "")
             Column(
                 verticalArrangement = Arrangement.spacedBy(56.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
@@ -73,7 +80,9 @@ private fun LoginScreen(
                 PrimaryButton(
                     modifier = Modifier.fillMaxWidth(),
                     text = stringResource(R.string.login_text)
-                ) { }
+                ) {
+                    onAction(LoginAction.NavigateMainMenu)
+                }
 
             }
 

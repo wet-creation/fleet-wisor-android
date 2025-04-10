@@ -23,6 +23,12 @@ import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.ui.utils.noRippleClickable
 
+val screens = listOf(
+    BottomNavBarMenu.Menu,
+    BottomNavBarMenu.Cars,
+    BottomNavBarMenu.Drivers,
+    BottomNavBarMenu.Profile,
+)
 @Serializable
 sealed class BottomNavBarMenu(
     @StringRes val title: Int,
@@ -39,7 +45,7 @@ sealed class BottomNavBarMenu(
     data object Cars : BottomNavBarMenu(
         title = (R.string.cars_text),
         icon = R.drawable.cars_otlined,
-        activeIcon = R.drawable.car_filled
+        activeIcon = R.drawable.cars_filled
     )
     @Serializable
     data object Drivers : BottomNavBarMenu(
@@ -60,13 +66,6 @@ fun AgroswitBottomBarScreen(
     selectedRoute: Any,
     onAction: (Any) -> Unit,
 ) {
-    val screens = listOf(
-        BottomNavBarMenu.Menu,
-        BottomNavBarMenu.Cars,
-        BottomNavBarMenu.Drivers,
-        BottomNavBarMenu.Profile,
-    )
-
     BottomAppBar(
         containerColor = FleetWisorTheme.colors.brandPrimaryNormal,
         contentColor = FleetWisorTheme.colors.neutralPrimaryLight,

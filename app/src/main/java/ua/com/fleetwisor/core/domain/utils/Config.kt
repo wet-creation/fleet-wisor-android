@@ -1,7 +1,7 @@
 package ua.com.fleetwisor.core.domain.utils
 
 object  Config {
-    var isDebug: Boolean = false
+    var isDebug: Boolean = true
     var applicationId: String = ""
     var buildType: String = ""
     var versionCode: Int = 0

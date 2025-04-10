@@ -20,6 +20,7 @@ import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitSca
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottomBar
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar.AgroswitBottomBarScreen
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar.BottomNavBarMenu
+import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar.screens
 import ua.com.fleetwisor.navigation.NavigationRoot
 import ua.com.fleetwisor.navigation.routeClass
 
@@ -33,10 +34,12 @@ class MainActivity : ComponentActivity() {
             val destination = backStack?.destination?.hierarchy?.first {
                 it is NavGraph
             }
-            val selectedRoute = destination?.routeClass() ?: BottomNavBarMenu.Menu
+            val closestNavGraph = destination?.routeClass()
+            val selectedRoute = screens.firstOrNull { it::class == closestNavGraph }
+
             bottomBar = {
                 AgroswitBottomBarScreen(
-                    selectedRoute = selectedRoute
+                    selectedRoute = selectedRoute ?: BottomNavBarMenu.Menu
                 ) {
                     navController.navigate(it) {
                         popUpTo(navController.graph.findStartDestination().id) {

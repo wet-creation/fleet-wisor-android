@@ -26,11 +26,20 @@ import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 
 @Composable
 fun AuthScreenRoot(
-    viewModel: AuthViewModel = koinViewModel()
+    viewModel: AuthViewModel = koinViewModel(),
+    navigateLogin: () -> Unit,
+    navigateRegister: () -> Unit,
 ) {
     AuthScreen(
         state = viewModel.state,
-        onAction = viewModel::onAction
+        onAction = {
+            when (it) {
+                AuthAction.NavigateLogin -> navigateLogin()
+                AuthAction.NavigateRegister -> navigateRegister()
+            }
+
+            viewModel.onAction(it)
+        }
     )
 }
 
@@ -47,7 +56,8 @@ private fun AuthScreen(
             verticalArrangement = Arrangement.spacedBy(
                 100.dp,
                 Alignment.CenterVertically
-            )
+            ),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(painter = painterResource(R.drawable.full_logo), contentDescription = "")
             Column(
@@ -57,7 +67,9 @@ private fun AuthScreen(
                 PrimaryButton(
                     modifier = Modifier.fillMaxWidth(),
                     text = stringResource(R.string.login_text)
-                ) { }
+                ) {
+                    onAction(AuthAction.NavigateLogin)
+                }
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
@@ -78,7 +90,7 @@ private fun AuthScreen(
 
                     text = stringResource(R.string.signup_text)
                 ) {
-
+                    onAction(AuthAction.NavigateRegister)
                 }
             }
 
