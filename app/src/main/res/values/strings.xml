@@ -293,6 +293,11 @@
     <string name="cars_text">Машини</string>
     <string name="drivers_text">Водії</string>
     <string name="profile_text">Профіль</string>
+    <string name="personal_data_text">Особисті дані</string>
+    <string name="car_maintenance">Догляд</string>
+    <string name="fillup">Заправка</string>
+
+
 
     <string name="permission_notification_request">Цьому додатку потрібен дозвіл на надсилання сповіщень, щоб ви могли отримувати важливі повідомлення та оновлення.</string>
     <string name="permission_notification_denied">Здається, ви назавжди відхилили дозвіл на надсилання сповіщень. Ви можете надати його в налаштуваннях додатка.</string>

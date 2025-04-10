@@ -19,7 +19,9 @@ import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar.
 import ua.com.fleetwisor.features.auth.presentation.auth.AuthScreenRoot
 import ua.com.fleetwisor.features.auth.presentation.login.LoginScreenRoot
 import ua.com.fleetwisor.features.auth.presentation.register.RegisterScreenRoot
+import ua.com.fleetwisor.features.cars.presentation.main.CarMainRoot
 import ua.com.fleetwisor.features.main_menu.presentation.MainMenuScreenRoot
+import ua.com.fleetwisor.features.profile.presentation.ProfileRoot
 import ua.com.fleetwisor.navigation.graphs.AuthGraph
 import ua.com.fleetwisor.navigation.graphs.CarsGraph
 import ua.com.fleetwisor.navigation.graphs.DriversGraph
@@ -75,7 +77,7 @@ private fun NavGraphBuilder.profileGraph(
         startDestination = ProfileGraph.Profile,
     ) {
         composable<ProfileGraph.Profile> {
-            Text("Hello Profile")
+            ProfileRoot()
         }
 
     }
@@ -102,7 +104,7 @@ private fun NavGraphBuilder.carsGraph(
         startDestination = CarsGraph.CarMain,
     ) {
         composable<CarsGraph.CarMain> {
-            Text("Hello Cars")
+            CarMainRoot()
         }
 
     }

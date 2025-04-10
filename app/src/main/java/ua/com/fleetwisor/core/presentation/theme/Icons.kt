@@ -234,6 +234,12 @@ class AgroswitIcon {
     val homeService: Painter
         @Composable
         get() = painterResource(id = R.drawable.home_service)
+    val carRepair: Painter
+        @Composable
+        get() = painterResource(id = R.drawable.car_repair)
+    val car: Painter
+        @Composable
+        get() = painterResource(id = R.drawable.car_filled)
 
 }
 

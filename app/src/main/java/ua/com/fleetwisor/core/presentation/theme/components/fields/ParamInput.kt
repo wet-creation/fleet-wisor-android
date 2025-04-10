@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
+import ua.com.fleetwisor.core.presentation.theme.components.fields.SimpleTextFieldAgroswit
 
 @Composable
 fun ParamInput(

@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
-import ua.com.agroswit.theme.components.fields.SimpleTextFieldAgroswit
+import ua.com.fleetwisor.core.presentation.theme.components.fields.SimpleTextFieldAgroswit
 import ua.com.fleetwisor.R
 import java.math.BigDecimal
 

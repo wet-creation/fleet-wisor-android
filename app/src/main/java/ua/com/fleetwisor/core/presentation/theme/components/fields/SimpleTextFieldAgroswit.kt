@@ -1,4 +1,4 @@
-package ua.com.agroswit.theme.components.fields
+package ua.com.fleetwisor.core.presentation.theme.components.fields
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth

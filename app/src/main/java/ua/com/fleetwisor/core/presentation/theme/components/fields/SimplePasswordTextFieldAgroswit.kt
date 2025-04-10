@@ -1,4 +1,4 @@
-package ua.com.agroswit.theme.components.fields
+package ua.com.fleetwisor.core.presentation.theme.components.fields
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
