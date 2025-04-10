@@ -66,6 +66,44 @@ fun LabelTextButton(
     }
 
 }
+@Composable
+fun LabelTextField(
+    modifier: Modifier = Modifier,
+    icon: Painter,
+    text: String,
+    placeholder: String = "",
+    hasLine: Boolean = false,
+    onChange: (String) -> Unit
+) {
+    Row(
+        modifier = modifier
+            .height(FleetWisorTheme.dimensions.spacing12),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            painter = icon,
+            tint = FleetWisorTheme.colors.brandPrimaryNormal,
+            contentDescription = "",
+            modifier = Modifier.size(20.dp)
+        )
+        Column(modifier = Modifier.fillMaxSize()) {
+            Spacer(modifier = Modifier.size(16.dp))
+
+            SimpleTextFieldAgroswit(
+                value = text,
+                hint = placeholder,
+                textStyle = FleetWisorTheme.typography.labelLargeR
+            ) {
+                onChange(it)
+            }
+            Spacer(modifier = Modifier.size(8.dp))
+            if (hasLine)
+                HorizontalDivider(color = FleetWisorTheme.colors.neutralSecondaryLight)
+        }
+    }
+
+}
 
 @Preview
 @Composable

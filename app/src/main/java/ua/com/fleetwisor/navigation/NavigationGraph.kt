@@ -6,7 +6,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination
@@ -20,6 +19,7 @@ import ua.com.fleetwisor.features.auth.presentation.auth.AuthScreenRoot
 import ua.com.fleetwisor.features.auth.presentation.login.LoginScreenRoot
 import ua.com.fleetwisor.features.auth.presentation.register.RegisterScreenRoot
 import ua.com.fleetwisor.features.cars.presentation.main.CarMainRoot
+import ua.com.fleetwisor.features.drivers.presentation.main.DriversListRoot
 import ua.com.fleetwisor.features.main_menu.presentation.MainMenuScreenRoot
 import ua.com.fleetwisor.features.profile.presentation.ProfileRoot
 import ua.com.fleetwisor.navigation.graphs.AuthGraph
@@ -58,7 +58,6 @@ fun NavigationRoot(
         }
         composable<AuthGraph.Register> {
             RegisterScreenRoot {
-
                 navController.navigate(AuthGraph.Login)
             }
         }
@@ -117,7 +116,14 @@ private fun NavGraphBuilder.driversGraph(
         startDestination = DriversGraph.Driver,
     ) {
         composable<DriversGraph.Driver> {
-            Text("Hello Drivers")
+            DriversListRoot(
+                navigateEdit = {
+
+                },
+                navigateCreate = {
+
+                }
+            )
         }
 
     }

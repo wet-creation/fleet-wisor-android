@@ -190,7 +190,6 @@
     <string name="client_text">Клієнт</string>
     <string name="change_price_category_text">Зміна категорії цін (запит)</string>
     <string name="confirm_number_text">Номер платіжного доручення</string>
-    <string name="confirm_date_text">Дата</string>
     <string name="order_confirm_manager_text">Підтвердити заявку</string>
     <string name="go_to_checkout">Перейти до оформлення заявки</string>
     <string name="no_orders">Ще немає заявок</string>
@@ -220,6 +219,8 @@
     <string name="user_text">Користувач</string>
     <string name="number_text">Номер</string>
     <string name="date_text">Дата</string>
+    <string name="fill_up_date_text">Дата заправки</string>
+    <string name="maintenance_date_text">Дата обслуговування</string>
     <string name="want_send_order">Бажаєте відправити заявку</string>
     <string name="want_delete_item">Бажаєте видалити товар</string>
     <string name="delete">Видалити</string>
@@ -296,6 +297,9 @@
     <string name="personal_data_text">Особисті дані</string>
     <string name="car_maintenance">Догляд</string>
     <string name="fillup">Заправка</string>
+    <string name="odometr_text">Пробіг</string>
+    <string name="car_number_text">Номер машини</string>
+    <string name="driver_licence_number_short_text">Номер водійського</string>
 
 
 
