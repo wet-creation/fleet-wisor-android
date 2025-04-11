@@ -2,7 +2,7 @@ package ua.com.fleetwisor.navigation.graphs
 
 import kotlinx.serialization.Serializable
 @Serializable
-sealed interface ProfileGraph {
+data object ProfileGraph {
     @Serializable
-    data object Profile : ProfileGraph
+    data object Profile
 }

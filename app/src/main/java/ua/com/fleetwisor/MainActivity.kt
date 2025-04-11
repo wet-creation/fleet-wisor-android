@@ -1,5 +1,6 @@
 package ua.com.fleetwisor
 
+import android.net.http.SslCertificate.saveState
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,6 +23,7 @@ import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar.
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar.BottomNavBarMenu
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar.screens
 import ua.com.fleetwisor.navigation.NavigationRoot
+import ua.com.fleetwisor.navigation.graphs.MainMenuGraph
 import ua.com.fleetwisor.navigation.routeClass
 
 class MainActivity : ComponentActivity() {
@@ -35,18 +37,21 @@ class MainActivity : ComponentActivity() {
                 it is NavGraph
             }
             val closestNavGraph = destination?.routeClass()
-            val selectedRoute = screens.firstOrNull { it::class == closestNavGraph }
+            val selectedRoute = screens.firstOrNull { it.graph::class == closestNavGraph }
 
             bottomBar = {
                 AgroswitBottomBarScreen(
-                    selectedRoute = selectedRoute ?: BottomNavBarMenu.Menu
+                    selectedRoute = selectedRoute ?: MainMenuGraph
                 ) {
-                    navController.navigate(it) {
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
+
+                    if (selectedRoute != null && selectedRoute != it) {
+                        navController.navigate(it) {
+                            popUpTo(selectedRoute.graph) {
+                                saveState = true
+                                inclusive = true
+                            }
+                            restoreState = true
                         }
-                        launchSingleTop = true
-                        restoreState = true
                     }
                 }
             }
@@ -58,21 +63,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    FleetWisorTheme {
-        Greeting("Android")
     }
 }

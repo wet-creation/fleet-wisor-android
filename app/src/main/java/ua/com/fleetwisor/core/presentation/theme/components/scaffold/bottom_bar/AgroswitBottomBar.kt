@@ -18,10 +18,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kotlinx.serialization.Serializable
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.ui.utils.noRippleClickable
+import ua.com.fleetwisor.navigation.graphs.CarsGraph
+import ua.com.fleetwisor.navigation.graphs.DriversGraph
+import ua.com.fleetwisor.navigation.graphs.MainMenuGraph
+import ua.com.fleetwisor.navigation.graphs.ProfileGraph
 
 val screens = listOf(
     BottomNavBarMenu.Menu,
@@ -29,33 +32,33 @@ val screens = listOf(
     BottomNavBarMenu.Drivers,
     BottomNavBarMenu.Profile,
 )
-@Serializable
 sealed class BottomNavBarMenu(
     @StringRes val title: Int,
     @DrawableRes val activeIcon: Int,
-    @DrawableRes val icon: Int
+    @DrawableRes val icon: Int,
+    val graph: Any,
 ) {
-    @Serializable
     data object Menu : BottomNavBarMenu(
         title = (R.string.main_menu_text),
+        graph = MainMenuGraph,
         icon = R.drawable.home_outlined,
         activeIcon = R.drawable.home_filled
     )
-    @Serializable
     data object Cars : BottomNavBarMenu(
         title = (R.string.cars_text),
+        graph = CarsGraph,
         icon = R.drawable.cars_otlined,
         activeIcon = R.drawable.cars_filled
     )
-    @Serializable
     data object Drivers : BottomNavBarMenu(
         title = (R.string.drivers_text),
+        graph = DriversGraph,
         icon = R.drawable.driver_outlined,
         activeIcon = R.drawable.driver_filled
     )
-    @Serializable
     data object Profile : BottomNavBarMenu(
         title = (R.string.profile_text),
+        graph = ProfileGraph,
         icon = R.drawable.person_outlined,
         activeIcon = R.drawable.person_filled
     )
@@ -80,7 +83,7 @@ fun AgroswitBottomBarScreen(
                 modifier = Modifier
                     .weight(1f)
             ) {
-                onAction(it)
+                onAction(it.graph)
             }
         }
     }

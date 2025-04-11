@@ -1,4 +1,4 @@
-package ua.com.fleetwisor.features.cars.presentation.main
+package ua.com.fleetwisor.features.cars.presentation.cars.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 
-class CarMainViewModel : ViewModel() {
+class CarsListViewModel : ViewModel() {
 
     private var hasLoadedInitialData = false
 
-    private val _state = MutableStateFlow(CarMainState())
+    private val _state = MutableStateFlow(CarsListState())
     val state = _state
         .onStart {
             if (!hasLoadedInitialData) {
@@ -22,12 +22,12 @@ class CarMainViewModel : ViewModel() {
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000L),
-            initialValue = CarMainState()
+            initialValue = CarsListState()
         )
 
-    fun onAction(action: CarMainAction) {
+    fun onAction(action: CarsListAction) {
         when (action) {
-            else -> {}
+            else ->{}
         }
     }
 

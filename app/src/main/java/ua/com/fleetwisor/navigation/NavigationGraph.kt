@@ -18,6 +18,7 @@ import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar.
 import ua.com.fleetwisor.features.auth.presentation.auth.AuthScreenRoot
 import ua.com.fleetwisor.features.auth.presentation.login.LoginScreenRoot
 import ua.com.fleetwisor.features.auth.presentation.register.RegisterScreenRoot
+import ua.com.fleetwisor.features.cars.presentation.cars.list.CarsListRoot
 import ua.com.fleetwisor.features.cars.presentation.main.CarMainRoot
 import ua.com.fleetwisor.features.drivers.presentation.create.DriverCreateRoot
 import ua.com.fleetwisor.features.drivers.presentation.main.DriversListRoot
@@ -52,7 +53,7 @@ fun NavigationRoot(
         }
         composable<AuthGraph.Login> {
             LoginScreenRoot {
-                navController.navigate(BottomNavBarMenu.Menu) {
+                navController.navigate(MainMenuGraph) {
                     popUpTo(0)
                 }
             }
@@ -73,7 +74,7 @@ fun NavigationRoot(
 private fun NavGraphBuilder.profileGraph(
     navController: NavHostController,
 ) {
-    navigation<BottomNavBarMenu.Profile>(
+    navigation<ProfileGraph>(
         startDestination = ProfileGraph.Profile,
     ) {
         composable<ProfileGraph.Profile> {
@@ -87,7 +88,7 @@ private fun NavGraphBuilder.profileGraph(
 private fun NavGraphBuilder.mainMenuGraph(
     navController: NavHostController,
 ) {
-    navigation<BottomNavBarMenu.Menu>(
+    navigation<MainMenuGraph>(
         startDestination = MainMenuGraph.MainMenu,
     ) {
         composable<MainMenuGraph.MainMenu> {
@@ -100,11 +101,32 @@ private fun NavGraphBuilder.mainMenuGraph(
 private fun NavGraphBuilder.carsGraph(
     navController: NavHostController,
 ) {
-    navigation<BottomNavBarMenu.Cars>(
+    navigation<CarsGraph>(
         startDestination = CarsGraph.CarMain,
     ) {
         composable<CarsGraph.CarMain> {
-            CarMainRoot()
+            CarMainRoot(
+                navigateCars = {
+                    navController.navigate(CarsGraph.CarList)
+                },
+                navigateMaintenance = {
+                    navController.navigate(CarsGraph.CarList)
+
+                },
+                navigateFillUp = {
+                    navController.navigate(CarsGraph.CarList)
+
+                }
+            )
+        }
+        composable<CarsGraph.CarList> {
+            CarsListRoot(
+                navigateBack = {
+                    navController.navigateUp()
+                },
+                navigateEdit = {},
+                navigateCreate = { }
+            )
         }
 
     }
@@ -113,7 +135,7 @@ private fun NavGraphBuilder.carsGraph(
 private fun NavGraphBuilder.driversGraph(
     navController: NavHostController,
 ) {
-    navigation<BottomNavBarMenu.Drivers>(
+    navigation<DriversGraph>(
         startDestination = DriversGraph.Driver,
     ) {
         composable<DriversGraph.Driver> {

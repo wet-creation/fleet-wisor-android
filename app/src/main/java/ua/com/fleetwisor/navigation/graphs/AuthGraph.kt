@@ -2,11 +2,11 @@ package ua.com.fleetwisor.navigation.graphs
 
 import kotlinx.serialization.Serializable
 @Serializable
-sealed interface AuthGraph {
+data object AuthGraph {
     @Serializable
-    data object Auth: AuthGraph
+    data object Auth
     @Serializable
-    data object Login: AuthGraph
+    data object Login
     @Serializable
-    data object Register: AuthGraph
+    data object Register
 }

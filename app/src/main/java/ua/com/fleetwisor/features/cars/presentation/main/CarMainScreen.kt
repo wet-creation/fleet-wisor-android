@@ -22,13 +22,24 @@ import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFille
 
 @Composable
 fun CarMainRoot(
-    viewModel: CarMainViewModel = viewModel()
+    viewModel: CarMainViewModel = viewModel(),
+    navigateCars: () -> Unit,
+    navigateMaintenance: () -> Unit,
+    navigateFillUp: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     CarMainScreen(
         state = state,
-        onAction = viewModel::onAction
+        onAction = {
+            viewModel.onAction(it)
+
+            when (it) {
+                CarMainAction.NavigateCars -> navigateCars()
+                CarMainAction.NavigateFillUp -> navigateFillUp()
+                CarMainAction.NavigateMaintenance -> navigateMaintenance()
+            }
+        }
     )
 }
 
@@ -65,7 +76,7 @@ fun CarMainScreen(
                     contentDescription = stringResource(R.string.car_maintenance),
                     text = stringResource(R.string.car_maintenance),
                 ) {
-
+                    onAction(CarMainAction.NavigateMaintenance)
                 }
                 PrimaryLargeButton(
                     tint = FleetWisorTheme.colors.brandSecondaryNormal,
@@ -74,6 +85,7 @@ fun CarMainScreen(
                     contentDescription = stringResource(R.string.fillup),
                     text = stringResource(R.string.fillup),
                 ) {
+                    onAction(CarMainAction.NavigateFillUp)
 
                 }
             }
@@ -83,6 +95,7 @@ fun CarMainScreen(
                 contentDescription = stringResource(R.string.cars_text),
                 text = stringResource(R.string.cars_text),
             ) {
+                onAction(CarMainAction.NavigateCars)
 
             }
 
