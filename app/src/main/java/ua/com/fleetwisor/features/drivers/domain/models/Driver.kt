@@ -5,5 +5,9 @@ data class Driver(
     val name: String = "",
     val surname: String = "",
     val phoneNumber: String = "",
-    val driverLicenseNumber: String = ""
+    val driverLicenseNumber: String = "",
+    val frontLicensePhotoUrl: String = "",
+    val backLicensePhotoUrl: String = "",
+    val birthdayDate: String = "",
+    val salary: Double = 0.0,
 )

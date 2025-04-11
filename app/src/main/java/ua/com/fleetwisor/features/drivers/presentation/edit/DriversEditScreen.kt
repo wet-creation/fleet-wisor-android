@@ -1,6 +1,5 @@
-package ua.com.fleetwisor.features.drivers.presentation.create
+package ua.com.fleetwisor.features.drivers.presentation.edit
 
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -30,34 +29,28 @@ import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitSca
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
 
 @Composable
-fun DriverCreateRoot(
-    viewModel: DriverCreateViewModel = viewModel(),
-    navigateBack: () -> Unit,
+fun DriversEditRoot(
+    viewModel: DriversEditViewModel = viewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    DriverCreateScreen(
+    DriversEditScreen(
         state = state,
-        onAction = {
-            viewModel.onAction(it)
-            when (it) {
-                else -> navigateBack()
-            }
-        }
+        onAction = viewModel::onAction
     )
 }
 
 @Composable
-private fun DriverCreateScreen(
-    state: DriverCreateState,
-    onAction: (DriverCreateAction) -> Unit,
+fun DriversEditScreen(
+    state: DriversEditState,
+    onAction: (DriversEditAction) -> Unit,
 ) {
     AgroswitScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
                 title = stringResource(R.string.drivers_text)
             ) {
-                onAction(DriverCreateAction.NavigateBack)
+                onAction(DriversEditAction.NavigateBack)
             }
         },
         hasBottomBar = true,
@@ -157,7 +150,7 @@ private fun DriverCreateScreen(
                 enabled = true,
                 contentPadding = PaddingValues(vertical = 12.dp, horizontal = 32.dp),
             ) {
-                onAction(DriverCreateAction.SaveDriver)
+                onAction(DriversEditAction.SaveDriver)
             }
 
         }
@@ -168,8 +161,8 @@ private fun DriverCreateScreen(
 @Composable
 private fun Preview() {
     FleetWisorTheme {
-        DriverCreateScreen(
-            state = DriverCreateState(),
+        DriversEditScreen(
+            state = DriversEditState(),
             onAction = {}
         )
     }

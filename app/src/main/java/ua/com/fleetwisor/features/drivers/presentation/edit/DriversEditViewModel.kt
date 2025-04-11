@@ -1,4 +1,4 @@
-package ua.com.fleetwisor.features.drivers.presentation.create
+package ua.com.fleetwisor.features.drivers.presentation.edit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 
-class DriverCreateViewModel : ViewModel() {
+class DriversEditViewModel : ViewModel() {
 
     private var hasLoadedInitialData = false
 
-    private val _state = MutableStateFlow(DriverCreateState())
+    private val _state = MutableStateFlow(DriversEditState())
     val state = _state
         .onStart {
             if (!hasLoadedInitialData) {
@@ -22,12 +22,14 @@ class DriverCreateViewModel : ViewModel() {
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000L),
-            initialValue = DriverCreateState()
+            initialValue = DriversEditState()
         )
 
-    fun onAction(action: DriverCreateAction) {
+    fun onAction(action: DriversEditAction) {
         when (action) {
-            else ->{}
+            else -> {
+
+            }
         }
     }
 

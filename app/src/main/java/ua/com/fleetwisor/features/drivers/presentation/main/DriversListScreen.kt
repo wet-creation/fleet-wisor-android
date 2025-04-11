@@ -59,9 +59,7 @@ fun DriversListScreen(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
                 title = stringResource(R.string.drivers_text)
-            ) {
-
-            }
+            )
         },
         floatingActionButton = {
             FloatingActionButton(

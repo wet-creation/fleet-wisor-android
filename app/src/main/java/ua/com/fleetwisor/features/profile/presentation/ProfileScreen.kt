@@ -66,7 +66,7 @@ fun ProfileScreen(
             ) {
                 Text(
                     stringResource(R.string.personal_data_text),
-                    color = FleetWisorTheme.colors.brandPrimaryNormal,
+                    color = FleetWisorTheme.colors.brandPrimaryMedium,
                     style = FleetWisorTheme.typography.headlineMedium
                 )
                 Column(modifier = Modifier.fillMaxWidth(0.9f)) {
@@ -101,7 +101,7 @@ fun ProfileScreen(
             ) {
                 Text(
                     stringResource(R.string.change_password_text),
-                    color = FleetWisorTheme.colors.brandPrimaryNormal,
+                    color = FleetWisorTheme.colors.brandPrimaryMedium,
                     style = FleetWisorTheme.typography.headlineMedium
                 )
                 Column {

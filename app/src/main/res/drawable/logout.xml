@@ -3,8 +3,12 @@
     android:height="20dp"
     android:viewportWidth="20"
     android:viewportHeight="20">
-  <path
-      android:pathData="M9.527,17H17.105V3H9.527V1H17.105C18.148,1 19,1.9 19,3V17C19,18.1 18.148,19 17.105,19H9.527V17ZM7.063,6.4L5.737,5L1,10L5.737,15L7.063,13.6L4.6,11H14.263V9H4.6L7.063,6.4Z"
-      android:fillColor="#000000"
-  android:fillType="evenOdd"/>
+  <group
+      android:scaleX="-1"
+      android:translateX="20">
+    <path
+        android:pathData="M9.527,17H17.105V3H9.527V1H17.105C18.148,1 19,1.9 19,3V17C19,18.1 18.148,19 17.105,19H9.527V17ZM7.063,6.4L5.737,5L1,10L5.737,15L7.063,13.6L4.6,11H14.263V9H4.6L7.063,6.4Z"
+        android:fillColor="#000000"
+        android:fillType="evenOdd"/>
+  </group>
 </vector>

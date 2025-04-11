@@ -19,6 +19,7 @@ import ua.com.fleetwisor.features.auth.presentation.auth.AuthScreenRoot
 import ua.com.fleetwisor.features.auth.presentation.login.LoginScreenRoot
 import ua.com.fleetwisor.features.auth.presentation.register.RegisterScreenRoot
 import ua.com.fleetwisor.features.cars.presentation.main.CarMainRoot
+import ua.com.fleetwisor.features.drivers.presentation.create.DriverCreateRoot
 import ua.com.fleetwisor.features.drivers.presentation.main.DriversListRoot
 import ua.com.fleetwisor.features.main_menu.presentation.MainMenuScreenRoot
 import ua.com.fleetwisor.features.profile.presentation.ProfileRoot
@@ -121,7 +122,14 @@ private fun NavGraphBuilder.driversGraph(
 
                 },
                 navigateCreate = {
-
+                    navController.navigate(DriversGraph.Create)
+                }
+            )
+        }
+        composable<DriversGraph.Create> {
+            DriverCreateRoot(
+                navigateBack = {
+                    navController.navigateUp()
                 }
             )
         }

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -44,7 +45,6 @@ fun SecondaryLongIconButton(
     val coroutineScope = rememberCoroutineScope()
     Row(
         modifier = Modifier
-            .fillMaxWidth()
             .height(FleetWisorTheme.dimensions.secondButtonHeight)
             .border(
                 width = 1.5.dp,
@@ -55,6 +55,7 @@ fun SecondaryLongIconButton(
                 if (!isClick.value) FleetWisorTheme.colors.neutralPrimaryLight else Color.Transparent,
                 shape = RoundedCornerShape(size = 10.dp)
             )
+            .padding(horizontal = 16.dp, vertical = 12.dp)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = ripple(
@@ -71,20 +72,21 @@ fun SecondaryLongIconButton(
                 },
             )
             .then(modifier),
-        horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally),
+        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Icon(
-            painter = icon,
-            tint = tint,
-            contentDescription = contentDescription,
-            modifier = Modifier.size(22.dp)
-        )
         Text(
             text = text,
             style = FleetWisorTheme.typography.titleLarge,
             color = FleetWisorTheme.colors.brandPrimaryNormal,
             textAlign = TextAlign.Start,
+        )
+        Icon(
+
+            painter = icon,
+            tint = tint,
+            contentDescription = contentDescription,
+            modifier = Modifier.size(22.dp)
         )
     }
 }

@@ -6,4 +6,6 @@ import kotlinx.serialization.Serializable
 sealed interface DriversGraph {
     @Serializable
     data object Driver : DriversGraph
+    @Serializable
+    data object Create : DriversGraph
 }

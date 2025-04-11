@@ -124,6 +124,7 @@
     <string name="middle_name">По батькові</string>
     <string name="your_phone">Ваш номер телефону</string>
     <string name="phone">Номер телефону</string>
+    <string name="birtday">Дата народження</string>
     <string name="password_check_hint">Підтвердження пароля</string>
     <string name="password_check_text">Підтвердження пароля</string>
     <string name="password_check_info">Обидва паролі мають збігатись</string>
@@ -295,11 +296,14 @@
     <string name="drivers_text">Водії</string>
     <string name="profile_text">Профіль</string>
     <string name="personal_data_text">Особисті дані</string>
+    <string name="personal_data_driver_text">Інформація про водія</string>
+    <string name="drvier_card_text">Посвідчення</string>
     <string name="car_maintenance">Догляд</string>
     <string name="fillup">Заправка</string>
     <string name="odometr_text">Пробіг</string>
     <string name="car_number_text">Номер машини</string>
     <string name="driver_licence_number_short_text">Номер водійського</string>
+    <string name="driver_licence_number_text">Номер посвідчення водія</string>
 
 
 
@@ -307,5 +311,8 @@
     <string name="permission_notification_denied">Здається, ви назавжди відхилили дозвіл на надсилання сповіщень. Ви можете надати його в налаштуваннях додатка.</string>
     <string name="grant_permission">Надати дозвіл</string>
     <string name="permission_required">Потрібен дозвіл</string>
+    <string name="payment_for_month">Зарплата за місяць</string>
+    <string name="front_page_document">Додати лицьову сторону</string>
+    <string name="back_page_document">Додати зворотну сторону</string>
 
 </resources>
