@@ -14,11 +14,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar.BottomNavBarMenu
 import ua.com.fleetwisor.features.auth.presentation.auth.AuthScreenRoot
 import ua.com.fleetwisor.features.auth.presentation.login.LoginScreenRoot
 import ua.com.fleetwisor.features.auth.presentation.register.RegisterScreenRoot
 import ua.com.fleetwisor.features.cars.presentation.cars.list.CarsListRoot
+import ua.com.fleetwisor.features.cars.presentation.fill_up.list.FilUpListRoot
 import ua.com.fleetwisor.features.cars.presentation.main.CarMainRoot
 import ua.com.fleetwisor.features.drivers.presentation.create.DriverCreateRoot
 import ua.com.fleetwisor.features.drivers.presentation.main.DriversListRoot
@@ -114,13 +114,22 @@ private fun NavGraphBuilder.carsGraph(
 
                 },
                 navigateFillUp = {
-                    navController.navigate(CarsGraph.CarList)
+                    navController.navigate(CarsGraph.FillUp)
 
                 }
             )
         }
         composable<CarsGraph.CarList> {
             CarsListRoot(
+                navigateBack = {
+                    navController.navigateUp()
+                },
+                navigateEdit = {},
+                navigateCreate = { }
+            )
+        }
+        composable<CarsGraph.FillUp> {
+            FilUpListRoot(
                 navigateBack = {
                     navController.navigateUp()
                 },

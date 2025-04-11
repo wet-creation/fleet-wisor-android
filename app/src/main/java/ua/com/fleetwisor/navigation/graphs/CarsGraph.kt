@@ -8,4 +8,6 @@ data object CarsGraph {
     data object CarMain
     @Serializable
     data object CarList
+    @Serializable
+    data object FillUp
 }

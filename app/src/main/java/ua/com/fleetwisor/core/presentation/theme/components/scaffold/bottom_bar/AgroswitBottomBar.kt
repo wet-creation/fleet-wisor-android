@@ -79,7 +79,7 @@ fun AgroswitBottomBarScreen(
         screens.forEach {
             BottomNavBarItem(
                 bottBottomNavBarMenu = it,
-                active = selectedRoute == it,
+                active = selectedRoute == it.graph,
                 modifier = Modifier
                     .weight(1f)
             ) {
@@ -126,7 +126,7 @@ private fun AgroswitBottomBarScreenPreview() {
     FleetWisorTheme {
         AgroswitBottomBarScreen(
             onAction = {},
-            selectedRoute = BottomNavBarMenu.Menu
+            selectedRoute = BottomNavBarMenu.Menu.graph
         )
     }
 }

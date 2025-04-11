@@ -1,4 +1,4 @@
-package ua.com.fleetwisor.features.cars.presentation.cars.list
+package ua.com.fleetwisor.features.cars.presentation.fill_up.list
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -25,44 +25,44 @@ import ua.com.agroswit.theme.components.fields.TextFieldAgroswit
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.items.CarListItem
-import ua.com.fleetwisor.core.presentation.theme.components.items.DriverListItem
+import ua.com.fleetwisor.core.presentation.theme.components.items.FillUpListItem
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
-import ua.com.fleetwisor.features.drivers.presentation.main.DriversListAction
+import ua.com.fleetwisor.features.cars.presentation.cars.list.CarsListAction
 
 @Composable
-fun CarsListRoot(
-    viewModel: CarsListViewModel = viewModel(),
+fun FilUpListRoot(
+    viewModel: FilUpListViewModel = viewModel(),
     navigateBack: () -> Unit,
     navigateEdit: (Int) -> Unit,
     navigateCreate: () -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    CarsListScreen(
+    FilUpListScreen(
         state = state,
         onAction = {
             viewModel.onAction(it)
-            when (it) {
-                CarsListAction.NavigateBack -> navigateBack()
-                CarsListAction.NavigateCreate -> navigateCreate()
-                is CarsListAction.NavigateEdit -> navigateEdit(it.id)
+            when(it) {
+                FilUpListAction.NavigateBack -> navigateBack()
+                FilUpListAction.NavigateCreate -> navigateCreate()
+                is FilUpListAction.NavigateEdit -> navigateEdit(it.id)
             }
         }
     )
 }
 
 @Composable
-fun CarsListScreen(
-    state: CarsListState,
-    onAction: (CarsListAction) -> Unit,
+fun FilUpListScreen(
+    state: FilUpListState,
+    onAction: (FilUpListAction) -> Unit,
 ) {
     AgroswitScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
                 title = stringResource(R.string.drivers_text)
             ) {
-                onAction(CarsListAction.NavigateBack)
+                onAction(FilUpListAction.NavigateBack)
             }
         },
         floatingActionButton = {
@@ -70,7 +70,8 @@ fun CarsListScreen(
                 containerColor = FleetWisorTheme.colors.brandPrimaryNormal,
                 modifier = Modifier.size(64.dp),
                 onClick = {
-                    onAction(CarsListAction.NavigateCreate)
+                    onAction(FilUpListAction.NavigateCreate)
+
                 },
                 shape = CircleShape
             ) {
@@ -103,16 +104,16 @@ fun CarsListScreen(
                 item {
                     Spacer(Modifier)
                 }
-                items(state.cars) { car ->
-                    CarListItem(
+                items(state.fillUps) { fillUp ->
+                    FillUpListItem(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                onAction(CarsListAction.NavigateEdit(car.id))
+                                onAction(FilUpListAction.NavigateEdit(fillUp.id))
                             },
-                        title = "${car.color} ${car.brandName} ${car.model}",
-                        firstText = car.mileAge.toString() + " км",
-                        secondText = car.licensePlate
+                        title = "${fillUp.car.color} ${fillUp.car.brandName} ${fillUp.car.model}",
+                        firstText = fillUp.time,
+                        secondText = fillUp.price.toString()
                     )
                 }
             }
@@ -124,8 +125,8 @@ fun CarsListScreen(
 @Composable
 private fun Preview() {
     FleetWisorTheme {
-        CarsListScreen(
-            state = CarsListState(),
+        FilUpListScreen(
+            state = FilUpListState(),
             onAction = {}
         )
     }
