@@ -325,5 +325,8 @@
     <string name="fuel_type_text">Тип палива</string>
     <string name="vin_number">Номер VIN</string>
     <string name="add_driver">Додати водія</string>
+    <string name="insurance_period_text">Дата початку та кінця страхування</string>
+    <string name="add_document">Додати документ</string>
+    <string name="document_text">Документ</string>
 
 </resources>

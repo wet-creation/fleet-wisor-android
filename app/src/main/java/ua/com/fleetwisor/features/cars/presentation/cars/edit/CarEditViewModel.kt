@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import ua.com.fleetwisor.features.cars.presentation.cars.create.CarCreateAction
 
 class CarEditViewModel : ViewModel() {
 
@@ -27,7 +29,11 @@ class CarEditViewModel : ViewModel() {
 
     fun onAction(action: CarEditAction) {
         when (action) {
-            else -> TODO("Handle actions")
+            is CarEditAction.ChangeTabIndex -> {
+                _state.update { it.copy(selectedTab = action.index) }
+            }
+
+            else -> {}
         }
     }
 

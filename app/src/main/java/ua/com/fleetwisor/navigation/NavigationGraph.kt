@@ -18,6 +18,7 @@ import ua.com.fleetwisor.features.auth.presentation.auth.AuthScreenRoot
 import ua.com.fleetwisor.features.auth.presentation.login.LoginScreenRoot
 import ua.com.fleetwisor.features.auth.presentation.register.RegisterScreenRoot
 import ua.com.fleetwisor.features.cars.presentation.cars.create.CarCreateRoot
+import ua.com.fleetwisor.features.cars.presentation.cars.edit.CarEditRoot
 import ua.com.fleetwisor.features.cars.presentation.cars.list.CarsListRoot
 import ua.com.fleetwisor.features.cars.presentation.fill_up.list.FilUpListRoot
 import ua.com.fleetwisor.features.cars.presentation.main.CarMainRoot
@@ -126,7 +127,9 @@ private fun NavGraphBuilder.carsGraph(
                 navigateBack = {
                     navController.navigateUp()
                 },
-                navigateEdit = {},
+                navigateEdit = {
+                    navController.navigate(CarsGraph.CarEdit)
+                },
                 navigateCreate = {
                     navController.navigate(CarsGraph.CarCreate)
                 }
@@ -134,7 +137,16 @@ private fun NavGraphBuilder.carsGraph(
         }
         composable<CarsGraph.CarCreate> {
             CarCreateRoot(
-
+                navigateBack = {
+                    navController.navigateUp()
+                }
+            )
+        }
+        composable<CarsGraph.CarEdit> {
+            CarEditRoot(
+                navigateBack = {
+                    navController.navigateUp()
+                }
             )
         }
         composable<CarsGraph.FillUp> {

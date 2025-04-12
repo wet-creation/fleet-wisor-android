@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import ua.com.fleetwisor.core.domain.utils.Log
 
 class CarCreateViewModel : ViewModel() {
@@ -28,9 +29,11 @@ class CarCreateViewModel : ViewModel() {
 
     fun onAction(action: CarCreateAction) {
         when (action) {
-            else -> {
-                Log.d(action::class)
+            is CarCreateAction.ChangeTabIndex -> {
+                _state.update { it.copy(selectedTab = action.index) }
             }
+
+            else -> {}
         }
     }
 

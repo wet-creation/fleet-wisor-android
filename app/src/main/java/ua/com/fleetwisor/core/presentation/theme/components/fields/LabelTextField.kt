@@ -17,8 +17,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 
 
@@ -51,10 +53,16 @@ fun LabelTextButton(
         Column(modifier = Modifier.fillMaxSize()) {
             Spacer(modifier = Modifier.size(16.dp))
             if (text.isNotBlank()) Text(
+                maxLines = 1,
+                softWrap = false,
+                overflow = TextOverflow.Ellipsis,
                 text = text,
                 color = FleetWisorTheme.colors.neutralSecondaryDark,
                 style = FleetWisorTheme.typography.labelLargeR
             ) else Text(
+                maxLines = 1,
+                softWrap = false,
+                overflow = TextOverflow.Ellipsis,
                 text = placeholder,
                 style = FleetWisorTheme.typography.labelLargeR,
                 color = FleetWisorTheme.colors.neutralSecondaryNormal
@@ -121,7 +129,10 @@ fun TitledLabelTextField(
             style = FleetWisorTheme.typography.titleMedium,
             color = FleetWisorTheme.colors.brandPrimaryLight
         )
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             LabelTextField(
                 Modifier.weight(1f),
                 icon = icon,
@@ -129,6 +140,44 @@ fun TitledLabelTextField(
                 placeholder = placeholder,
                 hasLine = true,
                 onChange = onChange
+            )
+            Text(
+                modifier = Modifier.weight(0.3f),
+                text = unitText,
+                style = FleetWisorTheme.typography.titleLarge,
+                color = FleetWisorTheme.colors.brandPrimaryNormal
+            )
+        }
+    }
+}
+
+@Composable
+fun TitledLabelTextButton(
+    modifier: Modifier = Modifier,
+    icon: Painter,
+    titleText: String,
+    text: String,
+    unitText: String = "",
+    placeholder: String,
+    onClick: () -> Unit
+) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Text(
+            text = "$titleText:",
+            style = FleetWisorTheme.typography.titleMedium,
+            color = FleetWisorTheme.colors.brandPrimaryLight
+        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            LabelTextButton(
+                Modifier.weight(1f),
+                icon = icon,
+                text = text,
+                placeholder = placeholder,
+                hasLine = true,
+                onClick = onClick
             )
             Text(
                 modifier = Modifier.weight(0.3f),

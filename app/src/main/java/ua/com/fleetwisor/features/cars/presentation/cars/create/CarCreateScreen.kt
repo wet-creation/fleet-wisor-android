@@ -28,13 +28,23 @@ import ua.com.fleetwisor.features.cars.presentation.cars.common.compoents.Insura
 
 @Composable
 fun CarCreateRoot(
-    viewModel: CarCreateViewModel = viewModel()
+    viewModel: CarCreateViewModel = viewModel(),
+    navigateBack: () -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     CarCreateScreen(
         state = state,
-        onAction = viewModel::onAction
+        onAction = {
+            viewModel.onAction(it)
+            when (it) {
+                CarCreateAction.NavigateBack -> {
+                    navigateBack()
+                }
+
+                else -> {}
+            }
+        }
     )
 }
 
@@ -49,8 +59,15 @@ fun CarCreateScreen(
             content = {
                 CarInfoTab(
                     car = state.car, onAction = onAction,
-                    fuelTypes = emptyList<FuelType>().toImmutableList(),
-                    carBodies = emptyList<CarBody>().toImmutableList(),
+                    fuelTypes = listOf<FuelType>(
+                        FuelType(),
+                        FuelType(),
+                    ).toImmutableList(),
+                    carBodies = listOf<CarBody>(
+                        CarBody(),
+                        CarBody(),
+                        CarBody(),
+                    ).toImmutableList(),
                 )
             }
         ),

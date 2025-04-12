@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.agroswit.theme.components.buttons.standart.PrimaryButton
-import ua.com.agroswit.theme.components.buttons.standart.SecondaryNormalButton
+import ua.com.fleetwisor.core.presentation.theme.components.buttons.standart.SecondaryNormalButton
 
 @Composable
 fun ConfirmBottomSheet(
