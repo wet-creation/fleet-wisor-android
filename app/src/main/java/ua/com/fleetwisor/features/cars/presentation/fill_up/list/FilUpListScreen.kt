@@ -58,7 +58,7 @@ fun FilUpListScreen(
     AgroswitScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
-                title = stringResource(R.string.drivers_text)
+                title = stringResource(R.string.fillup)
             ) {
                 onAction(FilUpListAction.NavigateBack)
             }

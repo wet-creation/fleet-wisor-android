@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ua.com.agroswit.theme.components.buttons.standart.SecondaryLongIconButton
+import ua.com.fleetwisor.core.presentation.theme.components.buttons.standart.SecondaryLongIconButton
 import ua.com.agroswit.theme.components.dropdown.SelectedDropDownElement
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme

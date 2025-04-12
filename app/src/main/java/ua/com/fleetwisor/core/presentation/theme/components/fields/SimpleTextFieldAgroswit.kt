@@ -36,7 +36,6 @@ fun SimpleTextFieldAgroswit(
     val focusManager = LocalFocusManager.current
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.Center
     ) {
         if (value.isEmpty()) {
             Text(

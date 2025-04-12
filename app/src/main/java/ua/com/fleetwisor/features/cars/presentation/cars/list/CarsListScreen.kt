@@ -58,7 +58,7 @@ fun CarsListScreen(
     AgroswitScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
-                title = stringResource(R.string.drivers_text)
+                title = stringResource(R.string.cars_text)
             ) {
                 onAction(CarsListAction.NavigateBack)
             }

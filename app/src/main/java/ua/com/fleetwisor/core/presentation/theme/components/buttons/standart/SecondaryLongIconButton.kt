@@ -1,4 +1,4 @@
-package ua.com.agroswit.theme.components.buttons.standart
+package ua.com.fleetwisor.core.presentation.theme.components.buttons.standart
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

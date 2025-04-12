@@ -72,7 +72,7 @@ fun FillUpCreateScreen(
     AgroswitScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
-                title = stringResource(R.string.car_create_text)
+                title = stringResource(R.string.fill_up_create_text)
             ) {
                 onAction(FillUpCreateAction.NavigateBack)
             }

@@ -331,5 +331,11 @@
     <string name="fill_up_volume_text">Обʼєм пального</string>
     <string name="fill_up_check_text">Чек з заправки</string>
     <string name="check_text">Чек</string>
+    <string name="add_check">Завантажити чек</string>
+    <string name="maintenance_create_text">Догляд додавання</string>
+    <string name="fill_up_create_text">Нова заправка</string>
+    <string name="fill_up_edit_text">Редагування заправки</string>
+    <string name="car_edit_text">Редагування машини</string>
+    <string name="maintenance_edit_text">Догляд редагування</string>
 
 </resources>

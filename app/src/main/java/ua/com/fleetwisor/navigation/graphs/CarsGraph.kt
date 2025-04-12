@@ -20,4 +20,9 @@ data object CarsGraph {
     data object FillUpEdit
     @Serializable
     data object Maintenance
+    @Serializable
+    data object MaintenanceCreate
+    @Serializable
+    data object MaintenanceEdit
+
 }

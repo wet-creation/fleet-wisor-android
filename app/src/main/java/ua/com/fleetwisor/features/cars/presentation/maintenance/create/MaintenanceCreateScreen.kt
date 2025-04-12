@@ -1,4 +1,4 @@
-package ua.com.fleetwisor.features.cars.presentation.fill_up.edit
+package ua.com.fleetwisor.features.cars.presentation.maintenance.create
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
@@ -22,20 +22,22 @@ import ua.com.fleetwisor.core.presentation.ui.utils.TabInfo
 import ua.com.fleetwisor.features.cars.presentation.fill_up.common.components.FillUpCheckTab
 import ua.com.fleetwisor.features.cars.presentation.fill_up.common.components.FillUpInfo
 import ua.com.fleetwisor.features.cars.presentation.fill_up.create.FillUpCreateAction
+import ua.com.fleetwisor.features.cars.presentation.maintenance.common.components.MaintenanceCheckTab
+import ua.com.fleetwisor.features.cars.presentation.maintenance.common.components.MaintenanceInfo
 
 @Composable
-fun FillUpEditRoot(
-    viewModel: FillUpEditViewModel = viewModel(),
+fun MaintenanceCreateRoot(
+    viewModel: MaintenanceCreateViewModel = viewModel(),
     navigateBack: () -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    FillUpEditScreen(
+    MaintenanceCreateScreen(
         state = state,
         onAction = {
             viewModel.onAction(it)
-            when(it) {
-                FillUpEditAction.NavigateBack -> navigateBack()
+            when(it){
+                MaintenanceCreateAction.NavigateBack -> navigateBack()
                 else -> {}
             }
         }
@@ -43,23 +45,23 @@ fun FillUpEditRoot(
 }
 
 @Composable
-fun FillUpEditScreen(
-    state: FillUpEditState,
-    onAction: (FillUpEditAction) -> Unit,
+fun MaintenanceCreateScreen(
+    state: MaintenanceCreateState,
+    onAction: (MaintenanceCreateAction) -> Unit,
 ) {
     val tabs = listOf(
         TabInfo(
             title = stringResource(R.string.general_tab_name),
             content = {
-                FillUpInfo(
-                    fillUp = state.fillUp, onAction = onAction,
+                MaintenanceInfo(
+                    maintenance = state.maintenance, onAction = onAction,
                 )
             }
         ),
         TabInfo(
             title = stringResource(R.string.check_text),
             content = {
-                FillUpCheckTab(fillUp = state.fillUp, onAction = onAction)
+                MaintenanceCheckTab(maintenance = state.maintenance, onAction = onAction)
             }
         ),
 
@@ -67,9 +69,9 @@ fun FillUpEditScreen(
     AgroswitScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
-                title = stringResource(R.string.fill_up_edit_text)
+                title = stringResource(R.string.maintenance_create_text)
             ) {
-                onAction(FillUpEditAction.NavigateBack)
+                onAction(MaintenanceCreateAction.NavigateBack)
             }
         },
         hasBottomBar = true,
@@ -91,7 +93,7 @@ fun FillUpEditScreen(
                     Tab(
                         selected = index == state.selectedTab,
                         onClick = {
-                            onAction(FillUpEditAction.ChangeTabIndex(index))
+                            onAction(MaintenanceCreateAction.ChangeTabIndex(index))
                         }) {
                         Text(
                             text = tabItem.title,
@@ -113,8 +115,8 @@ fun FillUpEditScreen(
 @Composable
 private fun Preview() {
     FleetWisorTheme {
-        FillUpEditScreen(
-            state = FillUpEditState(),
+        MaintenanceCreateScreen(
+            state = MaintenanceCreateState(),
             onAction = {}
         )
     }

@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ua.com.agroswit.theme.components.buttons.standart.PrimaryButton
-import ua.com.agroswit.theme.components.buttons.standart.SecondaryLongIconButton
+import ua.com.fleetwisor.core.presentation.theme.components.buttons.standart.SecondaryLongIconButton
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.fields.LabelTextButton

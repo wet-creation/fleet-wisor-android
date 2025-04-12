@@ -1,4 +1,4 @@
-package ua.com.fleetwisor.features.cars.presentation.fill_up.common.components
+package ua.com.fleetwisor.features.cars.presentation.maintenance.common.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -20,19 +20,19 @@ import ua.com.fleetwisor.core.presentation.theme.components.buttons.standart.Sec
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.ui.utils.rememberAsyncImagePainter
-import ua.com.fleetwisor.features.cars.domain.models.FillUp
-import ua.com.fleetwisor.features.cars.presentation.fill_up.create.FillUpCreateAction
-import ua.com.fleetwisor.features.cars.presentation.fill_up.edit.FillUpEditAction
+import ua.com.fleetwisor.features.cars.domain.models.Maintenance
+import ua.com.fleetwisor.features.cars.presentation.maintenance.create.MaintenanceCreateAction
+import ua.com.fleetwisor.features.cars.presentation.maintenance.edit.MaintenanceEditAction
 
 @Composable
-inline fun <reified Action> FillUpCheckTab(
-    fillUp: FillUp,
+inline fun <reified Action> MaintenanceCheckTab(
+    maintenance: Maintenance,
     crossinline onAction: (Action) -> Unit,
 ) {
     val editMode =
-        if (FillUpCreateAction is Action)
+        if (MaintenanceCreateAction is Action)
             false
-        else if (FillUpEditAction is Action)
+        else if (MaintenanceEditAction is Action)
             true
         else return
     Column(
@@ -42,7 +42,7 @@ inline fun <reified Action> FillUpCheckTab(
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(28.dp)
     ) {
-        if (fillUp.checkUrl == null) {
+        if (maintenance.checkUrl == null) {
             SecondaryLongIconButton(
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(R.string.add_check),
@@ -64,7 +64,7 @@ inline fun <reified Action> FillUpCheckTab(
                             shape = RoundedCornerShape(size = 5.dp)
                         ),
                     painter = rememberAsyncImagePainter(
-                        fillUp.checkUrl,
+                        maintenance.checkUrl,
                         //todo replace placeholder
                         placeholder = R.drawable.product_placeholder
                     ), contentDescription = ""
@@ -77,8 +77,8 @@ inline fun <reified Action> FillUpCheckTab(
 @Preview
 @Composable
 private fun FillUpCheckTabPrev() {
-    FillUpCheckTab<FillUpCreateAction>(
-        fillUp = FillUp(),
+    MaintenanceCheckTab<MaintenanceCreateAction>(
+        maintenance = Maintenance(),
         onAction = {}
     )
 }

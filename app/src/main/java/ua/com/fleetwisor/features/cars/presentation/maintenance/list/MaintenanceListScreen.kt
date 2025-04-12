@@ -58,7 +58,7 @@ fun MaintenanceListScreen(
     AgroswitScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
-                title = stringResource(R.string.drivers_text)
+                title = stringResource(R.string.car_maintenance)
             ) {
                 onAction(MaintenanceListAction.NavigateBack)
             }

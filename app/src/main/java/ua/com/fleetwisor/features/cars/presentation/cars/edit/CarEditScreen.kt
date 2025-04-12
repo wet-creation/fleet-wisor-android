@@ -38,7 +38,7 @@ fun CarEditRoot(
         onAction = {
             viewModel.onAction(it)
             when (it) {
-                CarCreateAction.NavigateBack -> {
+                CarEditAction.NavigateBack -> {
                     navigateBack()
                 }
 
@@ -82,7 +82,7 @@ fun CarEditScreen(
     AgroswitScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
-                title = stringResource(R.string.car_create_text)
+                title = stringResource(R.string.car_edit_text)
             ) {
                 onAction(CarEditAction.NavigateBack)
             }
