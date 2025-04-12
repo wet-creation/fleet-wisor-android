@@ -73,8 +73,6 @@ fun AgroswitBottomBarScreen(
         containerColor = FleetWisorTheme.colors.brandPrimaryNormal,
         contentColor = FleetWisorTheme.colors.neutralPrimaryLight,
         contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 4.dp)
-
-
     ) {
         screens.forEach {
             BottomNavBarItem(

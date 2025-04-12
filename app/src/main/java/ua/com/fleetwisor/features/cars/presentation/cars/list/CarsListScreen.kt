@@ -25,10 +25,8 @@ import ua.com.agroswit.theme.components.fields.TextFieldAgroswit
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.items.CarListItem
-import ua.com.fleetwisor.core.presentation.theme.components.items.DriverListItem
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
-import ua.com.fleetwisor.features.drivers.presentation.main.DriversListAction
 
 @Composable
 fun CarsListRoot(

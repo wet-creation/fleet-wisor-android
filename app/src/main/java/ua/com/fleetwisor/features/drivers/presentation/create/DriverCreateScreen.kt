@@ -1,6 +1,5 @@
 package ua.com.fleetwisor.features.drivers.presentation.create
 
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues

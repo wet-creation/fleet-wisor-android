@@ -24,11 +24,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import ua.com.agroswit.theme.components.fields.TextFieldAgroswit
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
-import ua.com.fleetwisor.core.presentation.theme.components.items.CarListItem
 import ua.com.fleetwisor.core.presentation.theme.components.items.FillUpListItem
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
-import ua.com.fleetwisor.features.cars.presentation.cars.list.CarsListAction
 
 @Composable
 fun FilUpListRoot(

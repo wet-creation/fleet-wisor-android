@@ -1,26 +1,21 @@
 package ua.com.fleetwisor
 
-import android.net.http.SslCertificate.saveState
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import ua.com.fleetwisor.core.domain.utils.Log
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottomBar
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar.AgroswitBottomBarScreen
-import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar.BottomNavBarMenu
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar.screens
 import ua.com.fleetwisor.navigation.NavigationRoot
 import ua.com.fleetwisor.navigation.graphs.MainMenuGraph
@@ -38,10 +33,9 @@ class MainActivity : ComponentActivity() {
             }
             val closestNavGraph = destination?.routeClass()
             val selectedRoute = screens.firstOrNull { it.graph::class == closestNavGraph }
-
             bottomBar = {
                 AgroswitBottomBarScreen(
-                    selectedRoute = selectedRoute ?: MainMenuGraph
+                    selectedRoute = selectedRoute?.graph ?: MainMenuGraph
                 ) {
 
                     if (selectedRoute != null && selectedRoute != it) {
