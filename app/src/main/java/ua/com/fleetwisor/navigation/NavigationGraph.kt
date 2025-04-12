@@ -20,6 +20,9 @@ import ua.com.fleetwisor.features.auth.presentation.register.RegisterScreenRoot
 import ua.com.fleetwisor.features.cars.presentation.cars.create.CarCreateRoot
 import ua.com.fleetwisor.features.cars.presentation.cars.edit.CarEditRoot
 import ua.com.fleetwisor.features.cars.presentation.cars.list.CarsListRoot
+import ua.com.fleetwisor.features.cars.presentation.fill_up.create.FillUpCreateRoot
+import ua.com.fleetwisor.features.cars.presentation.fill_up.edit.FillUpEditAction
+import ua.com.fleetwisor.features.cars.presentation.fill_up.edit.FillUpEditRoot
 import ua.com.fleetwisor.features.cars.presentation.fill_up.list.FilUpListRoot
 import ua.com.fleetwisor.features.cars.presentation.main.CarMainRoot
 import ua.com.fleetwisor.features.cars.presentation.maintenance.list.MaintenanceListRoot
@@ -154,10 +157,31 @@ private fun NavGraphBuilder.carsGraph(
                 navigateBack = {
                     navController.navigateUp()
                 },
-                navigateEdit = {},
-                navigateCreate = { }
+                navigateEdit = {
+                    navController.navigate(CarsGraph.FillUpEdit)
+
+                },
+                navigateCreate = {
+                    navController.navigate(CarsGraph.FillUpCreate)
+
+                }
             )
         }
+        composable<CarsGraph.FillUpCreate> {
+            FillUpCreateRoot(
+                navigateBack = {
+                    navController.navigateUp()
+                },
+            )
+        }
+        composable<CarsGraph.FillUpEdit> {
+            FillUpEditRoot(
+                navigateBack = {
+                    navController.navigateUp()
+                },
+            )
+        }
+
         composable<CarsGraph.Maintenance> {
             MaintenanceListRoot(
                 navigateBack = {

@@ -15,5 +15,9 @@ data object CarsGraph {
     @Serializable
     data object FillUp
     @Serializable
+    data object FillUpCreate
+    @Serializable
+    data object FillUpEdit
+    @Serializable
     data object Maintenance
 }

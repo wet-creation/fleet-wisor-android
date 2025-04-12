@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
-import ua.com.fleetwisor.features.cars.presentation.cars.create.CarCreateAction
 
 class CarEditViewModel : ViewModel() {
 

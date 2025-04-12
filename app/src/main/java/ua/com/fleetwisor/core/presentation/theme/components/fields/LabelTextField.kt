@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 
 
@@ -141,12 +140,13 @@ fun TitledLabelTextField(
                 hasLine = true,
                 onChange = onChange
             )
-            Text(
-                modifier = Modifier.weight(0.3f),
-                text = unitText,
-                style = FleetWisorTheme.typography.titleLarge,
-                color = FleetWisorTheme.colors.brandPrimaryNormal
-            )
+            if (unitText != "")
+                Text(
+                    modifier = Modifier.weight(0.3f),
+                    text = unitText,
+                    style = FleetWisorTheme.typography.titleLarge,
+                    color = FleetWisorTheme.colors.brandPrimaryNormal
+                )
         }
     }
 }
@@ -179,12 +179,13 @@ fun TitledLabelTextButton(
                 hasLine = true,
                 onClick = onClick
             )
-            Text(
-                modifier = Modifier.weight(0.3f),
-                text = unitText,
-                style = FleetWisorTheme.typography.titleLarge,
-                color = FleetWisorTheme.colors.brandPrimaryNormal
-            )
+            if (unitText != "")
+                Text(
+                    modifier = Modifier.weight(0.3f),
+                    text = unitText,
+                    style = FleetWisorTheme.typography.titleLarge,
+                    color = FleetWisorTheme.colors.brandPrimaryNormal
+                )
         }
     }
 }

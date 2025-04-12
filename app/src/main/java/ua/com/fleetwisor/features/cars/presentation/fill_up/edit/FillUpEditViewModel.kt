@@ -1,4 +1,4 @@
-package ua.com.fleetwisor.features.cars.presentation.cars.create
+package ua.com.fleetwisor.features.cars.presentation.fill_up.edit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,11 +8,11 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 
-class CarCreateViewModel : ViewModel() {
+class FillUpEditViewModel : ViewModel() {
 
     private var hasLoadedInitialData = false
 
-    private val _state = MutableStateFlow(CarCreateState())
+    private val _state = MutableStateFlow(FillUpEditState())
     val state = _state
         .onStart {
             if (!hasLoadedInitialData) {
@@ -23,17 +23,14 @@ class CarCreateViewModel : ViewModel() {
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000L),
-            initialValue = CarCreateState()
+            initialValue = FillUpEditState()
         )
 
-    fun onAction(action: CarCreateAction) {
+    fun onAction(action: FillUpEditAction) {
         when (action) {
-            is CarCreateAction.ChangeTabIndex -> {
-                _state.update { it.copy(selectedTab = action.index) }
-            }
-
+            is FillUpEditAction.ChangeTabIndex -> _state.update { it.copy(selectedTab = action.index) }
             else -> {}
         }
     }
-
 }
+

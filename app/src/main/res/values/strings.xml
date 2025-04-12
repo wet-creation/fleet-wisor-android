@@ -328,5 +328,8 @@
     <string name="insurance_period_text">Дата початку та кінця страхування</string>
     <string name="add_document">Додати документ</string>
     <string name="document_text">Документ</string>
+    <string name="fill_up_volume_text">Обʼєм пального</string>
+    <string name="fill_up_check_text">Чек з заправки</string>
+    <string name="check_text">Чек</string>
 
 </resources>

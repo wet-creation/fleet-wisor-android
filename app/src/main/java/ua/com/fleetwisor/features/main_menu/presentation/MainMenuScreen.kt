@@ -20,6 +20,7 @@ import ua.com.agroswit.theme.components.dropdown.SelectedDropDownElement
 import ua.com.agroswit.theme.components.select_controls.DropDownItemState
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
+import ua.com.fleetwisor.core.presentation.theme.components.buttons.standart.CarSelectionButton
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
 import ua.com.fleetwisor.features.main_menu.presentation.components.ReportTile
@@ -56,22 +57,12 @@ private fun MainMenuScreen(
                 .padding(horizontal = 20.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            SelectedDropDown(
-                modifier = Modifier.fillMaxWidth(0.4f),
-                selectedItemIndex = 0,
-                items = {
-                    listOf(
-                        DropDownItemState(
-                            0, "Всі Машини"
-                        ),
-                        DropDownItemState(
-                            1, "Машина 1"
-                        ),
-                    )
-                }
-            ) {
-            }
+            CarSelectionButton(
+                text = "Всі Машини",
 
+            ) {
+
+            }
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 HorizontalDivider()
                 Row(
