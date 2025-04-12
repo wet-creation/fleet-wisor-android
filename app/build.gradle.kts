@@ -64,7 +64,7 @@ dependencies {
     implementation(libs.bundles.koin.compose)
     implementation(libs.coil.compose)
     implementation(libs.coil.svg)
-
+    implementation(libs.kotlinx.collections.immutable)
 
     implementation(libs.navigation.compose)
     implementation(libs.androidx.navigation.runtime.ktx)

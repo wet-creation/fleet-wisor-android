@@ -117,7 +117,7 @@ fun TitledLabelTextField(
 ) {
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(
-            text = titleText,
+            text = "$titleText:",
             style = FleetWisorTheme.typography.titleMedium,
             color = FleetWisorTheme.colors.brandPrimaryLight
         )

@@ -9,6 +9,8 @@ data object CarsGraph {
     @Serializable
     data object CarList
     @Serializable
+    data object CarCreate
+    @Serializable
     data object FillUp
     @Serializable
     data object Maintenance

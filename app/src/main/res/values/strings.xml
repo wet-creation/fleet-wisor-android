@@ -28,7 +28,7 @@
     <string name="retry_text">Повторити спробу</string>
     <string name="network_error_dialog_title">Network Error</string>
     <string name="profile_screen_title">Profile</string>
-    <string name="register_text">Register</string>
+    <string name="register_text">Реєстрація</string>
     <string name="search_text">Пошук</string>
     <string name="search_client_text">Пошук клієнта</string>
     <string name="search_product_text">Пошук продукту</string>
@@ -297,6 +297,7 @@
     <string name="profile_text">Профіль</string>
     <string name="personal_data_text">Особисті дані</string>
     <string name="personal_data_driver_text">Інформація про водія</string>
+    <string name="personal_data_car_text">Інформація про машину</string>
     <string name="drvier_card_text">Посвідчення</string>
     <string name="car_maintenance">Догляд</string>
     <string name="fillup">Заправка</string>
@@ -304,6 +305,7 @@
     <string name="car_number_text">Номер машини</string>
     <string name="driver_licence_number_short_text">Номер водійського</string>
     <string name="driver_licence_number_text">Номер посвідчення водія</string>
+    <string name="insurance_text">Страхування</string>
 
 
 
@@ -314,5 +316,14 @@
     <string name="payment_for_month">Зарплата за місяць</string>
     <string name="front_page_document">Додати лицьову сторону</string>
     <string name="back_page_document">Додати зворотну сторону</string>
+    <string name="car_create_text">Додавання машини</string>
+    <string name="brand_name">Назва марки авто</string>
+    <string name="car_color_text">Колір машини</string>
+    <string name="car_model">Модель</string>
+    <string name="specs_text">Характеристики</string>
+    <string name="car_body_text">Кузов</string>
+    <string name="fuel_type_text">Тип палива</string>
+    <string name="vin_number">Номер VIN</string>
+    <string name="add_driver">Додати водія</string>
 
 </resources>

@@ -17,6 +17,7 @@ import androidx.navigation.navigation
 import ua.com.fleetwisor.features.auth.presentation.auth.AuthScreenRoot
 import ua.com.fleetwisor.features.auth.presentation.login.LoginScreenRoot
 import ua.com.fleetwisor.features.auth.presentation.register.RegisterScreenRoot
+import ua.com.fleetwisor.features.cars.presentation.cars.create.CarCreateRoot
 import ua.com.fleetwisor.features.cars.presentation.cars.list.CarsListRoot
 import ua.com.fleetwisor.features.cars.presentation.fill_up.list.FilUpListRoot
 import ua.com.fleetwisor.features.cars.presentation.main.CarMainRoot
@@ -126,7 +127,14 @@ private fun NavGraphBuilder.carsGraph(
                     navController.navigateUp()
                 },
                 navigateEdit = {},
-                navigateCreate = { }
+                navigateCreate = {
+                    navController.navigate(CarsGraph.CarCreate)
+                }
+            )
+        }
+        composable<CarsGraph.CarCreate> {
+            CarCreateRoot(
+
             )
         }
         composable<CarsGraph.FillUp> {
