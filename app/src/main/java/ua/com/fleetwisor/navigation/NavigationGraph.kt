@@ -20,6 +20,7 @@ import ua.com.fleetwisor.features.auth.presentation.register.RegisterScreenRoot
 import ua.com.fleetwisor.features.cars.presentation.cars.list.CarsListRoot
 import ua.com.fleetwisor.features.cars.presentation.fill_up.list.FilUpListRoot
 import ua.com.fleetwisor.features.cars.presentation.main.CarMainRoot
+import ua.com.fleetwisor.features.cars.presentation.maintenance.list.MaintenanceListRoot
 import ua.com.fleetwisor.features.drivers.presentation.create.DriverCreateRoot
 import ua.com.fleetwisor.features.drivers.presentation.main.DriversListRoot
 import ua.com.fleetwisor.features.main_menu.presentation.MainMenuScreenRoot
@@ -110,7 +111,7 @@ private fun NavGraphBuilder.carsGraph(
                     navController.navigate(CarsGraph.CarList)
                 },
                 navigateMaintenance = {
-                    navController.navigate(CarsGraph.CarList)
+                    navController.navigate(CarsGraph.Maintenance)
 
                 },
                 navigateFillUp = {
@@ -130,6 +131,15 @@ private fun NavGraphBuilder.carsGraph(
         }
         composable<CarsGraph.FillUp> {
             FilUpListRoot(
+                navigateBack = {
+                    navController.navigateUp()
+                },
+                navigateEdit = {},
+                navigateCreate = { }
+            )
+        }
+        composable<CarsGraph.Maintenance> {
+            MaintenanceListRoot(
                 navigateBack = {
                     navController.navigateUp()
                 },

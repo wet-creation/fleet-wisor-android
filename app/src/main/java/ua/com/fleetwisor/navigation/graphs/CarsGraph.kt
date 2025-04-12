@@ -10,4 +10,6 @@ data object CarsGraph {
     data object CarList
     @Serializable
     data object FillUp
+    @Serializable
+    data object Maintenance
 }
