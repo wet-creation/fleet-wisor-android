@@ -6,5 +6,5 @@ object  Config {
     var buildType: String = ""
     var versionCode: Int = 0
     var versionName: String = ""
-    var baseUrl: String = ""
+    var baseUrl: String = "http://10.0.2.2:8080"
 }

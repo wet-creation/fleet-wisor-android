@@ -35,7 +35,7 @@ import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 
 @Composable
 fun AuthPasswordTextField(
-    value: String = "",
+    value: String,
     onValueChange: (String) -> Unit,
     isPasswordVisible: Boolean,
     onTogglePasswordVisibility: () -> Unit,

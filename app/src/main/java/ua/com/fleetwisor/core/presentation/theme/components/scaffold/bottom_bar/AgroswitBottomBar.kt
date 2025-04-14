@@ -21,10 +21,10 @@ import androidx.compose.ui.unit.dp
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.ui.utils.noRippleClickable
-import ua.com.fleetwisor.navigation.graphs.CarsGraph
-import ua.com.fleetwisor.navigation.graphs.DriversGraph
-import ua.com.fleetwisor.navigation.graphs.MainMenuGraph
-import ua.com.fleetwisor.navigation.graphs.ProfileGraph
+import ua.com.fleetwisor.app.navigation.graphs.CarsGraph
+import ua.com.fleetwisor.app.navigation.graphs.DriversGraph
+import ua.com.fleetwisor.app.navigation.graphs.MainMenuGraph
+import ua.com.fleetwisor.app.navigation.graphs.ProfileGraph
 
 val screens = listOf(
     BottomNavBarMenu.Menu,

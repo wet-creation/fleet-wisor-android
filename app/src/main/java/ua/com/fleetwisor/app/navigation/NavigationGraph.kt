@@ -1,4 +1,4 @@
-package ua.com.fleetwisor.navigation
+package ua.com.fleetwisor.app.navigation
 
 import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.tween
@@ -21,7 +21,6 @@ import ua.com.fleetwisor.features.cars.presentation.cars.create.CarCreateRoot
 import ua.com.fleetwisor.features.cars.presentation.cars.edit.CarEditRoot
 import ua.com.fleetwisor.features.cars.presentation.cars.list.CarsListRoot
 import ua.com.fleetwisor.features.cars.presentation.fill_up.create.FillUpCreateRoot
-import ua.com.fleetwisor.features.cars.presentation.fill_up.edit.FillUpEditAction
 import ua.com.fleetwisor.features.cars.presentation.fill_up.edit.FillUpEditRoot
 import ua.com.fleetwisor.features.cars.presentation.fill_up.list.FilUpListRoot
 import ua.com.fleetwisor.features.cars.presentation.main.CarMainRoot
@@ -32,11 +31,11 @@ import ua.com.fleetwisor.features.drivers.presentation.create.DriverCreateRoot
 import ua.com.fleetwisor.features.drivers.presentation.main.DriversListRoot
 import ua.com.fleetwisor.features.main_menu.presentation.MainMenuScreenRoot
 import ua.com.fleetwisor.features.profile.presentation.ProfileRoot
-import ua.com.fleetwisor.navigation.graphs.AuthGraph
-import ua.com.fleetwisor.navigation.graphs.CarsGraph
-import ua.com.fleetwisor.navigation.graphs.DriversGraph
-import ua.com.fleetwisor.navigation.graphs.MainMenuGraph
-import ua.com.fleetwisor.navigation.graphs.ProfileGraph
+import ua.com.fleetwisor.app.navigation.graphs.AuthGraph
+import ua.com.fleetwisor.app.navigation.graphs.CarsGraph
+import ua.com.fleetwisor.app.navigation.graphs.DriversGraph
+import ua.com.fleetwisor.app.navigation.graphs.MainMenuGraph
+import ua.com.fleetwisor.app.navigation.graphs.ProfileGraph
 import kotlin.reflect.KClass
 
 

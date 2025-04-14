@@ -1,4 +1,4 @@
-package ua.com.fleetwisor.navigation.graphs
+package ua.com.fleetwisor.app.navigation.graphs
 
 import kotlinx.serialization.Serializable
 @Serializable

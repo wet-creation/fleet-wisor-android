@@ -42,7 +42,7 @@ fun PrimaryButton(
         Modifier
             .height(FleetWisorTheme.dimensions.defaultButtonHeight)
             .then(
-                if (enabled) modifier
+                if (enabled && !isLoading) modifier
                     .background(
                         color = if (!isClick.value) FleetWisorTheme.colors.brandPrimaryNormal else FleetWisorTheme.colors.brandPrimaryDark,
                         shape = RoundedCornerShape(size = 10.dp)
@@ -99,7 +99,7 @@ fun PrimaryButton(
 @Composable
 private fun PrimaryLongButtonPreview() {
     PrimaryButton(
-        isLoading = true,
+        isLoading = false,
         text = "Залишити заявку",
     ) {
 

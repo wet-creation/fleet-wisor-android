@@ -1,4 +1,4 @@
-package ua.com.fleetwisor
+package ua.com.fleetwisor.app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,15 +11,14 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import ua.com.fleetwisor.core.domain.utils.Log
+import ua.com.fleetwisor.app.navigation.NavigationRoot
+import ua.com.fleetwisor.app.navigation.graphs.MainMenuGraph
+import ua.com.fleetwisor.app.navigation.routeClass
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottomBar
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar.AgroswitBottomBarScreen
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar.screens
-import ua.com.fleetwisor.navigation.NavigationRoot
-import ua.com.fleetwisor.navigation.graphs.MainMenuGraph
-import ua.com.fleetwisor.navigation.routeClass
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

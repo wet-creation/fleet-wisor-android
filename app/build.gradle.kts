@@ -59,6 +59,8 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
 
+    implementation (libs.androidx.datastore.preferences)
+
     implementation(libs.bundles.koin)
     implementation(libs.bundles.ktor)
     implementation(libs.bundles.koin.compose)
