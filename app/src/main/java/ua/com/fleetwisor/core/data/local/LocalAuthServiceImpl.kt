@@ -9,11 +9,13 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ua.com.fleetwisor.features.auth.domain.models.AuthInfo
+private const val DATASTORE_NAME = "settings"
+
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = DATASTORE_NAME)
 
 class LocalAuthServiceImpl(
     private val context: Context,
 ) : LocalAuthService {
-    val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
     private val refreshToken = stringPreferencesKey("refreshToken")
     private val accessToken = stringPreferencesKey("accessToken")
 

@@ -42,10 +42,11 @@ import kotlin.reflect.KClass
 @Composable
 fun NavigationRoot(
     navController: NavHostController,
+    startDestination: Any = AuthGraph.Auth
 ) {
     AnimatedNavHost(
         navController = navController,
-        startDestination = AuthGraph.Auth,
+        startDestination = startDestination,
     ) {
         composable<AuthGraph.Auth> {
             AuthScreenRoot(
