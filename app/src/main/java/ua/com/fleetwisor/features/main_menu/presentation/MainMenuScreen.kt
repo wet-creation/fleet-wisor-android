@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
@@ -19,11 +20,13 @@ import ua.com.agroswit.theme.components.dropdown.SelectedDropDown
 import ua.com.agroswit.theme.components.dropdown.SelectedDropDownElement
 import ua.com.agroswit.theme.components.select_controls.DropDownItemState
 import ua.com.fleetwisor.R
+import ua.com.fleetwisor.core.domain.utils.monthToString
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.buttons.standart.CarSelectionButton
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
 import ua.com.fleetwisor.features.main_menu.presentation.components.ReportTile
+import java.text.DateFormatSymbols
 
 @Composable
 fun MainMenuScreenRoot(
@@ -60,7 +63,7 @@ private fun MainMenuScreen(
             CarSelectionButton(
                 text = "Всі Машини",
 
-            ) {
+                ) {
 
             }
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -82,15 +85,18 @@ private fun MainMenuScreen(
                         ) {
                             SelectedDropDownElement(
                                 modifier = Modifier.weight(1f),
-                                textItem = "12"
+                                active = false,
+                                textItem = state.startDate.dayOfMonth.toString()
                             ) {}
                             SelectedDropDownElement(
                                 modifier = Modifier.weight(1f),
-                                textItem = "лютий"
+                                active = false,
+                                textItem = state.startDate.monthToString()
                             ) {}
                             SelectedDropDownElement(
                                 modifier = Modifier.weight(1f),
-                                textItem = "2025"
+                                active = false,
+                                textItem = state.startDate.year.toString()
                             ) {}
                         }
                         Row(
@@ -100,15 +106,18 @@ private fun MainMenuScreen(
                         ) {
                             SelectedDropDownElement(
                                 modifier = Modifier.weight(1f),
-                                textItem = "12"
+                                active = false,
+                                textItem = state.endDate.dayOfMonth.toString()
                             ) {}
                             SelectedDropDownElement(
                                 modifier = Modifier.weight(1f),
-                                textItem = "березень"
+                                active = false,
+                                textItem = state.endDate.monthToString()
                             ) {}
                             SelectedDropDownElement(
                                 modifier = Modifier.weight(1f),
-                                textItem = "2025"
+                                active = false,
+                                textItem = state.endDate.year.toString()
                             ) {}
                         }
                     }
@@ -120,7 +129,7 @@ private fun MainMenuScreen(
                     ReportTile(
                         modifier = Modifier.weight(1f),
                         reportText = "Сума витрат",
-                        value = "7777",
+                        value = state.selectedReport.totalSpending.toString(),
                         unit = "грн",
                         icon = FleetWisorTheme.icons.money,
                         iconColor = FleetWisorTheme.colors.brandSecondaryNormal,
@@ -128,8 +137,7 @@ private fun MainMenuScreen(
                     ReportTile(
                         modifier = Modifier.weight(1f),
                         reportText = "К-сть заправок ",
-                        value = "50",
-                        unit = "",
+                        value = state.selectedReport.fillUpCount.toString(),
                         icon = FleetWisorTheme.icons.gasMeter,
                         iconColor = FleetWisorTheme.colors.labelInProgress,
                     )
@@ -138,18 +146,17 @@ private fun MainMenuScreen(
                     ReportTile(
                         modifier = Modifier.weight(1f),
                         reportText = "Вартість заправок",
-                        value = "5000",
+                        value = state.selectedReport.totalFillUp.toString(),
                         unit = "грн",
                         icon = FleetWisorTheme.icons.gasStation,
                         iconColor = FleetWisorTheme.colors.herbicideColor,
                     )
                     ReportTile(
                         modifier = Modifier.weight(1f),
-                        reportText = "Обсяг пального",
-                        value = "50",
-                        unit = "л",
-                        icon = FleetWisorTheme.icons.gasFluid,
-                        iconColor = FleetWisorTheme.colors.microFertilizerColor,
+                        reportText = "К-сть обслуговувань",
+                        value = state.selectedReport.fillUpCount.toString(),
+                        icon = FleetWisorTheme.icons.tool,
+                        iconColor = FleetWisorTheme.colors.brandPrimaryLight,
                     )
 
                 }
@@ -157,20 +164,13 @@ private fun MainMenuScreen(
 
                     ReportTile(
                         modifier = Modifier.weight(1f),
-                        reportText = "К-сть обслуговувань",
-                        value = "5",
-                        unit = "",
-                        icon = FleetWisorTheme.icons.tool,
-                        iconColor = FleetWisorTheme.colors.brandPrimaryLight,
-                    )
-                    ReportTile(
-                        modifier = Modifier.weight(1f),
                         reportText = "Вартість обслуговувань",
-                        value = "7777",
+                        value = state.selectedReport.totalMaintenance.toString(),
                         unit = "грн",
                         icon = FleetWisorTheme.icons.homeService,
                         iconColor = FleetWisorTheme.colors.neutralSecondaryDark,
                     )
+                    Spacer(modifier = Modifier.weight(1f))
                 }
             }
 

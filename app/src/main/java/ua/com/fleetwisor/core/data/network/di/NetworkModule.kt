@@ -6,10 +6,13 @@ import org.koin.dsl.module
 import ua.com.fleetwisor.core.data.network.HttpClientFactory
 import ua.com.fleetwisor.core.data.network.services.auth.RemoteAuthService
 import ua.com.fleetwisor.core.data.network.services.auth.RemoteAuthServiceImpl
+import ua.com.fleetwisor.core.data.network.services.main_menu.MainMenuSource
+import ua.com.fleetwisor.core.data.network.services.main_menu.MainMenuSourceImpl
 
 val networkModule = module {
     single { HttpClientFactory(get(), get()) }
 
     singleOf(::RemoteAuthServiceImpl).bind<RemoteAuthService>()
+    singleOf(::MainMenuSourceImpl).bind<MainMenuSource>()
 
 }

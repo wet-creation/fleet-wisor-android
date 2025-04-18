@@ -20,6 +20,7 @@ import kotlinx.serialization.json.Json
 import ua.com.fleetwisor.core.data.local.LocalAuthService
 import ua.com.fleetwisor.core.data.network.services.auth.dto.AuthInfoDto
 import ua.com.fleetwisor.core.data.network.services.auth.dto.TokenRequest
+import ua.com.fleetwisor.core.domain.utils.Log
 import ua.com.fleetwisor.core.domain.utils.network.FullResult
 import ua.com.fleetwisor.features.auth.domain.models.AuthInfo
 
@@ -32,6 +33,8 @@ class HttpClientFactory(
     init {
         scope.launch(Dispatchers.IO) {
             localAuth.getAuthInfo().collect {
+                Log.d(it.refreshToken)
+                Log.d(it.accessToken)
                 httpClient = getClient(it)
             }
         }

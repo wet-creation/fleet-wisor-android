@@ -18,6 +18,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.serialization.SerializationException
 import okio.IOException
 import ua.com.fleetwisor.core.domain.utils.Config
+import ua.com.fleetwisor.core.domain.utils.Log
 import ua.com.fleetwisor.core.domain.utils.network.DataError
 import ua.com.fleetwisor.core.domain.utils.network.FullResult
 import kotlin.collections.forEach
@@ -153,6 +154,11 @@ suspend inline fun <reified T, reified E> safeCall(execute: () -> HttpResponse):
         e.printStackTrace()
         return FullResult.Error(DataError.Network.UNKNOWN)
     }
+
+    Log.d(response.body())
+    Log.d(response.headers.get("Authorization"))
+    Log.d(response.status.value.toString())
+    Log.d(response.bodyAsText())
     return responseToResult(response)
 }
 

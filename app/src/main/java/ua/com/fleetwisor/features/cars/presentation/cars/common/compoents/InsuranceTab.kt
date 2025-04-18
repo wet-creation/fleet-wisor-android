@@ -70,14 +70,17 @@ inline fun <reified Action> InsuranceTab(
                         ) {
                             SelectedDropDownElement(
                                 modifier = Modifier.weight(1f),
-                                textItem = "12"
+                                textItem = "12",
+                                active = false,
                             ) {}
                             SelectedDropDownElement(
                                 modifier = Modifier.weight(1f),
+                                active = false,
                                 textItem = "лютий"
                             ) {}
                             SelectedDropDownElement(
                                 modifier = Modifier.weight(1f),
+                                active = false,
                                 textItem = "2025"
                             ) {}
                         }
@@ -88,14 +91,17 @@ inline fun <reified Action> InsuranceTab(
                         ) {
                             SelectedDropDownElement(
                                 modifier = Modifier.weight(1f),
+                                active = false,
                                 textItem = "12"
                             ) {}
                             SelectedDropDownElement(
                                 modifier = Modifier.weight(1f),
+                                active = false,
                                 textItem = "березень"
                             ) {}
                             SelectedDropDownElement(
                                 modifier = Modifier.weight(1f),
+                                active = false,
                                 textItem = "2025"
                             ) {}
                         }
@@ -119,10 +125,10 @@ inline fun <reified Action> InsuranceTab(
                     Image(
                         modifier = Modifier
                             .border(
-                            width = 1.dp,
-                            color = FleetWisorTheme.colors.neutralSecondaryDark,
-                            shape = RoundedCornerShape(size = 5.dp)
-                        ),
+                                width = 1.dp,
+                                color = FleetWisorTheme.colors.neutralSecondaryDark,
+                                shape = RoundedCornerShape(size = 5.dp)
+                            ),
                         painter = rememberAsyncImagePainter(
                             insurance.photoUrl,
                             //todo replace placeholder

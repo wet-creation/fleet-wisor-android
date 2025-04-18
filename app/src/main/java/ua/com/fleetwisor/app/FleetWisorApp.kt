@@ -9,7 +9,6 @@ import org.koin.core.context.startKoin
 import ua.com.fleetwisor.app.di.appModule
 import ua.com.fleetwisor.core.data.local.di.localModule
 import ua.com.fleetwisor.core.data.network.di.networkModule
-import ua.com.fleetwisor.features.auth.data.di.authDataModule
 import ua.com.fleetwisor.features.auth.di.authPresentationModule
 import ua.com.fleetwisor.features.main_menu.di.mainMenuModule
 
@@ -24,7 +23,6 @@ class FleetWisorApp: Application() {
                 appModule,
                 localModule,
                 networkModule,
-                authDataModule,
                 authPresentationModule,
                 mainMenuModule
             )

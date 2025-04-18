@@ -150,6 +150,7 @@ fun SelectedDropDownElement(
     textItem: String,
     containerHeight: Dp = 20.dp,
     expanded: Boolean = false,
+    active: Boolean = true,
     onClick: () -> Unit
 ) {
     Row(
@@ -163,11 +164,11 @@ fun SelectedDropDownElement(
                 shape = RoundedCornerShape(size = 4.dp)
             )
             .background(
-                color = FleetWisorTheme.colors.neutralPrimaryLight,
+                color = if (active) FleetWisorTheme.colors.neutralPrimaryLight else FleetWisorTheme.colors.neutralPrimaryDark,
                 shape = RoundedCornerShape(size = 4.dp)
             )
             .padding(horizontal = 4.dp, vertical = 1.dp)
-            .clickable { onClick() }
+            .then(if (active) Modifier.clickable { onClick() } else Modifier)
             .fillMaxWidth()
     ) {
         Text(
@@ -175,15 +176,16 @@ fun SelectedDropDownElement(
             style = FleetWisorTheme.typography.labelLargeR,
             color = FleetWisorTheme.colors.neutralSecondaryDark
         )
-        Icon(
-            painter = if (expanded) FleetWisorTheme.icons.arrowUp else FleetWisorTheme.icons.arrowDown,
-            contentDescription = null,
-            tint = FleetWisorTheme.colors.neutralSecondaryDark,
-            modifier = Modifier
-                .padding(1.dp)
-                .width(12.dp)
-                .height(12.dp)
-        )
+        if (active)
+            Icon(
+                painter = if (expanded) FleetWisorTheme.icons.arrowUp else FleetWisorTheme.icons.arrowDown,
+                contentDescription = null,
+                tint = FleetWisorTheme.colors.neutralSecondaryDark,
+                modifier = Modifier
+                    .padding(1.dp)
+                    .width(12.dp)
+                    .height(12.dp)
+            )
     }
 }
 
