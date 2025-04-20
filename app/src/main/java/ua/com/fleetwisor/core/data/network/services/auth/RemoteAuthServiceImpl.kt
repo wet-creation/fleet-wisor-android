@@ -1,6 +1,5 @@
 package ua.com.fleetwisor.core.data.network.services.auth
 
-import io.ktor.client.HttpClient
 import ua.com.fleetwisor.core.data.network.HttpClientFactory
 import ua.com.fleetwisor.core.data.network.post
 import ua.com.fleetwisor.core.data.network.services.auth.dto.AuthInfoDto
@@ -22,7 +21,7 @@ class RemoteAuthServiceImpl(
         email: String,
         password: String
     ): Results<AuthInfoDto, DataError.Network> {
-        return httpClientFactory.httpClient.post<LoginDto, AuthInfoDto, Unit>(
+        return httpClientFactory.httpClient().post<LoginDto, AuthInfoDto, Unit>(
             postLogin,
             LoginDto(
                 email,
@@ -32,14 +31,14 @@ class RemoteAuthServiceImpl(
     }
 
     override suspend fun register(registerInfo: RegisterDto): EmptyDataAndErrorResult<DataError.Network> {
-        return httpClientFactory.httpClient.post<RegisterDto, Unit, Unit>(
+        return httpClientFactory.httpClient().post<RegisterDto, Unit, Unit>(
             postRegister,
             registerInfo
         )
     }
 
     override suspend fun refreshToken(refreshToken: String): Results<AuthInfoDto, DataError.Network> {
-        return httpClientFactory.httpClient.post<TokenRequest, AuthInfoDto, Unit>(
+        return httpClientFactory.httpClient().post<TokenRequest, AuthInfoDto, Unit>(
             postRefresh,
             TokenRequest(refreshToken)
         )

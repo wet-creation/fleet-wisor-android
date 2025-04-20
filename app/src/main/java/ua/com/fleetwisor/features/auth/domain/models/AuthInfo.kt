@@ -1,8 +1,8 @@
 package ua.com.fleetwisor.features.auth.domain.models
 
 data class AuthInfo(
-    val refreshToken: String = "",
-    val accessToken: String = ""
+    val accessToken: String = "",
+    val refreshToken: String = ""
 )
 
 data class RegisterInfo(

@@ -34,4 +34,11 @@ class LocalAuthServiceImpl(
             )
         }
     }
+
+    override suspend fun logout() {
+        context.dataStore.edit {
+            it[refreshToken] = ""
+            it[accessToken] = ""
+        }
+    }
 }

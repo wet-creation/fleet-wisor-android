@@ -60,6 +60,9 @@ dependencies {
 
 
     implementation (libs.androidx.datastore.preferences)
+    implementation(libs.androidx.core.splashscreen)
+
+    implementation(libs.slf4j.simple)
 
     implementation(libs.bundles.koin)
     implementation(libs.bundles.ktor)

@@ -7,10 +7,12 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import ua.com.fleetwisor.app.di.appModule
+import ua.com.fleetwisor.app.di.mainModule
 import ua.com.fleetwisor.core.data.local.di.localModule
 import ua.com.fleetwisor.core.data.network.di.networkModule
 import ua.com.fleetwisor.features.auth.di.authPresentationModule
 import ua.com.fleetwisor.features.main_menu.di.mainMenuModule
+import ua.com.fleetwisor.features.profile.di.profileModule
 
 class FleetWisorApp: Application() {
     val applicationScope = CoroutineScope(SupervisorJob())
@@ -24,7 +26,9 @@ class FleetWisorApp: Application() {
                 localModule,
                 networkModule,
                 authPresentationModule,
-                mainMenuModule
+                mainMenuModule,
+                profileModule,
+                mainModule
             )
         }
     }

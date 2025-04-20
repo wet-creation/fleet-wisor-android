@@ -7,7 +7,9 @@ import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
@@ -15,6 +17,10 @@ import io.ktor.http.encodedPath
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import ua.com.fleetwisor.core.data.local.LocalAuthService
@@ -26,19 +32,24 @@ import ua.com.fleetwisor.features.auth.domain.models.AuthInfo
 
 class HttpClientFactory(
     private val localAuth: LocalAuthService,
-    scope: CoroutineScope
+    private val scope: CoroutineScope
 ) {
-    var httpClient = HttpClient()
-        private set
+    private val _clientFlow = MutableStateFlow<HttpClient>(getClient(AuthInfo()))
+    private val httpClientFlow: StateFlow<HttpClient> get() = _clientFlow
+
+
     init {
         scope.launch(Dispatchers.IO) {
-            localAuth.getAuthInfo().collect {
-                Log.d(it.refreshToken)
-                Log.d(it.accessToken)
-                httpClient = getClient(it)
+            localAuth.getAuthInfo().collect { auth ->
+                Log.d(auth.refreshToken)
+                Log.d(auth.accessToken)
+                _clientFlow.update { getClient(auth) }
             }
         }
     }
+
+    fun httpClient() = httpClientFlow.value
+
 
     private fun getClient(info: AuthInfo): HttpClient {
         return HttpClient(OkHttp) {
@@ -57,6 +68,7 @@ class HttpClientFactory(
             defaultRequest {
                 contentType(ContentType.Application.Json)
             }
+
             install(Auth) {
                 bearer {
                     loadTokens {
@@ -75,7 +87,7 @@ class HttpClientFactory(
 
                         if (response is FullResult.Success) {
                             val newAuthInfo = AuthInfo(
-                                accessToken = response.data.jwtRefreshToken,
+                                accessToken = response.data.jwtAccessToken,
                                 refreshToken = info.refreshToken,
                             )
                             localAuth.saveAuthInfo(newAuthInfo)
@@ -94,10 +106,15 @@ class HttpClientFactory(
                     }
                     sendWithoutRequest { request ->
                         request.url.encodedPath != "/api/v1/auth/update/access"
+                        request.url.encodedPath != "/api/v1/auth/update/refresh"
                     }
 
                 }
 
+            }
+            install(Logging) {
+                logger = Logger.DEFAULT
+                level = LogLevel.ALL
             }
         }
     }

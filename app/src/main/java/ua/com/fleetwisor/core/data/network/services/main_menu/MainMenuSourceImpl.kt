@@ -16,11 +16,11 @@ class MainMenuSourceImpl(
         startDate: LocalDate,
         endDate: LocalDate
     ): Results<List<CarReportDto>, DataError.Network> {
-        return httpClientFactory.httpClient.get<List<CarReportDto>, Unit>(
+        return httpClientFactory.httpClient().get<List<CarReportDto>, Unit>(
             getReports,
             queryParameters = mapOf(
-                "startDate" to "2022-01-01",//startDate.toString(),
-                "endDate" to "2026-01-01",// endDate.toString(),
+                "startDate" to startDate.toString(),
+                "endDate" to  endDate.toString(),
             )
         )
     }

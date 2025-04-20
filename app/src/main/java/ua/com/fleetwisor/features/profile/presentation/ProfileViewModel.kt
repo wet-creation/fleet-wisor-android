@@ -2,12 +2,18 @@ package ua.com.fleetwisor.features.profile.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import ua.com.fleetwisor.core.data.local.LocalAuthService
+import ua.com.fleetwisor.core.data.local.di.localModule
 
-class ProfileViewModel : ViewModel() {
+class ProfileViewModel(
+    private val localAuthService: LocalAuthService
+) : ViewModel() {
 
     private var hasLoadedInitialData = false
 
@@ -15,7 +21,6 @@ class ProfileViewModel : ViewModel() {
     val state = _state
         .onStart {
             if (!hasLoadedInitialData) {
-                /** Load initial data here **/
                 hasLoadedInitialData = true
             }
         }
@@ -27,7 +32,9 @@ class ProfileViewModel : ViewModel() {
 
     fun onAction(action: ProfileAction) {
         when (action) {
-            else -> TODO("Handle actions")
+            ProfileAction.OnLogOut -> viewModelScope.launch(Dispatchers.IO) {
+                localAuthService.logout()
+            }
         }
     }
 
