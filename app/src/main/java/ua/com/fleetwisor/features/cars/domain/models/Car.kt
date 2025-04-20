@@ -5,9 +5,9 @@ import ua.com.fleetwisor.features.drivers.domain.models.Driver
 data class Car(
     val id: Int = -1,
     val brandName: String = "",
-    val color: String? = null,
-    val vin: String? = null,
-    val model: String? = null,
+    val color: String = "",
+    val vin: String = "",
+    val model: String = "",
     val licensePlate: String = "",
     val mileAge: Long = 0,
     val fuelTypes: List<FuelType> = emptyList(),

@@ -2,31 +2,45 @@ package ua.com.fleetwisor.features.main_menu.presentation
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.koinViewModel
-import ua.com.agroswit.theme.components.dropdown.SelectedDropDown
 import ua.com.agroswit.theme.components.dropdown.SelectedDropDownElement
-import ua.com.agroswit.theme.components.select_controls.DropDownItemState
+import ua.com.agroswit.theme.components.scaffold.modal_botton_sheet.AgroswitModalBottomSheet
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.domain.utils.monthToString
+import ua.com.fleetwisor.core.domain.utils.toMillis
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
+import ua.com.fleetwisor.core.presentation.theme.components.bottom_sheets.SearchElements
 import ua.com.fleetwisor.core.presentation.theme.components.buttons.standart.CarSelectionButton
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
+import ua.com.fleetwisor.core.presentation.theme.components.select_controls.DateRangePickerModal
 import ua.com.fleetwisor.features.main_menu.presentation.components.ReportTile
-import java.text.DateFormatSymbols
+import java.time.LocalTime
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.util.Locale
 
 @Composable
 fun MainMenuScreenRoot(
@@ -38,11 +52,16 @@ fun MainMenuScreenRoot(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun MainMenuScreen(
     state: MainMenuState,
     onAction: (MainMenuAction) -> Unit
 ) {
+    var showDateDialog by remember {
+        mutableStateOf(false)
+    }
+
     AgroswitScaffold(
         hasBottomBar = true,
         topAppBar = {
@@ -51,22 +70,89 @@ private fun MainMenuScreen(
             )
         }
     ) { paddingValues ->
+        val modalSheetBottom = remember {
+            derivedStateOf {
+                paddingValues.calculateBottomPadding() / 2
+            }
+        }
+        if (state.isLoading) {
+            Box(
+                Modifier
+                    .padding(
+                        start = 20.dp,
+                        end = 20.dp,
+                        top = paddingValues.calculateTopPadding(),
+                        bottom = paddingValues.calculateBottomPadding()
+                    )
+                    .fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(color = FleetWisorTheme.colors.brandPrimaryNormal)
+            }
+        }
+        if (showDateDialog) {
+            DateRangePickerModal(
+                dateRangePickerState = rememberDateRangePickerState(
+                    initialSelectedStartDateMillis = state.startDate.toMillis(),
+                    initialSelectedEndDateMillis = state.endDate.toMillis(),
+                ),
+                onDateRangeSelected = {
+                    if (it.first != null && it.second != null)
+                        onAction(MainMenuAction.SelectPeriod(it.first!!, it.second!!))
+                }
+            ) {
+                showDateDialog = false
+            }
+        }
         Column(
             modifier = Modifier
                 .padding(
                     top = paddingValues.calculateTopPadding() + 20.dp,
-                    bottom = paddingValues.calculateBottomPadding()
+                    bottom = 20.dp
                 )
                 .padding(horizontal = 20.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            CarSelectionButton(
-                text = "Всі Машини",
+            AgroswitModalBottomSheet(
+                isVisible = state.modalBottomSheetState.isOpen,
+                onDismissRequest = {
+                    onAction(MainMenuAction.OnModalSheetClose)
+                },
+            ) {
 
-                ) {
+                if (state.modalBottomSheetState.showReportsList) {
+                    SearchElements(
+                        modifier = Modifier
+                            .padding(vertical = 12.dp, horizontal = 20.dp)
+                            .padding(bottom = modalSheetBottom.value),
+                        title = stringResource(R.string.cars_text),
+                        currentIndex = state.filteredReports.indexOf(state.selectedReport),
+                        inputValue = state.searchCarValue,
+                        elementsList = {
+                            state.filteredReports.map { it.name }
+                        },
+                        inputSearch = {
+                            onAction(MainMenuAction.SearchCars(it))
+                        }
+                    ) {
+                        onAction(MainMenuAction.SelectCarForReport(it))
+                    }
+                }
+            }
+
+
+            CarSelectionButton(
+                text = state.selectedReport.name,
+            ) {
+                onAction(MainMenuAction.ShowCarSearch)
 
             }
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier.clickable {
+                    showDateDialog = true
+
+                }) {
                 HorizontalDivider()
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -79,10 +165,8 @@ private fun MainMenuScreen(
                     Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(12.dp),
-                            modifier = Modifier.clickable {
 
-                            }
-                        ) {
+                            ) {
                             SelectedDropDownElement(
                                 modifier = Modifier.weight(1f),
                                 active = false,
@@ -101,9 +185,8 @@ private fun MainMenuScreen(
                         }
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(12.dp),
-                            modifier = Modifier.clickable {
-                            }
-                        ) {
+
+                            ) {
                             SelectedDropDownElement(
                                 modifier = Modifier.weight(1f),
                                 active = false,

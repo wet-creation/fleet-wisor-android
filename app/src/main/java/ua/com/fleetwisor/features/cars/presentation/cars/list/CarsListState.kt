@@ -10,7 +10,7 @@ data class CarsListState(
            brandName = "Toyota",
            color = "Чорна",
            vin = "",
-           model = "Camry",
+           model = "",
            licensePlate = "АІ 4523 КН",
            mileAge = 20340,
            fuelTypes = listOf(),

@@ -8,8 +8,17 @@ import java.time.LocalDate
 
 data class MainMenuState(
     val reports: List<CarReport> = emptyList(),
+    val filteredReports: List<CarReport> = emptyList(),
     val selectedReport: CarReport = CarReport(),
     val startDate: LocalDate = LocalDate.now().firstDayOfMonth(),
     val endDate: LocalDate = LocalDate.now(),
     val error: UiText = emptyUiText,
+    val searchCarValue: String = "",
+    val isLoading: Boolean = false,
+    val modalBottomSheetState: ModalBottomSheetState = ModalBottomSheetState()
+)
+
+data class ModalBottomSheetState(
+    val isOpen: Boolean = false,
+    val showReportsList: Boolean = false
 )

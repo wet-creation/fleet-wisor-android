@@ -25,9 +25,9 @@ class MainMenuRepositoryImpl(
 
 fun CarReportDto.asCarReport() = CarReport(
     id = id,
-    color = color,
+    color = color ?: "",
     brandName = brandName,
-    model = model,
+    model = model ?: "",
     fillUpCount = fillUpCount,
     totalFillUp = totalFillUp,
     maintenanceCount = maintenanceCount,
