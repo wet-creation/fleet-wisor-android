@@ -16,7 +16,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import org.koin.androidx.compose.koinViewModel
 import ua.com.agroswit.theme.components.buttons.standart.PrimaryButton
 import ua.com.fleetwisor.R
@@ -24,7 +23,7 @@ import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.buttons.standart.SecondaryNormalButton
 import ua.com.fleetwisor.core.presentation.theme.components.fields.LabelTextButton
 import ua.com.fleetwisor.core.presentation.theme.components.fields.SimplePasswordTextFieldAgroswit
-import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitScaffold
+import ua.com.fleetwisor.core.presentation.theme.components.scaffold.FleetWisorScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
 
 @Composable
@@ -44,7 +43,7 @@ fun ProfileScreen(
     state: ProfileState,
     onAction: (ProfileAction) -> Unit,
 ) {
-    AgroswitScaffold(
+    FleetWisorScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
                 title = stringResource(R.string.profile_text)

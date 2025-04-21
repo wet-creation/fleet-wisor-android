@@ -1,5 +1,8 @@
 package ua.com.fleetwisor.features.main_menu.presentation
 
+import android.content.ContentValues
+import android.content.Context
+import android.provider.MediaStore
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -8,12 +11,14 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.io.IOException
+import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.domain.utils.millisToLocalDate
 import ua.com.fleetwisor.core.domain.utils.network.FullResult
+import ua.com.fleetwisor.core.presentation.ui.utils.UiText
 import ua.com.fleetwisor.core.presentation.ui.utils.asErrorUiText
 import ua.com.fleetwisor.features.main_menu.domain.MainMenuRepository
 import ua.com.fleetwisor.features.main_menu.domain.models.CarReport
-import java.time.LocalDate
 
 class MainMenuViewModel(
     private val repository: MainMenuRepository
@@ -68,7 +73,7 @@ class MainMenuViewModel(
 
             }
 
-
+            is MainMenuAction.DownloadExcel -> downloadReport(action.context)
         }
     }
 
@@ -78,11 +83,61 @@ class MainMenuViewModel(
             filteredReports = state.reports
         )
     }
+    private fun changeDownloadState(dState: DownloadState) {
+        state = state.copy(downloadState = dState)
+
+    }
+    private fun downloadReport(context: Context) {
+        viewModelScope.launch(Dispatchers.IO) {
+           changeDownloadState(DownloadState.Downloading)
+            when (val res = repository.downloadReport(state.startDate, state.endDate)) {
+                is FullResult.Error -> {
+                    changeDownloadState(DownloadState.Error(res.asErrorUiText()))
+                }
+
+                is FullResult.Success -> {
+                    try {
+                        val fileName = "report.xlsx"
+                        val resolver = context.contentResolver
+                        val contentValues = ContentValues().apply {
+                            put(MediaStore.Downloads.DISPLAY_NAME, fileName)
+                            put(
+                                MediaStore.Downloads.MIME_TYPE,
+                                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                            )
+                            put(MediaStore.Downloads.IS_PENDING, 1)
+                        }
+
+                        val uri =
+                            resolver.insert(
+                                MediaStore.Downloads.EXTERNAL_CONTENT_URI,
+                                contentValues
+                            )
+                                ?: throw IOException()
+
+                        resolver.openOutputStream(uri)?.use { outputStream ->
+                            outputStream.write(res.data)
+                        }
+                        contentValues.clear()
+                        contentValues.put(MediaStore.Downloads.IS_PENDING, 0)
+                        resolver.update(uri, contentValues, null, null)
+                        changeDownloadState(DownloadState.Success)
+
+                    } catch (_: IOException) {
+                        changeDownloadState(DownloadState.Error(UiText.StringResource(R.string.download_error)))
+
+                    }
+                }
+            }
+            delay(1000)
+            changeDownloadState(DownloadState.Idle)
+        }
+    }
 
     private fun getReports() {
         state = state.copy(isLoading = true)
         viewModelScope.launch(Dispatchers.IO) {
-            delay(500)
+            delay(2000)
             state = when (val res = repository.getReports(state.startDate, state.endDate)) {
                 is FullResult.Error -> {
                     state.copy(error = res.asErrorUiText())

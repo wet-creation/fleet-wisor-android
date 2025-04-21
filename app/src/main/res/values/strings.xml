@@ -337,5 +337,7 @@
     <string name="fill_up_edit_text">Редагування заправки</string>
     <string name="car_edit_text">Редагування машини</string>
     <string name="maintenance_edit_text">Догляд редагування</string>
+    <string name="download_error">Не вдалося встановити файл</string>
+    <string name="download_succes">Файл збережено в Загрузки</string>
 
 </resources>

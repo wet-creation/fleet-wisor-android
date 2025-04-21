@@ -8,6 +8,7 @@ import ua.com.fleetwisor.core.domain.utils.network.Results
 import java.time.LocalDate
 
 const val getReports = "/api/v1/reports"
+const val getReportsExcel = "/api/v1/reports/excel"
 
 class MainMenuSourceImpl(
     private val httpClientFactory: HttpClientFactory
@@ -18,6 +19,19 @@ class MainMenuSourceImpl(
     ): Results<List<CarReportDto>, DataError.Network> {
         return httpClientFactory.httpClient().get<List<CarReportDto>, Unit>(
             getReports,
+            queryParameters = mapOf(
+                "startDate" to startDate.toString(),
+                "endDate" to  endDate.toString(),
+            )
+        )
+    }
+
+    override suspend fun getReportExcel(
+        startDate: LocalDate,
+        endDate: LocalDate
+    ): Results<ByteArray, DataError.Network> {
+        return httpClientFactory.httpClient().get<ByteArray, Unit>(
+            getReportsExcel,
             queryParameters = mapOf(
                 "startDate" to startDate.toString(),
                 "endDate" to  endDate.toString(),

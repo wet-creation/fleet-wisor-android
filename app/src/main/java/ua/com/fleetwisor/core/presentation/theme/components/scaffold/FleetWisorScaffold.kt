@@ -12,9 +12,10 @@ var bottomBar: @Composable () -> Unit = {}
 
 
 @Composable
-fun AgroswitScaffold(
+fun FleetWisorScaffold(
     modifier: Modifier = Modifier,
     topAppBar: @Composable () -> Unit = {},
+    snackbarHost: @Composable () -> Unit = {},
     floatingActionButton: @Composable () -> Unit = {},
     hasBottomBar: Boolean = false,
     floatingActionButtonPosition: FabPosition = FabPosition.Center,
@@ -22,6 +23,7 @@ fun AgroswitScaffold(
 ) {
     Scaffold(
         topBar = topAppBar,
+        snackbarHost = snackbarHost,
         floatingActionButton = floatingActionButton,
         floatingActionButtonPosition = floatingActionButtonPosition,
         bottomBar = {

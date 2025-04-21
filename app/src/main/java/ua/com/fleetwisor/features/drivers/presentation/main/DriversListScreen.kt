@@ -25,7 +25,7 @@ import ua.com.agroswit.theme.components.fields.TextFieldAgroswit
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.items.DriverListItem
-import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitScaffold
+import ua.com.fleetwisor.core.presentation.theme.components.scaffold.FleetWisorScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
 import ua.com.fleetwisor.features.drivers.domain.models.Driver
 
@@ -55,7 +55,7 @@ fun DriversListScreen(
     state: DriversListState,
     onAction: (DriversListAction) -> Unit,
 ) {
-    AgroswitScaffold(
+    FleetWisorScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
                 title = stringResource(R.string.drivers_text)

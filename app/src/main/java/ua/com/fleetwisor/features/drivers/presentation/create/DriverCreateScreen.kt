@@ -25,7 +25,7 @@ import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.fields.LabelTextButton
 import ua.com.fleetwisor.core.presentation.theme.components.fields.LabelTextField
 import ua.com.fleetwisor.core.presentation.theme.components.fields.TitledLabelTextField
-import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitScaffold
+import ua.com.fleetwisor.core.presentation.theme.components.scaffold.FleetWisorScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
 
 @Composable
@@ -51,7 +51,7 @@ private fun DriverCreateScreen(
     state: DriverCreateState,
     onAction: (DriverCreateAction) -> Unit,
 ) {
-    AgroswitScaffold(
+    FleetWisorScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
                 title = stringResource(R.string.drivers_text)

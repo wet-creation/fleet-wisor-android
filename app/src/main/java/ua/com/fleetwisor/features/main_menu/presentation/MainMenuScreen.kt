@@ -7,13 +7,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,19 +41,17 @@ import ua.com.fleetwisor.core.domain.utils.toMillis
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.bottom_sheets.SearchElements
 import ua.com.fleetwisor.core.presentation.theme.components.buttons.standart.CarSelectionButton
-import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitScaffold
+import ua.com.fleetwisor.core.presentation.theme.components.scaffold.FleetWisorScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
 import ua.com.fleetwisor.core.presentation.theme.components.select_controls.DateRangePickerModal
+import ua.com.fleetwisor.core.presentation.ui.utils.UiText
 import ua.com.fleetwisor.features.main_menu.presentation.components.ReportTile
-import java.time.LocalTime
-import java.time.ZoneId
-import java.time.ZoneOffset
-import java.util.Locale
 
 @Composable
 fun MainMenuScreenRoot(
     viewModel: MainMenuViewModel = koinViewModel()
 ) {
+
     MainMenuScreen(
         state = viewModel.state,
         onAction = viewModel::onAction
@@ -61,9 +67,27 @@ private fun MainMenuScreen(
     var showDateDialog by remember {
         mutableStateOf(false)
     }
+    val context = LocalContext.current
+    val snackBarHostState = remember { SnackbarHostState() }
 
-    AgroswitScaffold(
+    LaunchedEffect(state.downloadState) {
+        val downloadState = state.downloadState
+        if (downloadState is DownloadState.Error)
+            snackBarHostState.showSnackbar(
+                downloadState.error.asString(context),
+                duration = SnackbarDuration.Long
+            )
+        else if (downloadState is DownloadState.Success)
+            snackBarHostState.showSnackbar(
+                UiText.StringResource(R.string.download_succes).asString(context),
+                duration = SnackbarDuration.Long
+            )
+    }
+    FleetWisorScaffold(
         hasBottomBar = true,
+        snackbarHost = {
+            SnackbarHost(snackBarHostState)
+        },
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
                 title = stringResource(R.string.main_menu_text)
@@ -140,12 +164,42 @@ private fun MainMenuScreen(
                 }
             }
 
-
-            CarSelectionButton(
-                text = state.selectedReport.name,
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                onAction(MainMenuAction.ShowCarSearch)
+                CarSelectionButton(
+                    text = state.selectedReport.name,
+                ) {
+                    onAction(MainMenuAction.ShowCarSearch)
 
+                }
+                Box(modifier = Modifier.size(28.dp)) {
+                    if (state.downloadState == DownloadState.Downloading) {
+                        CircularProgressIndicator(modifier = Modifier.fillMaxSize())
+                    } else
+                        Icon(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .clickable {
+                                    if (state.downloadState == DownloadState.Idle)
+                                        onAction(MainMenuAction.DownloadExcel(context))
+                                },
+                            tint = FleetWisorTheme.colors.brandPrimaryNormal,
+                            painter = when (state.downloadState) {
+                                DownloadState.Downloading -> {
+                                    FleetWisorTheme.icons.download
+                                }
+
+                                is DownloadState.Error -> FleetWisorTheme.icons.cross
+                                DownloadState.Idle -> FleetWisorTheme.icons.download
+                                DownloadState.Success -> FleetWisorTheme.icons.check
+                            },
+                            contentDescription = ""
+                        )
+
+                }
             }
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp),

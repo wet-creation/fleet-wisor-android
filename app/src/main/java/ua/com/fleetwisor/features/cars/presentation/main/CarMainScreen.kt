@@ -17,7 +17,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import ua.com.agroswit.theme.components.buttons.standart.PrimaryLargeButton
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
-import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitScaffold
+import ua.com.fleetwisor.core.presentation.theme.components.scaffold.FleetWisorScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
 
 @Composable
@@ -48,7 +48,7 @@ fun CarMainScreen(
     state: CarMainState,
     onAction: (CarMainAction) -> Unit,
 ) {
-    AgroswitScaffold(
+    FleetWisorScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
                 title = stringResource(R.string.cars_text)

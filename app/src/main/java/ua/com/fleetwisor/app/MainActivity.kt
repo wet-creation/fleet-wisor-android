@@ -13,7 +13,6 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.compose.KoinContext
 import ua.com.agroswit.theme.components.dialogs.ConfirmationDialog
@@ -23,10 +22,9 @@ import ua.com.fleetwisor.app.navigation.graphs.MainMenuGraph
 import ua.com.fleetwisor.app.navigation.routeClass
 import ua.com.fleetwisor.core.data.local.LocalAuthService
 import ua.com.fleetwisor.core.data.local.LocalAuthServiceImpl
-import ua.com.fleetwisor.core.data.network.HttpClientFactory
 import ua.com.fleetwisor.core.domain.utils.isNotEmptyOrBlank
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
-import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitScaffold
+import ua.com.fleetwisor.core.presentation.theme.components.scaffold.FleetWisorScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottomBar
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar.AgroswitBottomBarScreen
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar.screens
@@ -78,7 +76,7 @@ class MainActivity : ComponentActivity() {
             } else AuthGraph.Auth
             KoinContext {
                 FleetWisorTheme {
-                    AgroswitScaffold(modifier = Modifier.fillMaxSize()) { _ ->
+                    FleetWisorScaffold(modifier = Modifier.fillMaxSize()) { _ ->
                         if (!viewModel.state.isCheckingAuth) {
                             if (viewModel.state.error != emptyUiText) {
                                 ConfirmationDialog(

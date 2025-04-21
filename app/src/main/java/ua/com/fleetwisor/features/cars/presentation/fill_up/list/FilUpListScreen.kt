@@ -25,7 +25,7 @@ import ua.com.agroswit.theme.components.fields.TextFieldAgroswit
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.items.FillUpListItem
-import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitScaffold
+import ua.com.fleetwisor.core.presentation.theme.components.scaffold.FleetWisorScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
 
 @Composable
@@ -55,7 +55,7 @@ fun FilUpListScreen(
     state: FilUpListState,
     onAction: (FilUpListAction) -> Unit,
 ) {
-    AgroswitScaffold(
+    FleetWisorScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
                 title = stringResource(R.string.fillup)

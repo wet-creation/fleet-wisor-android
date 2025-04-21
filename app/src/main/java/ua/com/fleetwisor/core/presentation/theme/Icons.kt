@@ -249,6 +249,9 @@ class AgroswitIcon {
     val odometer: Painter
         @Composable
         get() = painterResource(id = R.drawable.odometer)
+    val download: Painter
+        @Composable
+        get() = painterResource(id = R.drawable.download)
 
 }
 

@@ -16,12 +16,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
-import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitScaffold
+import ua.com.fleetwisor.core.presentation.theme.components.scaffold.FleetWisorScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
 import ua.com.fleetwisor.core.presentation.ui.utils.TabInfo
 import ua.com.fleetwisor.features.cars.presentation.fill_up.common.components.FillUpCheckTab
 import ua.com.fleetwisor.features.cars.presentation.fill_up.common.components.FillUpInfo
-import ua.com.fleetwisor.features.cars.presentation.fill_up.create.FillUpCreateAction
 
 @Composable
 fun FillUpEditRoot(
@@ -64,7 +63,7 @@ fun FillUpEditScreen(
         ),
 
         )
-    AgroswitScaffold(
+    FleetWisorScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
                 title = stringResource(R.string.fill_up_edit_text)

@@ -10,4 +10,9 @@ interface MainMenuSource {
         startDate: LocalDate,
         endDate: LocalDate,
     ): Results<List<CarReportDto>, DataError.Network>
+
+    suspend fun getReportExcel(
+        startDate: LocalDate,
+        endDate: LocalDate,
+    ): Results<ByteArray, DataError.Network>
 }

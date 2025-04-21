@@ -14,17 +14,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import kotlinx.collections.immutable.toImmutableList
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
-import ua.com.fleetwisor.core.presentation.theme.components.scaffold.AgroswitScaffold
+import ua.com.fleetwisor.core.presentation.theme.components.scaffold.FleetWisorScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
 import ua.com.fleetwisor.core.presentation.ui.utils.TabInfo
-import ua.com.fleetwisor.features.cars.domain.models.CarBody
-import ua.com.fleetwisor.features.cars.domain.models.FuelType
-import ua.com.fleetwisor.features.cars.presentation.cars.common.compoents.CarInfoTab
-import ua.com.fleetwisor.features.cars.presentation.cars.common.compoents.InsuranceTab
-import ua.com.fleetwisor.features.cars.presentation.cars.create.CarCreateAction
 import ua.com.fleetwisor.features.cars.presentation.fill_up.common.components.FillUpCheckTab
 import ua.com.fleetwisor.features.cars.presentation.fill_up.common.components.FillUpInfo
 
@@ -69,7 +63,7 @@ fun FillUpCreateScreen(
         ),
 
         )
-    AgroswitScaffold(
+    FleetWisorScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
                 title = stringResource(R.string.fill_up_create_text)

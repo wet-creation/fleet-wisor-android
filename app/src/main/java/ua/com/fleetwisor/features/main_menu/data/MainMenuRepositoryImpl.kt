@@ -2,7 +2,6 @@ package ua.com.fleetwisor.features.main_menu.data
 
 import ua.com.fleetwisor.core.data.network.services.main_menu.MainMenuSource
 import ua.com.fleetwisor.core.data.network.services.main_menu.dto.CarReportDto
-import ua.com.fleetwisor.core.domain.utils.Log
 import ua.com.fleetwisor.core.domain.utils.network.DataError
 import ua.com.fleetwisor.core.domain.utils.network.Results
 import ua.com.fleetwisor.core.domain.utils.network.mapData
@@ -21,6 +20,15 @@ class MainMenuRepositoryImpl(
             .mapData { it?.map { it.asCarReport() } ?: emptyList() }
         return res
     }
+
+    override suspend fun downloadReport(
+        startDate: LocalDate,
+        endDate: LocalDate
+    ): Results<ByteArray, DataError.Network> {
+        return mainMenuSource.getReportExcel(startDate, endDate)
+    }
+
+
 }
 
 fun CarReportDto.asCarReport() = CarReport(

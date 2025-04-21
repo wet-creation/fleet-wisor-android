@@ -15,6 +15,7 @@ data class MainMenuState(
     val error: UiText = emptyUiText,
     val searchCarValue: String = "",
     val isLoading: Boolean = false,
+    val downloadState: DownloadState = DownloadState.Idle,
     val modalBottomSheetState: ModalBottomSheetState = ModalBottomSheetState()
 )
 
@@ -22,3 +23,10 @@ data class ModalBottomSheetState(
     val isOpen: Boolean = false,
     val showReportsList: Boolean = false
 )
+
+sealed interface DownloadState {
+    data class Error(val error: UiText): DownloadState
+    data object Success: DownloadState
+    data object Idle: DownloadState
+    data object Downloading: DownloadState
+}

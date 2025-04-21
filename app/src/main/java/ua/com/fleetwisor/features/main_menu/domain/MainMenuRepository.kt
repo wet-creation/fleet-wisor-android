@@ -11,4 +11,9 @@ interface MainMenuRepository {
         endDate: LocalDate
     ): Results<List<CarReport>, DataError.Network>
 
+
+    suspend fun downloadReport(
+        startDate: LocalDate,
+        endDate: LocalDate
+    ): Results<ByteArray, DataError.Network>
 }
