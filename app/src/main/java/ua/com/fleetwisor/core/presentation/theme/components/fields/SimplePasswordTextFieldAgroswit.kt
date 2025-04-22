@@ -30,7 +30,7 @@ import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 @Composable
 fun SimplePasswordTextFieldAgroswit(
     modifier: Modifier = Modifier,
-    value: String = "",
+    value: String,
     isPasswordVisible: Boolean,
     hint: String,
     error: String? = null,

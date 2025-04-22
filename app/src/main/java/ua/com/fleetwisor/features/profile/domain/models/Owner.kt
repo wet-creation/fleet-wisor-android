@@ -1,4 +1,4 @@
-package ua.com.fleetwisor.features.profile.domain
+package ua.com.fleetwisor.features.profile.domain.models
 
 data class Owner(
     val id: Int = 0,

@@ -156,7 +156,7 @@
     <string name="resend_code">Повторно надіслати код</string>
     <string name="wrong_code">Неправильний код, спробуйте ще раз</string>
     <string name="create_new_password">Створіть новий пароль</string>
-    <string name="password_success_edited">Ваш пароль успішно змінено</string>
+    <string name="user_info_update">Ваші дані оновлено</string>
     <string name="password_recover">Пароль відновлено</string>
     <string name="back_to_login">Повернутися до входу</string>
     <string name="new_password">Новий пароль</string>

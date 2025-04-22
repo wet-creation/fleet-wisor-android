@@ -19,7 +19,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -32,7 +31,7 @@ import ua.com.fleetwisor.features.auth.domain.models.AuthInfo
 
 class HttpClientFactory(
     private val localAuth: LocalAuthService,
-    private val scope: CoroutineScope
+    scope: CoroutineScope
 ) {
     private val _clientFlow = MutableStateFlow<HttpClient>(getClient(AuthInfo()))
     private val httpClientFlow: StateFlow<HttpClient> get() = _clientFlow
@@ -107,6 +106,8 @@ class HttpClientFactory(
                     sendWithoutRequest { request ->
                         request.url.encodedPath != "/api/v1/auth/update/access"
                         request.url.encodedPath != "/api/v1/auth/update/refresh"
+                        request.url.encodedPath != "/api/v1/auth/login"
+                        request.url.encodedPath != "/api/v1/auth/register"
                     }
 
                 }
