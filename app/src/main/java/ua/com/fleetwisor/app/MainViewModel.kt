@@ -32,6 +32,14 @@ class MainViewModel(
                 isCheckingAuth = false
             )
         }
+        viewModelScope.launch(Dispatchers.IO) {
+            authRepository.authInfo().collect {
+                state = state.copy(
+                    isLoggedIn = it.refreshToken != ""
+                )
+            }
+
+        }
     }
 
     private suspend fun updateSession() {
@@ -60,9 +68,7 @@ class MainViewModel(
 
         }
 
-        state = state.copy(
-            isLoggedIn = authRepository.authInfo().first().refreshToken != ""
-        )
+
     }
 
     fun dismissDialog() {

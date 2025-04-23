@@ -17,7 +17,7 @@ class MainMenuSourceImpl(
         startDate: LocalDate,
         endDate: LocalDate
     ): Results<List<CarReportDto>, DataError.Network> {
-        return httpClientFactory.httpClient().get<List<CarReportDto>, Unit>(
+        return httpClientFactory.getClient().get<List<CarReportDto>, Unit>(
             getReports,
             queryParameters = mapOf(
                 "startDate" to startDate.toString(),
@@ -30,7 +30,7 @@ class MainMenuSourceImpl(
         startDate: LocalDate,
         endDate: LocalDate
     ): Results<ByteArray, DataError.Network> {
-        return httpClientFactory.httpClient().get<ByteArray, Unit>(
+        return httpClientFactory.getClient().get<ByteArray, Unit>(
             getReportsExcel,
             queryParameters = mapOf(
                 "startDate" to startDate.toString(),

@@ -46,8 +46,6 @@ class MainActivity : ComponentActivity() {
         localAuthService = LocalAuthServiceImpl(this)
         enableEdgeToEdge()
         setContent {
-            val res = localAuthService?.getAuthInfo()
-                ?.collectAsStateWithLifecycle(AuthInfo(refreshToken = "1"))
             val navController = rememberNavController()
             val backStack by navController.currentBackStackEntryAsState()
             val destination = backStack?.destination?.hierarchy?.first {
@@ -71,7 +69,7 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
-            val startGraph = if (res?.value?.refreshToken?.isNotEmptyOrBlank() == true) {
+            val startGraph = if (viewModel.state.isLoggedIn) {
                 MainMenuGraph
             } else AuthGraph.Auth
             KoinContext {

@@ -137,7 +137,6 @@ class MainMenuViewModel(
     private fun getReports() {
         state = state.copy(isLoading = true)
         viewModelScope.launch(Dispatchers.IO) {
-            delay(2000)
             state = when (val res = repository.getReports(state.startDate, state.endDate)) {
                 is FullResult.Error -> {
                     state.copy(error = res.asErrorUiText())

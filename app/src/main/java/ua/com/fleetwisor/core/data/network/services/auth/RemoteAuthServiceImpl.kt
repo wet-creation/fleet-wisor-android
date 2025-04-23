@@ -21,7 +21,7 @@ class RemoteAuthServiceImpl(
         email: String,
         password: String
     ): Results<AuthInfoDto, DataError.Network> {
-        return httpClientFactory.httpClient().post<LoginDto, AuthInfoDto, Unit>(
+        return httpClientFactory.getClient().post<LoginDto, AuthInfoDto, Unit>(
             postLogin,
             LoginDto(
                 email,
@@ -31,14 +31,14 @@ class RemoteAuthServiceImpl(
     }
 
     override suspend fun register(registerInfo: RegisterDto): EmptyDataAndErrorResult<DataError.Network> {
-        return httpClientFactory.httpClient().post<RegisterDto, Unit, Unit>(
+        return httpClientFactory.getClient().post<RegisterDto, Unit, Unit>(
             postRegister,
             registerInfo
         )
     }
 
     override suspend fun refreshToken(refreshToken: String): Results<AuthInfoDto, DataError.Network> {
-        return httpClientFactory.httpClient().post<TokenRequest, AuthInfoDto, Unit>(
+        return httpClientFactory.getClient().post<TokenRequest, AuthInfoDto, Unit>(
             postRefresh,
             TokenRequest(refreshToken)
         )

@@ -12,7 +12,7 @@ import ua.com.fleetwisor.core.data.network.services.profile.ProfileService
 import ua.com.fleetwisor.core.data.network.services.profile.ProfileServiceImpl
 
 val networkModule = module {
-    single { HttpClientFactory(get(), get()) }
+    single { HttpClientFactory(get(), ) }
 
     singleOf(::RemoteAuthServiceImpl).bind<RemoteAuthService>()
     singleOf(::MainMenuSourceImpl).bind<MainMenuSource>()

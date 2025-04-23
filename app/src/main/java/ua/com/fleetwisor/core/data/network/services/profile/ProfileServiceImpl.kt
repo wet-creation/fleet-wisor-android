@@ -17,14 +17,14 @@ class ProfileServiceImpl(
     private val httpClientFactory: HttpClientFactory
 ) : ProfileService {
     override suspend fun getUser(): Results<OwnerDto, DataError.Network> {
-        return httpClientFactory.httpClient().get(getOwner)
+        return httpClientFactory.getClient().get(getOwner)
     }
 
     override suspend fun changePassword(
         oldPassword: String,
         newPassword: String
     ): EmptyDataAndErrorResult<DataError.Network> {
-        return httpClientFactory.httpClient().put(
+        return httpClientFactory.getClient().put(
             putPassword, ChangePassword(
                 oldPassword, newPassword
             )
@@ -33,7 +33,7 @@ class ProfileServiceImpl(
     }
 
     override suspend fun changeInfo(newOwner: OwnerDto): Results<OwnerDto, DataError.Network> {
-        return httpClientFactory.httpClient().put(
+        return httpClientFactory.getClient().put(
             putInfo, newOwner
         )
     }
