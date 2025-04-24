@@ -238,6 +238,15 @@ private fun NavGraphBuilder.driversGraph(
             DriverCreateRoot(
                 navigateBack = {
                     navController.navigateUp()
+                },
+                navigateCreate = {
+                    navController.navigate(DriversGraph.Driver) {
+                        popUpTo(DriversGraph.Create) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                        restoreState = false
+                    }
                 }
             )
         }

@@ -1,5 +1,6 @@
 package ua.com.fleetwisor.core.presentation.ui.utils
 
+import android.net.Uri
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
@@ -42,7 +43,34 @@ fun rememberAsyncImagePainter(
             )
             .build()
     )
-
+}
+@Composable
+@NonRestartableComposable
+fun rememberAsyncImagePainter(
+    model: Uri?,
+    @DrawableRes placeholder: Int = 0,
+    isSvg: Boolean = false
+): Painter {
+    return if (isSvg) coil.compose.rememberAsyncImagePainter(
+        model = ImageRequest.Builder(
+            LocalContext.current
+        )
+            .data(
+                model
+            )
+            .placeholder(placeholder)
+            .error(placeholder)
+            .decoderFactory(SvgDecoder.Factory())
+            .build()
+    ) else coil.compose.rememberAsyncImagePainter(
+        model = ImageRequest.Builder(
+            LocalContext.current
+        )
+            .data(
+                model
+            )
+            .build()
+    )
 }
 
 

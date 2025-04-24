@@ -4,6 +4,9 @@ package ua.com.fleetwisor.core.data.network
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.delete
+import io.ktor.client.request.forms.FormPart
+import io.ktor.client.request.forms.MultiPartFormDataContent
+import io.ktor.client.request.forms.formData
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.client.request.post
@@ -13,14 +16,20 @@ import io.ktor.client.request.url
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
+import io.ktor.http.Headers
+import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
 import kotlinx.coroutines.CancellationException
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.serializer
 import okio.IOException
 import ua.com.fleetwisor.core.domain.utils.Config
 import ua.com.fleetwisor.core.domain.utils.Log
 import ua.com.fleetwisor.core.domain.utils.network.DataError
 import ua.com.fleetwisor.core.domain.utils.network.FullResult
+import java.io.File
 import kotlin.collections.forEach
 import kotlin.let
 import kotlin.text.contains
@@ -84,6 +93,7 @@ suspend inline fun <reified Response : Any, reified Error> HttpClient.get(
     }
 }
 
+
 suspend inline fun <reified Request, reified Response : Any, reified Error> HttpClient.post(
     route: String,
     body: Request,
@@ -98,6 +108,46 @@ suspend inline fun <reified Request, reified Response : Any, reified Error> Http
                 parameter(key, value)
             }
             contentType(ContentType.Application.Json)
+        }
+    }
+}
+
+data class FilePart(
+    val formPart: FormPart<ByteArray> = FormPart(
+        key = "",
+        value = ByteArray(0),
+    )
+)
+
+suspend inline fun <reified Request : Any, reified Response : Any, reified Error> HttpClient.postMultiPart(
+    route: String,
+    body: Request,
+    fileParameters: List<FilePart> = listOf()
+): FullResult<Response, DataError.Network, Error> {
+    return safeCall {
+        post {
+            Log.d("Hellllooooo")
+            url(constructRoute(route))
+            setBody(
+                MultiPartFormDataContent(
+                    formData {
+                        if (fileParameters.isNotEmpty()) {
+                            fileParameters.forEach {
+                                append(part = it.formPart)
+                            }
+                        }
+                        append(
+                            part = FormPart(
+                                key = "body",
+                                value = Json.encodeToString(serializer<Request>(), body),
+                                headers = Headers.build {
+                                    append(HttpHeaders.ContentType, "application/json")
+                                }
+                            )
+                        )
+                    },
+                )
+            )
         }
     }
 }

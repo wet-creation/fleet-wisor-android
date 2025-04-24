@@ -20,7 +20,9 @@ import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DateRangePickerModal(
-    dateRangePickerState: DateRangePickerState = rememberDateRangePickerState(),
+    dateRangePickerState: DateRangePickerState = rememberDateRangePickerState(
+        selectableDates = DatesUtilToday
+    ),
     onDateRangeSelected: (Pair<Long?, Long?>) -> Unit,
     onDismiss: () -> Unit
 ) {

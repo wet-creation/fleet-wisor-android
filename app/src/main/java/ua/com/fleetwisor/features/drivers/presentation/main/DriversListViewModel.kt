@@ -2,12 +2,21 @@ package ua.com.fleetwisor.features.drivers.presentation.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import ua.com.fleetwisor.core.domain.utils.network.FullResult
+import ua.com.fleetwisor.core.domain.utils.network.mapData
+import ua.com.fleetwisor.core.presentation.ui.utils.asErrorUiText
+import ua.com.fleetwisor.features.drivers.domain.DriverRepository
 
-class DriversListViewModel : ViewModel() {
+class DriversListViewModel(
+    private val repository: DriverRepository
+) : ViewModel() {
 
     private var hasLoadedInitialData = false
 
@@ -15,7 +24,7 @@ class DriversListViewModel : ViewModel() {
     val state = _state
         .onStart {
             if (!hasLoadedInitialData) {
-                /** Load initial data here **/
+                init()
                 hasLoadedInitialData = true
             }
         }
@@ -27,8 +36,43 @@ class DriversListViewModel : ViewModel() {
 
     fun onAction(action: DriversListAction) {
         when (action) {
+            DriversListAction.Refresh -> {
+                init()
+            }
+
+            is DriversListAction.SearchDriver -> {
+                _state.update {
+                    it.copy(
+                        searchValue = action.value,
+                        driversFilter = it.drivers.filter { it.fullName.contains(action.value) }
+                    )
+                }
+            }
+
             else -> {}
         }
+    }
+
+    private fun init() {
+        _state.update { it.copy(isLoading = true) }
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val res = repository.getList()) {
+                is FullResult.Error -> _state.update {
+                    it.copy(
+                        error = res.asErrorUiText()
+                    )
+                }
+
+                is FullResult.Success -> _state.update {
+                    it.copy(
+                        drivers = res.data,
+                        driversFilter = res.data
+                    )
+                }
+            }
+            _state.update { it.copy(isLoading = false) }
+        }
+
     }
 
 }

@@ -1,15 +1,14 @@
 package ua.com.fleetwisor.features.drivers.presentation.main
 
+import ua.com.fleetwisor.core.presentation.ui.utils.UiText
+import ua.com.fleetwisor.core.presentation.ui.utils.emptyUiText
 import ua.com.fleetwisor.features.drivers.domain.models.Driver
 
 data class DriversListState(
-    val paramOne: String = "default",
-    val drivers: List<Driver> = listOf(
-        Driver(
-            name = "Вадим",
-            surname = "Мармеладов",
-            phoneNumber = "+380672898920",
-            driverLicenseNumber = "0147819"
-        )
-    )
+    val drivers: List<Driver> = emptyList(),
+    val driversFilter: List<Driver> = emptyList(),
+    val searchValue: String = "",
+    val isLoading: Boolean = false,
+    val error: UiText = emptyUiText
+
 )

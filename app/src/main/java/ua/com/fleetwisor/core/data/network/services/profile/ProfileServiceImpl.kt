@@ -9,9 +9,9 @@ import ua.com.fleetwisor.core.domain.utils.network.DataError
 import ua.com.fleetwisor.core.domain.utils.network.EmptyDataAndErrorResult
 import ua.com.fleetwisor.core.domain.utils.network.Results
 
-const val getOwner = "/api/v1/owners/me"
-const val putInfo = "/api/v1/owners/update/info"
-const val putPassword = "/api/v1/owners/update/password"
+private const val getOwner = "/api/v1/owners/me"
+private const val putInfo = "/api/v1/owners/update/info"
+private const val putPassword = "/api/v1/owners/update/password"
 
 class ProfileServiceImpl(
     private val httpClientFactory: HttpClientFactory

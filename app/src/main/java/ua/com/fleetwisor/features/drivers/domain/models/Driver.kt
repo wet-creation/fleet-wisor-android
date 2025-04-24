@@ -10,4 +10,7 @@ data class Driver(
     val backLicensePhotoUrl: String = "",
     val birthdayDate: String = "",
     val salary: Double = 0.0,
-)
+) {
+    val fullName: String
+        get() = "$name $surname"
+}

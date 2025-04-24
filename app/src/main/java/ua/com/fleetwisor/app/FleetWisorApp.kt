@@ -11,6 +11,7 @@ import ua.com.fleetwisor.app.di.mainModule
 import ua.com.fleetwisor.core.data.local.di.localModule
 import ua.com.fleetwisor.core.data.network.di.networkModule
 import ua.com.fleetwisor.features.auth.di.authPresentationModule
+import ua.com.fleetwisor.features.drivers.di.driverModule
 import ua.com.fleetwisor.features.main_menu.di.mainMenuModule
 import ua.com.fleetwisor.features.profile.di.profileModule
 
@@ -28,7 +29,8 @@ class FleetWisorApp: Application() {
                 authPresentationModule,
                 mainMenuModule,
                 profileModule,
-                mainModule
+                mainModule,
+                driverModule
             )
         }
     }

@@ -12,8 +12,6 @@ import ua.com.fleetwisor.features.main_menu.presentation.MainMenuViewModel
 
 val mainMenuModule = module {
     singleOf(::MainMenuRepositoryImpl).bind<MainMenuRepository>()
-
-    viewModelOf(::MainMenuViewModel)
     viewModelOf(::MainMenuViewModel)
 
 }
