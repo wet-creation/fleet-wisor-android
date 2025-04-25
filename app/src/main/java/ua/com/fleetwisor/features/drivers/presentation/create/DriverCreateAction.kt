@@ -8,6 +8,7 @@ sealed interface DriverCreateAction {
     data object NavigateBack : DriverCreateAction
     data object OpenDateSelector : DriverCreateAction
     data object DismissDateSelector : DriverCreateAction
+    data object DismissErrorDialog : DriverCreateAction
 
     data class SelectFrontPhoto(val photo: Uri) : DriverCreateAction
     data class SaveDriver(val context: Context) : DriverCreateAction

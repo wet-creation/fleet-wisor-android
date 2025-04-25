@@ -13,6 +13,8 @@ fun LocalDate.formatDate(): String {
 }
 
 fun String.formatDate(): LocalDate {
+    if (!this.isNotEmptyOrBlank())
+        return LocalDate.now()
     val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
         .withLocale(Locale.getDefault())
     return LocalDate.parse(this, formatter)

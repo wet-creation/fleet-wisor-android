@@ -16,7 +16,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ua.com.agroswit.theme.components.buttons.standart.PrimaryButton
-import ua.com.agroswit.theme.components.dialogs.AgroswitDialog
 import ua.com.agroswit.theme.components.select_controls.TextCheckbox
 import ua.com.agroswit.theme.components.select_controls.TextCheckboxState
 import ua.com.fleetwisor.R

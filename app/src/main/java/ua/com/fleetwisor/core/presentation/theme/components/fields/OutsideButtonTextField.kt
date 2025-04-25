@@ -17,7 +17,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
-import ua.com.agroswit.theme.components.buttons.only_icon.PrimaryOnlyIconButton
+import ua.com.fleetwisor.core.presentation.theme.components.buttons.only_icon.PrimaryOnlyIconButton
 
 
 @Composable

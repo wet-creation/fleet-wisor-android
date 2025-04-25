@@ -224,6 +224,7 @@
     <string name="maintenance_date_text">Дата обслуговування</string>
     <string name="want_send_order">Бажаєте відправити заявку</string>
     <string name="want_delete_item">Бажаєте видалити товар</string>
+    <string name="want_delete">Бажаєте видалити?</string>
     <string name="delete">Видалити</string>
     <string name="send">Відправити</string>
     <string name="for_send_you_need_activate_account">Для відправлення заявки потрібно активувати акаунт.</string>
@@ -339,5 +340,6 @@
     <string name="maintenance_edit_text">Догляд редагування</string>
     <string name="download_error">Не вдалося встановити файл</string>
     <string name="download_succes">Файл збережено в Загрузки</string>
+    <string name="want_delete_driver_text">Бажаєте видалити водія?  \nЦю дію неможливо буде скасувати.</string>
 
 </resources>

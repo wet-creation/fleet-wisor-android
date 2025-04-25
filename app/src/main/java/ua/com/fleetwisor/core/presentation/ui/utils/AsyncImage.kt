@@ -14,7 +14,7 @@ import ua.com.fleetwisor.core.domain.utils.ImageUrl
 val buildConfig = Config
 
 internal fun ImageUrl.toImageUrl(): String =
-    if (this.contains("/")) (buildConfig.baseUrl + this) else ("${buildConfig.baseUrl}/$this")
+    if (this.contains("/")) (buildConfig.baseUrl + "/image" + this) else ("${buildConfig.baseUrl}/image/$this")
 
 @Composable
 @NonRestartableComposable
@@ -44,6 +44,7 @@ fun rememberAsyncImagePainter(
             .build()
     )
 }
+
 @Composable
 @NonRestartableComposable
 fun rememberAsyncImagePainter(

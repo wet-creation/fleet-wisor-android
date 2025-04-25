@@ -16,6 +16,7 @@ import ua.com.fleetwisor.core.domain.utils.isDouble
 import ua.com.fleetwisor.core.domain.utils.network.FullResult
 import ua.com.fleetwisor.core.domain.utils.toByteArray
 import ua.com.fleetwisor.core.presentation.ui.utils.asErrorUiText
+import ua.com.fleetwisor.core.presentation.ui.utils.emptyUiText
 import ua.com.fleetwisor.features.drivers.domain.DriverRepository
 import ua.com.fleetwisor.features.drivers.domain.models.CreateDriver
 
@@ -89,6 +90,12 @@ class DriverCreateViewModel(
                 }
             }
 
+            DriverCreateAction.DismissErrorDialog -> {
+                _state.update {
+                    it.copy(error = emptyUiText)
+                }
+            }
+
             is DriverCreateAction.SaveDriver -> {
                 val contentResolver = action.context.contentResolver
                 var frontPhoto: Pair<String, ByteArray>? = null
@@ -107,14 +114,16 @@ class DriverCreateViewModel(
 
                 if (state.value.frontPhoto != null) {
                     frontPhoto =
-                        Pair(contentResolver.getType(state.value.frontPhoto!!)!!,
+                        Pair(
+                            contentResolver.getType(state.value.frontPhoto!!)!!,
                             contentResolver.openInputStream(state.value.frontPhoto!!)
                                 ?.toByteArray()!!
                         )
                 }
                 if (state.value.backPhoto != null)
                     backPhoto =
-                        Pair(contentResolver.getType(state.value.backPhoto!!)!!,
+                        Pair(
+                            contentResolver.getType(state.value.backPhoto!!)!!,
                             contentResolver.openInputStream(state.value.backPhoto!!)
                                 ?.toByteArray()!!
                         )

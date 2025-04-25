@@ -1,4 +1,4 @@
-package ua.com.agroswit.theme.components.dialogs
+package ua.com.fleetwisor.core.presentation.theme.components.dialogs
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth

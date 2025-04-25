@@ -15,4 +15,13 @@ interface DriverRepository {
         back: Pair<String, ByteArray>?
     ): EmptyDataAndErrorResult<DataError.Network>
 
+    suspend fun getDriver(id: Int): Results<Driver, DataError.Network>
+
+    suspend fun editDriver(
+        driver: Driver, front: Pair<String, ByteArray>?,
+        back: Pair<String, ByteArray>?
+    ): Results<Driver, DataError.Network>
+
+    suspend fun deleteDriver(id: Int): EmptyDataAndErrorResult<DataError.Network>
+
 }

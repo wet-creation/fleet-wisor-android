@@ -3,6 +3,7 @@ package ua.com.fleetwisor.features.drivers.presentation.create
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,9 +26,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.androidx.compose.koinViewModel
 import ua.com.agroswit.theme.components.buttons.standart.PrimaryButton
-import ua.com.fleetwisor.core.presentation.theme.components.buttons.standart.SecondaryLongIconButton
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
+import ua.com.fleetwisor.core.presentation.theme.components.buttons.standart.SecondaryLongIconButton
+import ua.com.fleetwisor.core.presentation.theme.components.dialogs.ConfirmationDialog
 import ua.com.fleetwisor.core.presentation.theme.components.fields.LabelTextButton
 import ua.com.fleetwisor.core.presentation.theme.components.fields.LabelTextField
 import ua.com.fleetwisor.core.presentation.theme.components.fields.TitledLabelTextField
@@ -36,6 +38,7 @@ import ua.com.fleetwisor.core.presentation.theme.components.scaffold.FleetWisorS
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
 import ua.com.fleetwisor.core.presentation.theme.components.select_controls.DatePickerModal
 import ua.com.fleetwisor.core.presentation.ui.utils.ObserverAsEvents
+import ua.com.fleetwisor.core.presentation.ui.utils.emptyUiText
 import ua.com.fleetwisor.core.presentation.ui.utils.rememberAsyncImagePainter
 import java.time.LocalDate
 
@@ -94,6 +97,13 @@ private fun DriverCreateScreen(
             }
         )
     }
+    if (state.error != emptyUiText)
+        ConfirmationDialog(
+            text = state.error.asString(),
+            buttonText = stringResource(id = R.string.retry_text)
+        ) {
+            onAction(DriverCreateAction.DismissErrorDialog)
+        }
     FleetWisorScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
@@ -207,7 +217,9 @@ private fun DriverCreateScreen(
                         }
                     else {
                         BorderImage(
-                            modifier = Modifier.size(150.dp),
+                            modifier = Modifier.size(150.dp).clickable {
+                                pickFrontPhoto.launch("image/*")
+                            },
                             image = rememberAsyncImagePainter(state.frontPhoto),
                             contentDescription = ""
                         )
@@ -224,7 +236,9 @@ private fun DriverCreateScreen(
                         }
                     else {
                         BorderImage(
-                            modifier = Modifier.size(150.dp),
+                            modifier = Modifier.size(150.dp).clickable {
+                                pickBackPhoto.launch("image/*")
+                            },
                             image = rememberAsyncImagePainter(state.backPhoto),
                             contentDescription = ""
                         )

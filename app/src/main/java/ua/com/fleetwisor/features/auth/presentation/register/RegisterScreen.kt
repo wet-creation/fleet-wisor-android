@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.koinViewModel
 import ua.com.agroswit.theme.components.buttons.standart.PrimaryButton
-import ua.com.agroswit.theme.components.dialogs.ConfirmationDialog
+import ua.com.fleetwisor.core.presentation.theme.components.dialogs.ConfirmationDialog
 import ua.com.agroswit.theme.components.scaffold.AgroswitBackground
 import ua.com.agroswit.theme.components.validation.PasswordRequirement
 import ua.com.fleetwisor.R

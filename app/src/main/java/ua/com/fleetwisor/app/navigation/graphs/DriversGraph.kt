@@ -8,4 +8,6 @@ data object DriversGraph {
     data object Driver
     @Serializable
     data object Create
+    @Serializable
+    data class Edit(val driverId: Int)
 }

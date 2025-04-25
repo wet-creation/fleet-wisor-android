@@ -14,6 +14,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import androidx.navigation.toRoute
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
+import ua.com.fleetwisor.app.navigation.graphs.AuthGraph
+import ua.com.fleetwisor.app.navigation.graphs.CarsGraph
+import ua.com.fleetwisor.app.navigation.graphs.DriversGraph
+import ua.com.fleetwisor.app.navigation.graphs.MainMenuGraph
+import ua.com.fleetwisor.app.navigation.graphs.ProfileGraph
 import ua.com.fleetwisor.features.auth.presentation.auth.AuthScreenRoot
 import ua.com.fleetwisor.features.auth.presentation.login.LoginScreenRoot
 import ua.com.fleetwisor.features.auth.presentation.register.RegisterScreenRoot
@@ -28,14 +36,11 @@ import ua.com.fleetwisor.features.cars.presentation.maintenance.create.Maintenan
 import ua.com.fleetwisor.features.cars.presentation.maintenance.edit.MaintenanceEditRoot
 import ua.com.fleetwisor.features.cars.presentation.maintenance.list.MaintenanceListRoot
 import ua.com.fleetwisor.features.drivers.presentation.create.DriverCreateRoot
+import ua.com.fleetwisor.features.drivers.presentation.edit.DriversEditRoot
+import ua.com.fleetwisor.features.drivers.presentation.edit.DriversEditViewModel
 import ua.com.fleetwisor.features.drivers.presentation.main.DriversListRoot
 import ua.com.fleetwisor.features.main_menu.presentation.MainMenuScreenRoot
 import ua.com.fleetwisor.features.profile.presentation.ProfileRoot
-import ua.com.fleetwisor.app.navigation.graphs.AuthGraph
-import ua.com.fleetwisor.app.navigation.graphs.CarsGraph
-import ua.com.fleetwisor.app.navigation.graphs.DriversGraph
-import ua.com.fleetwisor.app.navigation.graphs.MainMenuGraph
-import ua.com.fleetwisor.app.navigation.graphs.ProfileGraph
 import kotlin.reflect.KClass
 
 
@@ -227,6 +232,7 @@ private fun NavGraphBuilder.driversGraph(
         composable<DriversGraph.Driver> {
             DriversListRoot(
                 navigateEdit = {
+                    navController.navigate(DriversGraph.Edit(it))
 
                 },
                 navigateCreate = {
@@ -248,6 +254,14 @@ private fun NavGraphBuilder.driversGraph(
                         restoreState = false
                     }
                 }
+            )
+        }
+        composable<DriversGraph.Edit> {
+            val id = it.toRoute<DriversGraph.Edit>().driverId
+            val viewModel = koinViewModel<DriversEditViewModel>(parameters = { parametersOf(id) })
+            DriversEditRoot(
+                viewModel = viewModel,
+                navigateBack = { navController.navigateUp() }
             )
         }
 
