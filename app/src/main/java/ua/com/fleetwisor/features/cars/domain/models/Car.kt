@@ -13,4 +13,7 @@ data class Car(
     val fuelTypes: List<FuelType> = emptyList(),
     val carBody: CarBody = CarBody(),
     val drivers: List<Driver> = emptyList(),
-)
+) {
+    val name
+        get() = "$color $brandName $model"
+}

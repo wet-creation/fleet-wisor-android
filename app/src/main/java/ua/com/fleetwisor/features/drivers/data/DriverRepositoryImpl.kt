@@ -57,7 +57,7 @@ private fun Driver.asDriverEditDto(): EditDriverDto {
     )
 }
 
-private fun DriverDto.asDriver(): Driver {
+fun DriverDto.asDriver(): Driver {
     return Driver(
         id = id,
         name = name,
