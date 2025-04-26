@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ua.com.agroswit.theme.components.buttons.standart.PrimaryButton
 import ua.com.fleetwisor.R
+import ua.com.fleetwisor.core.domain.utils.formatTime
 import ua.com.fleetwisor.core.domain.utils.toPriceString
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.buttons.only_icon.SecondaryOnlyIconButton
@@ -34,10 +35,7 @@ import ua.com.fleetwisor.core.presentation.theme.components.buttons.standart.Car
 import ua.com.fleetwisor.core.presentation.theme.components.fields.SimpleTextFieldAgroswit
 import ua.com.fleetwisor.core.presentation.theme.components.fields.TitledLabelTextButton
 import ua.com.fleetwisor.core.presentation.theme.components.fields.TitledLabelTextField
-import ua.com.fleetwisor.features.cars.domain.models.FillUp
 import ua.com.fleetwisor.features.cars.domain.models.Maintenance
-import ua.com.fleetwisor.features.cars.presentation.fill_up.create.FillUpCreateAction
-import ua.com.fleetwisor.features.cars.presentation.fill_up.edit.FillUpEditAction
 import ua.com.fleetwisor.features.cars.presentation.maintenance.create.MaintenanceCreateAction
 import ua.com.fleetwisor.features.cars.presentation.maintenance.edit.MaintenanceEditAction
 
@@ -75,7 +73,7 @@ inline fun <reified Action> MaintenanceInfo(
                 TitledLabelTextButton(
                     modifier = Modifier.fillMaxWidth(),
                     icon = FleetWisorTheme.icons.calendar,
-                    text = maintenance.time,
+                    text = maintenance.time.formatTime(),
                     placeholder = "",
                     titleText = stringResource(R.string.fill_up_date_text) + "*",
                 ) { }

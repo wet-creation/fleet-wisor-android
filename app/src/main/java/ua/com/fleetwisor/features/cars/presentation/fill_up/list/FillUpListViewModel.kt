@@ -35,6 +35,16 @@ class FillUpListViewModel(
 
     fun onAction(action: FilUpListAction) {
         when (action) {
+            is FilUpListAction.InputSearch -> {
+                _state.update {
+                    it.copy(
+                        filteredFillUps = it.fillUps.filter { it.car.name.contains(action.value, true) }
+                    )
+                }
+            }
+            FilUpListAction.Refresh -> {
+                init()
+            }
             else -> {}
         }
     }

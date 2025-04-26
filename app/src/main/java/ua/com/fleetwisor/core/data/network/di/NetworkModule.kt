@@ -10,6 +10,8 @@ import ua.com.fleetwisor.core.data.network.services.car.fillup.FillUpService
 import ua.com.fleetwisor.core.data.network.services.car.fillup.FillUpServiceImpl
 import ua.com.fleetwisor.core.data.network.services.car.main.CarService
 import ua.com.fleetwisor.core.data.network.services.car.main.CarServiceImpl
+import ua.com.fleetwisor.core.data.network.services.car.maintenance.MaintenanceService
+import ua.com.fleetwisor.core.data.network.services.car.maintenance.MaintenanceServiceImpl
 import ua.com.fleetwisor.core.data.network.services.driver.DriverService
 import ua.com.fleetwisor.core.data.network.services.driver.DriverServiceImpl
 import ua.com.fleetwisor.core.data.network.services.main_menu.MainMenuSource
@@ -26,5 +28,6 @@ val networkModule = module {
     singleOf(::DriverServiceImpl).bind<DriverService>()
     singleOf(::CarServiceImpl).bind<CarService>()
     singleOf(::FillUpServiceImpl).bind<FillUpService>()
+    singleOf(::MaintenanceServiceImpl).bind<MaintenanceService>()
 
 }

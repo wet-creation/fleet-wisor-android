@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.com.fleetwisor.core.domain.utils.network.FullResult
-import ua.com.fleetwisor.core.domain.utils.network.mapData
 import ua.com.fleetwisor.core.presentation.ui.utils.asErrorUiText
 import ua.com.fleetwisor.features.drivers.domain.DriverRepository
 
@@ -44,7 +43,7 @@ class DriversListViewModel(
                 _state.update {
                     it.copy(
                         searchValue = action.value,
-                        driversFilter = it.drivers.filter { it.fullName.contains(action.value) }
+                        driversFilter = it.drivers.filter { it.fullName.contains(action.value, true) }
                     )
                 }
             }

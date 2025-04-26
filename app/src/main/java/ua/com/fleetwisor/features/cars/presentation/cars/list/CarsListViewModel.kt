@@ -39,7 +39,7 @@ class CarsListViewModel(
                 _state.update {
                     it.copy(
                         searchValue = action.value,
-                        carsFilter = it.cars.filter { it.name.contains(action.value) }
+                        carsFilter = it.cars.filter { it.name.contains(action.value, true) }
                     )
                 }
             }
