@@ -12,9 +12,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -22,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ua.com.agroswit.theme.components.buttons.standart.PrimaryButton
 import ua.com.fleetwisor.R
+import ua.com.fleetwisor.core.domain.utils.formatTime
 import ua.com.fleetwisor.core.domain.utils.toPriceString
 import ua.com.fleetwisor.core.domain.utils.toVolumeString
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
@@ -38,11 +36,7 @@ inline fun <reified Action> FillUpInfo(
     fillUp: FillUp,
     crossinline onAction: (Action) -> Unit,
 ) {
-    val carName by remember {
-        derivedStateOf {
-            "${fillUp.car.color ?: ""} ${fillUp.car.brandName} ${fillUp.car.model ?: ""}"
-        }
-    }
+
     val editMode = if (FillUpCreateAction is Action) false
     else if (FillUpEditAction is Action) true
     else return
@@ -58,7 +52,7 @@ inline fun <reified Action> FillUpInfo(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             CarSelectionButton(
-                text = carName,
+                text = fillUp.car.name,
             ) { }
             HorizontalDivider()
             Column(
@@ -67,7 +61,7 @@ inline fun <reified Action> FillUpInfo(
                 TitledLabelTextButton(
                     modifier = Modifier.fillMaxWidth(),
                     icon = FleetWisorTheme.icons.calendar,
-                    text = fillUp.time,
+                    text = fillUp.time.formatTime(),
                     placeholder = "",
                     titleText = stringResource(R.string.fill_up_date_text) + "*",
                 ) { }

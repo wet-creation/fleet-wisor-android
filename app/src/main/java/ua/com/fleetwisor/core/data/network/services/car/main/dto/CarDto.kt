@@ -1,4 +1,4 @@
-package ua.com.fleetwisor.core.data.network.services.car.dto
+package ua.com.fleetwisor.core.data.network.services.car.main.dto
 
 import kotlinx.serialization.Serializable
 import ua.com.fleetwisor.core.data.network.services.driver.dto.DriverDto

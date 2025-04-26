@@ -1,6 +1,6 @@
-package ua.com.fleetwisor.core.data.network.services.car
+package ua.com.fleetwisor.core.data.network.services.car.main
 
-import ua.com.fleetwisor.core.data.network.services.car.dto.CarDto
+import ua.com.fleetwisor.core.data.network.services.car.main.dto.CarDto
 import ua.com.fleetwisor.core.domain.utils.network.DataError
 import ua.com.fleetwisor.core.domain.utils.network.Results
 

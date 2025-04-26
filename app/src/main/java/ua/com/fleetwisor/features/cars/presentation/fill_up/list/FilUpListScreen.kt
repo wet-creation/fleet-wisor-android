@@ -10,19 +10,25 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
+import org.koin.androidx.compose.koinViewModel
 import ua.com.agroswit.theme.components.fields.TextFieldAgroswit
 import ua.com.fleetwisor.R
+import ua.com.fleetwisor.core.domain.utils.formatTime
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.items.FillUpListItem
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.FleetWisorScaffold
@@ -30,7 +36,7 @@ import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFille
 
 @Composable
 fun FilUpListRoot(
-    viewModel: FilUpListViewModel = viewModel(),
+    viewModel: FillUpListViewModel = koinViewModel(),
     navigateBack: () -> Unit,
     navigateEdit: (Int) -> Unit,
     navigateCreate: () -> Unit
@@ -41,20 +47,23 @@ fun FilUpListRoot(
         state = state,
         onAction = {
             viewModel.onAction(it)
-            when(it) {
+            when (it) {
                 FilUpListAction.NavigateBack -> navigateBack()
                 FilUpListAction.NavigateCreate -> navigateCreate()
                 is FilUpListAction.NavigateEdit -> navigateEdit(it.id)
+                else -> {}
             }
         }
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FilUpListScreen(
     state: FilUpListState,
     onAction: (FilUpListAction) -> Unit,
 ) {
+    val pullToRefreshState = rememberPullToRefreshState()
     FleetWisorScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(
@@ -94,25 +103,48 @@ fun FilUpListScreen(
         ) {
             TextFieldAgroswit(
                 icon = FleetWisorTheme.icons.search,
-                value = "",
-                hint = "Пошук водія",
-                onValueChange = {}
-            )
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                item {
-                    Spacer(Modifier)
+                value = state.searchValue,
+                hint = stringResource(R.string.search_text),
+                onValueChange = {
+                    onAction(FilUpListAction.InputSearch(it))
                 }
-                items(state.fillUps) { fillUp ->
-                    FillUpListItem(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable {
-                                onAction(FilUpListAction.NavigateEdit(fillUp.id))
-                            },
-                        title = "${fillUp.car.color} ${fillUp.car.brandName} ${fillUp.car.model}",
-                        firstText = fillUp.time,
-                        secondText = fillUp.price.toString()
+            )
+            PullToRefreshBox(
+                state = pullToRefreshState,
+                isRefreshing = state.isLoading,
+                onRefresh = {
+                    onAction(FilUpListAction.Refresh)
+                },
+                indicator = {
+                    Indicator(
+                        modifier = Modifier.align(Alignment.TopCenter),
+                        isRefreshing = state.isLoading,
+                        containerColor = FleetWisorTheme.colors.brandPrimaryNormal,
+                        color = FleetWisorTheme.colors.brandSecondaryNormal,
+                        state = pullToRefreshState
                     )
+
+                }
+            ) {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    item {
+                        Spacer(Modifier)
+                    }
+                    items(state.filteredFillUps) { fillUp ->
+                        FillUpListItem(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    onAction(FilUpListAction.NavigateEdit(fillUp.id))
+                                },
+                            title = fillUp.car.name,
+                            firstText = fillUp.time.formatTime(),
+                            secondText = fillUp.price.toString()
+                        )
+                    }
                 }
             }
         }
