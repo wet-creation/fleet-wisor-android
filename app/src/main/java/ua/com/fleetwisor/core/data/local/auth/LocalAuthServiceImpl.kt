@@ -1,29 +1,25 @@
-package ua.com.fleetwisor.core.data.local
+package ua.com.fleetwisor.core.data.local.auth
 
 import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import ua.com.fleetwisor.core.data.local.dataStore
 import ua.com.fleetwisor.features.auth.domain.models.AuthInfo
-private const val DATASTORE_NAME = "settings"
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = DATASTORE_NAME)
 
 class LocalAuthServiceImpl(
     private val context: Context,
 ) : LocalAuthService {
     private val refreshToken = stringPreferencesKey("refreshToken")
     private val accessToken = stringPreferencesKey("accessToken")
-
     override suspend fun saveAuthInfo(authInfo: AuthInfo) {
         context.dataStore.edit {
             it[refreshToken] = authInfo.refreshToken
             it[accessToken] = authInfo.accessToken
         }
+
     }
 
     override fun getAuthInfo(): Flow<AuthInfo> {

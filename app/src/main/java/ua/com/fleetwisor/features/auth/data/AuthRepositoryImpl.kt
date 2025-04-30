@@ -2,7 +2,7 @@ package ua.com.fleetwisor.features.auth.data
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import ua.com.fleetwisor.core.data.local.LocalAuthService
+import ua.com.fleetwisor.core.data.local.auth.LocalAuthService
 import ua.com.fleetwisor.core.data.network.services.auth.RemoteAuthService
 import ua.com.fleetwisor.core.data.network.services.auth.dto.AuthInfoDto
 import ua.com.fleetwisor.core.data.network.services.auth.dto.RegisterDto

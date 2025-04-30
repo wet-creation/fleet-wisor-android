@@ -1,4 +1,4 @@
-package ua.com.fleetwisor.core.data.local
+package ua.com.fleetwisor.core.data.local.auth
 
 import kotlinx.coroutines.flow.Flow
 import ua.com.fleetwisor.features.auth.domain.models.AuthInfo

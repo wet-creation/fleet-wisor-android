@@ -17,7 +17,7 @@ import io.ktor.http.encodedPath
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.Json
-import ua.com.fleetwisor.core.data.local.LocalAuthService
+import ua.com.fleetwisor.core.data.local.auth.LocalAuthService
 import ua.com.fleetwisor.core.data.network.services.auth.dto.AuthInfoDto
 import ua.com.fleetwisor.core.data.network.services.auth.dto.TokenRequest
 import ua.com.fleetwisor.core.domain.utils.network.FullResult

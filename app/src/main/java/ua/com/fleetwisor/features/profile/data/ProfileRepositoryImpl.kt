@@ -1,22 +1,31 @@
 package ua.com.fleetwisor.features.profile.data
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import ua.com.fleetwisor.core.data.local.settings.LocalSettingsService
 import ua.com.fleetwisor.core.data.network.services.common.FuelTypeNCarBodyService
 import ua.com.fleetwisor.core.data.network.services.common.dto.UnitsUpdate
 import ua.com.fleetwisor.core.data.network.services.profile.ProfileService
 import ua.com.fleetwisor.core.data.network.services.profile.dto.OwnerDto
 import ua.com.fleetwisor.core.data.network.services.profile.dto.UserSettingsDto
 import ua.com.fleetwisor.core.data.network.services.profile.dto.UserSettingsUpdate
+import ua.com.fleetwisor.core.domain.utils.Log
 import ua.com.fleetwisor.core.domain.utils.network.DataError
 import ua.com.fleetwisor.core.domain.utils.network.EmptyDataAndErrorResult
+import ua.com.fleetwisor.core.domain.utils.network.FullResult
 import ua.com.fleetwisor.core.domain.utils.network.Results
 import ua.com.fleetwisor.core.domain.utils.network.mapData
 import ua.com.fleetwisor.features.cars.domain.models.FuelType
 import ua.com.fleetwisor.features.profile.domain.ProfileRepository
+import ua.com.fleetwisor.features.profile.domain.models.FuelUnits
 import ua.com.fleetwisor.features.profile.domain.models.Owner
 import ua.com.fleetwisor.features.profile.domain.models.UserSettings
 
 class ProfileRepositoryImpl(
     private val profileService: ProfileService,
+    private val localSettingsService: LocalSettingsService,
     private val fuelTypeService: FuelTypeNCarBodyService
 ) : ProfileRepository {
     override suspend fun getUser(): Results<Owner, DataError.Network> {
@@ -32,16 +41,20 @@ class ProfileRepositoryImpl(
         return profileService.getUserSettings().mapData { it?.asUserSettings() ?: UserSettings() }
     }
 
-    override suspend fun saveUserSettings(userSettings: Map<Int, Int>): EmptyDataAndErrorResult<DataError.Network> {
-        return profileService.saveUserSettings(
+    override suspend fun saveUserSettings(userSettings: Map<Int, FuelUnits>): EmptyDataAndErrorResult<DataError.Network> {
+        val res = profileService.saveUserSettings(
             userSettings = UserSettingsUpdate(
                 fuelUnits = userSettings.map { (fuel, unit) ->
                     UnitsUpdate(
                         idFuelType = fuel,
-                        idUnit = unit
+                        idUnit = unit.id
                     )
                 }
             ))
+        if (res is FullResult.Success)
+            localSettingsService.saveFuelType(userSettings)
+
+        return res
     }
 
     override suspend fun changePassword(

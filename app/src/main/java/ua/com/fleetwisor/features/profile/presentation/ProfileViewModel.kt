@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.com.fleetwisor.R
-import ua.com.fleetwisor.core.data.local.LocalAuthService
+import ua.com.fleetwisor.core.data.local.auth.LocalAuthService
 import ua.com.fleetwisor.core.domain.utils.network.DataError
 import ua.com.fleetwisor.core.domain.utils.network.FullResult
 import ua.com.fleetwisor.core.domain.utils.validators.UserDataValidator
@@ -197,7 +197,7 @@ class ProfileViewModel(
 
             ProfileAction.SaveFuelTypeSettings -> {
                 val map =
-                    state.value.fuelTypeSettings.entries.associate { (key, value) -> key.id to value.id }
+                    state.value.fuelTypeSettings.entries.associate { (key, value) -> key.id to value }
                 viewModelScope.launch(Dispatchers.IO) {
                     _state.update { it.copy(savingInProgress = true) }
 
