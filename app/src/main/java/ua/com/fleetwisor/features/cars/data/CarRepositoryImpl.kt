@@ -1,16 +1,12 @@
 package ua.com.fleetwisor.features.cars.data
 
 import ua.com.fleetwisor.core.data.network.services.car.main.CarService
-import ua.com.fleetwisor.core.data.network.services.car.main.dto.CarBodyDto
 import ua.com.fleetwisor.core.data.network.services.car.main.dto.CarDto
-import ua.com.fleetwisor.core.data.network.services.car.main.dto.FuelTypeDto
 import ua.com.fleetwisor.core.domain.utils.network.DataError
 import ua.com.fleetwisor.core.domain.utils.network.Results
 import ua.com.fleetwisor.core.domain.utils.network.mapData
 import ua.com.fleetwisor.features.cars.domain.CarRepository
 import ua.com.fleetwisor.features.cars.domain.models.Car
-import ua.com.fleetwisor.features.cars.domain.models.CarBody
-import ua.com.fleetwisor.features.cars.domain.models.FuelType
 import ua.com.fleetwisor.features.drivers.data.asDriver
 
 class CarRepositoryImpl(
@@ -37,14 +33,5 @@ fun CarDto.asCar(): Car {
     )
 }
 
-private fun FuelTypeDto.asFuelType() = FuelType(
-    id = id,
-    name = name
-)
-
-private fun CarBodyDto.asCarBody() = CarBody(
-    id = id,
-    name = name
-)
 
 

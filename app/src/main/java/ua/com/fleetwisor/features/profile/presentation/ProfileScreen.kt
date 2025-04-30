@@ -1,13 +1,16 @@
 package ua.com.fleetwisor.features.profile.presentation
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -26,6 +29,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.androidx.compose.koinViewModel
 import ua.com.agroswit.theme.components.buttons.standart.PrimaryButton
+import ua.com.fleetwisor.core.presentation.theme.components.dropdown.SelectedDropDown
+import ua.com.agroswit.theme.components.select_controls.DropDownItemState
 import ua.com.fleetwisor.core.presentation.theme.components.dialogs.ConfirmationDialog
 import ua.com.agroswit.theme.components.validation.PasswordRequirement
 import ua.com.fleetwisor.R
@@ -46,8 +51,7 @@ fun ProfileRoot(
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     ProfileScreen(
-        state = state,
-        onAction = viewModel::onAction
+        state = state, onAction = viewModel::onAction
     )
 }
 
@@ -60,33 +64,42 @@ fun ProfileScreen(
     val snackBarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(state.saved) {
-        if (state.saved && state.error == emptyUiText && state.passwordError == emptyUiText)
-            snackBarHostState.showSnackbar(
-                UiText.StringResource(R.string.user_info_update).asString(context),
-                duration = SnackbarDuration.Long
-            )
+        if (state.saved && state.error == emptyUiText && state.passwordError == emptyUiText) snackBarHostState.showSnackbar(
+            UiText.StringResource(R.string.user_info_update).asString(context),
+            duration = SnackbarDuration.Long
+        )
     }
 
-    if (state.error != emptyUiText)
-        ConfirmationDialog(
-            text = state.error.asString(),
-            buttonText = stringResource(id = R.string.retry_text)
-        ) {
-            onAction(ProfileAction.OnErrorCloseClick)
-        }
+    if (state.error != emptyUiText) ConfirmationDialog(
+        text = state.error.asString(), buttonText = stringResource(id = R.string.retry_text)
+    ) {
+        onAction(ProfileAction.OnErrorCloseClick)
+    }
 
-    FleetWisorScaffold(
-        topAppBar = {
-            SimpleFilledAgroswitTopAppBar(
-                title = stringResource(R.string.profile_text)
-            )
-        },
-        hasBottomBar = true,
-        snackbarHost = {
-            SnackbarHost(snackBarHostState)
-        }
+    FleetWisorScaffold(topAppBar = {
+        SimpleFilledAgroswitTopAppBar(
+            title = stringResource(R.string.profile_text)
+        )
+    }, hasBottomBar = true, snackbarHost = {
+        SnackbarHost(snackBarHostState)
+    }
 
     ) { paddingValue ->
+        if (state.isLoading) {
+            Box(
+                Modifier
+                    .padding(
+                        start = 20.dp,
+                        end = 20.dp,
+                        top = paddingValue.calculateTopPadding(),
+                        bottom = paddingValue.calculateBottomPadding()
+                    )
+                    .fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(color = FleetWisorTheme.colors.brandPrimaryNormal)
+            }
+        }
         Column(
             verticalArrangement = Arrangement.spacedBy(20.dp),
             modifier = Modifier
@@ -146,6 +159,56 @@ fun ProfileScreen(
                 }
                 HorizontalDivider()
             }
+            if (state.fuelTypeSettings.isNotEmpty())
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    Text(
+                        stringResource(R.string.fuel_type_settings),
+                        color = FleetWisorTheme.colors.brandPrimaryMedium,
+                        style = FleetWisorTheme.typography.headlineMedium
+                    )
+                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        state.fuelTypeSettings.forEach { (fuelType, unit) ->
+                            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                Text(
+                                    modifier = Modifier.weight(0.3f),
+                                    text = fuelType.name,
+                                    style = FleetWisorTheme.typography.titleLarge,
+                                    color = FleetWisorTheme.colors.brandPrimaryLight
+                                )
+                                SelectedDropDown(
+                                    modifier = Modifier.weight(0.7f),
+                                    selectedItem = unit.id,
+                                    displayedItemsCount = fuelType.units.size + 1,
+                                    overlapping = true,
+                                    items = {
+                                        fuelType.units.map {
+                                            DropDownItemState(
+                                                id = it.id,
+                                                text = it.name
+                                            )
+                                        }
+                                    }
+                                ) {
+                                    onAction(ProfileAction.SelectUnit(fuelType, it))
+                                }
+                            }
+
+                        }
+                    }
+                    PrimaryButton(
+                        isLoading = state.savingInProgress,
+                        modifier = Modifier.align(Alignment.CenterHorizontally),
+                        text = stringResource(R.string.apply_text),
+                        contentPadding = PaddingValues(vertical = 12.dp, horizontal = 32.dp)
+                    ) {
+                        onAction(ProfileAction.SaveFuelTypeSettings)
+                    }
+                    HorizontalDivider()
+
+                }
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -163,8 +226,7 @@ fun ProfileScreen(
                         hint = stringResource(R.string.old_password),
                         onValueChange = {
                             onAction(ProfileAction.InputOldPassword(it))
-                        }
-                    ) {
+                        }) {
                         onAction(ProfileAction.TogglePasswordVisibility)
                     }
                     SimplePasswordTextFieldAgroswit(
@@ -191,8 +253,7 @@ fun ProfileScreen(
                                     isValid = state.isPasswordValid.hasNumber
                                 )
                             }
-                        }
-                    ) {
+                        }) {
                         onAction(ProfileAction.TogglePasswordVisibility)
 
                     }
@@ -247,8 +308,6 @@ fun ProfileScreen(
 private fun Preview() {
     FleetWisorTheme {
         ProfileScreen(
-            state = ProfileState(),
-            onAction = {}
-        )
+            state = ProfileState(), onAction = {})
     }
 }

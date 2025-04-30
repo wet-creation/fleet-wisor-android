@@ -3,6 +3,7 @@ package ua.com.fleetwisor.features.profile.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -18,7 +19,9 @@ import ua.com.fleetwisor.core.domain.utils.validators.UserDataValidator
 import ua.com.fleetwisor.core.presentation.ui.utils.UiText.*
 import ua.com.fleetwisor.core.presentation.ui.utils.asErrorUiText
 import ua.com.fleetwisor.core.presentation.ui.utils.emptyUiText
+import ua.com.fleetwisor.features.cars.domain.models.FuelType
 import ua.com.fleetwisor.features.profile.domain.ProfileRepository
+import ua.com.fleetwisor.features.profile.domain.models.FuelUnits
 
 class ProfileViewModel(
     private val localAuthService: LocalAuthService,
@@ -40,12 +43,39 @@ class ProfileViewModel(
         initialValue = ProfileState()
     )
 
-    fun init() {
+    private fun init() {
+        _state.update {
+            it.copy(
+                isLoading = true
+            )
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            val fuelTypes = async { repository.getAllFuelTypes() }.await()
+            val userSettings = async { repository.getUserSettings() }.await()
+            if (fuelTypes is FullResult.Success && userSettings is FullResult.Success) {
+                _state.update {
+                    it.copy(
+                        fuelTypeSettings = mapUnitsToFuelTypes(
+                            userSettings.data.fuelUnits,
+                            fuelTypes.data,
+                        )
+                    )
+                }
+            }
+
+        }
+
         viewModelScope.launch(Dispatchers.IO) {
             when (val res = repository.getUser()) {
                 is FullResult.Error -> {}
                 is FullResult.Success -> {
-                    _state.update { it.copy(newOwner = res.data, owner = res.data) }
+                    _state.update {
+                        it.copy(
+                            newOwner = res.data,
+                            owner = res.data,
+                            isLoading = false
+                        )
+                    }
                 }
             }
         }
@@ -109,6 +139,19 @@ class ProfileViewModel(
                 _state.update { it.copy(newOwner = it.newOwner.copy(surname = action.value)) }
             }
 
+            is ProfileAction.SelectUnit -> {
+                val unit = action.type.units.find { it.id == action.unitId }
+                unit?.let {
+                    val newMap = state.value.fuelTypeSettings.toMutableMap()
+                    newMap[action.type] = unit
+                    _state.update {
+                        it.copy(
+                            fuelTypeSettings = newMap
+                        )
+                    }
+                }
+            }
+
             ProfileAction.SaveNewPassword -> {
                 if (state.value.newPassword == state.value.confirmPassword)
                     viewModelScope.launch(
@@ -151,7 +194,48 @@ class ProfileViewModel(
                 _state.update { it.copy(error = emptyUiText) }
 
             }
+
+            ProfileAction.SaveFuelTypeSettings -> {
+                val map =
+                    state.value.fuelTypeSettings.entries.associate { (key, value) -> key.id to value.id }
+                viewModelScope.launch(Dispatchers.IO) {
+                    _state.update { it.copy(savingInProgress = true) }
+
+                    when (val res = repository.saveUserSettings(map)) {
+                        is FullResult.Error -> {
+                            _state.update { it.copy(error = res.asErrorUiText()) }
+                        }
+
+                        is FullResult.Success -> {
+
+                        }
+                    }
+                    _state.update { it.copy(savingInProgress = false, saved = true) }
+                    delay(900)
+                    _state.update { it.copy(saved = false) }
+
+                }
+
+
+            }
         }
     }
+
+    private fun mapUnitsToFuelTypes(
+        unitsToFind: List<FuelUnits>,
+        fuelTypes: List<FuelType>
+    ): Map<FuelType, FuelUnits> {
+        val unitIdToUnit = unitsToFind.associateBy { it.id }
+        val res = fuelTypes.associateWith { fuelType ->
+            fuelType.units.firstOrNull { unit ->
+                val containsKey = unitIdToUnit.containsKey(unit.id)
+                containsKey
+            } ?: fuelType.units[0]
+
+        }
+
+        return res
+    }
+
 
 }

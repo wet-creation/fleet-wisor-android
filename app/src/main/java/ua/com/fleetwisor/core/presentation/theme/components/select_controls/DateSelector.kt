@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.agroswit.theme.components.buttons.standart.PrimaryButton
 import ua.com.agroswit.theme.components.buttons.standart.ThirdAgroswitButton
-import ua.com.agroswit.theme.components.dropdown.SelectedDropDown
+import ua.com.fleetwisor.core.presentation.theme.components.dropdown.SelectedDropDown
 import ua.com.agroswit.theme.components.select_controls.DropDownItemState
 import ua.com.fleetwisor.R
 import java.text.DateFormatSymbols
@@ -77,7 +77,7 @@ fun DateSelector(
             SelectedDropDown(
                 Modifier.weight(1f),
                 containerHeight = 28.dp,
-                selectedItemIndex = selectedDay - 1,
+                selectedItem = selectedDay - 1,
                 displayedItemsCount = 6,
                 overlapping = false,
                 items = {
@@ -92,7 +92,7 @@ fun DateSelector(
             SelectedDropDown(
                 Modifier.weight(1f),
                 containerHeight = 28.dp,
-                selectedItemIndex = selectedMonth - 1,
+                selectedItem = selectedMonth - 1,
                 displayedItemsCount = 6,
                 overlapping = false,
                 items = {
@@ -110,7 +110,7 @@ fun DateSelector(
                 Modifier.weight(1f),
                 containerHeight = 28.dp,
 
-                selectedItemIndex = selectedYear,
+                selectedItem = selectedYear,
                 displayedItemsCount = 6,
                 overlapping = false,
                 items = {

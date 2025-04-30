@@ -1,19 +1,47 @@
 package ua.com.fleetwisor.features.profile.data
 
+import ua.com.fleetwisor.core.data.network.services.common.FuelTypeNCarBodyService
+import ua.com.fleetwisor.core.data.network.services.common.dto.UnitsUpdate
 import ua.com.fleetwisor.core.data.network.services.profile.ProfileService
 import ua.com.fleetwisor.core.data.network.services.profile.dto.OwnerDto
+import ua.com.fleetwisor.core.data.network.services.profile.dto.UserSettingsDto
+import ua.com.fleetwisor.core.data.network.services.profile.dto.UserSettingsUpdate
 import ua.com.fleetwisor.core.domain.utils.network.DataError
 import ua.com.fleetwisor.core.domain.utils.network.EmptyDataAndErrorResult
 import ua.com.fleetwisor.core.domain.utils.network.Results
 import ua.com.fleetwisor.core.domain.utils.network.mapData
+import ua.com.fleetwisor.features.cars.domain.models.FuelType
 import ua.com.fleetwisor.features.profile.domain.ProfileRepository
 import ua.com.fleetwisor.features.profile.domain.models.Owner
+import ua.com.fleetwisor.features.profile.domain.models.UserSettings
 
 class ProfileRepositoryImpl(
-    private val profileService: ProfileService
+    private val profileService: ProfileService,
+    private val fuelTypeService: FuelTypeNCarBodyService
 ) : ProfileRepository {
     override suspend fun getUser(): Results<Owner, DataError.Network> {
         return profileService.getUser().mapData { it?.asOwner() ?: Owner() }
+    }
+
+    override suspend fun getAllFuelTypes(): Results<List<FuelType>, DataError.Network> {
+        return fuelTypeService.getAllFuelTypes()
+            .mapData { it?.map { it.asFuelType() } ?: emptyList() }
+    }
+
+    override suspend fun getUserSettings(): Results<UserSettings, DataError.Network> {
+        return profileService.getUserSettings().mapData { it?.asUserSettings() ?: UserSettings() }
+    }
+
+    override suspend fun saveUserSettings(userSettings: Map<Int, Int>): EmptyDataAndErrorResult<DataError.Network> {
+        return profileService.saveUserSettings(
+            userSettings = UserSettingsUpdate(
+                fuelUnits = userSettings.map { (fuel, unit) ->
+                    UnitsUpdate(
+                        idFuelType = fuel,
+                        idUnit = unit
+                    )
+                }
+            ))
     }
 
     override suspend fun changePassword(
@@ -27,6 +55,13 @@ class ProfileRepositoryImpl(
         return profileService.changeInfo(newOwner.asOwnerDto()).mapData { it?.asOwner() ?: Owner() }
 
     }
+}
+
+private fun UserSettingsDto.asUserSettings(): UserSettings {
+
+    return UserSettings(
+        fuelUnits = fuelUnits.map { it.asUnits() }
+    )
 }
 
 private fun Owner.asOwnerDto(): OwnerDto {

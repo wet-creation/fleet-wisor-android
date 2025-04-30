@@ -31,7 +31,7 @@ import ua.com.fleetwisor.core.domain.utils.ImageUrl
 import ua.com.fleetwisor.core.domain.utils.Index
 import ua.com.fleetwisor.core.domain.utils.toPriceString
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
-import ua.com.agroswit.theme.components.dropdown.SelectedDropDown
+import ua.com.fleetwisor.core.presentation.theme.components.dropdown.SelectedDropDown
 import ua.com.fleetwisor.core.presentation.theme.components.select_controls.AmountControl
 import ua.com.agroswit.theme.components.select_controls.DropDownItemState
 import ua.com.fleetwisor.R
@@ -146,7 +146,7 @@ fun EditableProductItem(
                     )
                     if (state.volumes.size > 1)
                         SelectedDropDown(
-                            selectedItemIndex = selectedVolumeIndex,
+                            selectedItem = selectedVolumeIndex,
                             items = {
                                 state.volumes
                             },

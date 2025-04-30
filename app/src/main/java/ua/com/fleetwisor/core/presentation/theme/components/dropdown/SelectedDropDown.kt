@@ -1,4 +1,4 @@
-package ua.com.agroswit.theme.components.dropdown
+package ua.com.fleetwisor.core.presentation.theme.components.dropdown
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
@@ -18,6 +18,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -26,37 +27,48 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ua.com.fleetwisor.core.domain.utils.Index
-import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.agroswit.theme.components.select_controls.DropDownItemList
 import ua.com.agroswit.theme.components.select_controls.DropDownItemState
+import ua.com.fleetwisor.core.domain.utils.Log
+import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 
 
 @Composable
 fun SelectedDropDown(
     modifier: Modifier = Modifier,
-    selectedItemIndex: Index,
+    selectedItem: Int,
     displayedItemsCount: Int = 3,
     containerHeight: Dp = 20.dp,
     overlapping: Boolean = true,
     items: () -> List<DropDownItemState>,
-    onItemChange: (Index) -> Unit
+    onItemChange: (Int) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
     var itemHeight by remember {
         mutableIntStateOf(0)
     }
+    val density = LocalDensity.current
+    var widthDp by remember { mutableStateOf(0.dp) }
+    LaunchedEffect(widthDp) {
+        Log.d("widthDp $widthDp")
+    }
     Column(
         modifier = modifier
             .animateContentSize()
-            .fillMaxWidth(),
+            .onGloballyPositioned { coordinates ->
+                val widthPx = coordinates.size.width
+                widthDp = with(density) { widthPx.toDp() }
+            },
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         SelectedDropDownElement(
-            textItem = items()[selectedItemIndex].text,
+            textItem = items().firstOrNull {
+                it.id == selectedItem
+            }?.text ?: "",
             containerHeight = containerHeight,
             expanded = expanded,
             onClick = {
@@ -68,6 +80,7 @@ fun SelectedDropDown(
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
                 modifier = modifier
+                    .width(widthDp)
                     .border(
                         width = 1.dp,
                         color = FleetWisorTheme.colors.neutralSecondaryLight,
@@ -85,10 +98,10 @@ fun SelectedDropDown(
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     items().forEachIndexed { index, item ->
                         DropDownItemList(
-                            isActive = index == selectedItemIndex,
+                            isActive = item.id == selectedItem,
                             dropDownItemState = item,
                             modifier = Modifier
-                                .fillMaxWidth()
+                                .width(widthDp)
                                 .onGloballyPositioned { layoutCoordinates ->
                                     if (itemHeight == 0) {
                                         itemHeight = layoutCoordinates.size.height
@@ -96,7 +109,7 @@ fun SelectedDropDown(
                                 }
 
                         ) {
-                            onItemChange(index)
+                            onItemChange(item.id)
                             expanded = false
                         }
                     }
@@ -122,7 +135,7 @@ fun SelectedDropDown(
                 ) {
                     itemsIndexed(items()) { index, item ->
                         DropDownItemList(
-                            isActive = index == selectedItemIndex,
+                            isActive = item.id == selectedItem,
                             dropDownItemState = item,
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -133,7 +146,7 @@ fun SelectedDropDown(
                                 }
 
                         ) {
-                            onItemChange(index)
+                            onItemChange(item.id)
                             expanded = false
                         }
                     }
@@ -202,7 +215,7 @@ private fun SelectedDropDownPrev() {
         mutableIntStateOf(0)
     }
     SelectedDropDown(
-        selectedItemIndex = selectedItem.intValue,
+        selectedItem = selectedItem.intValue,
         items = {
             list
         },
