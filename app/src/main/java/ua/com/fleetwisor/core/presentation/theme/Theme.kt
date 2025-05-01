@@ -1,57 +1,88 @@
 package ua.com.fleetwisor.core.presentation.theme
 
-import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.remember
+import ua.com.agroswit.theme.AgroswitDimensions
+import ua.com.agroswit.theme.AgroswitTypography
+import ua.com.agroswit.theme.LocalDimensions
+import ua.com.agroswit.theme.LocalTypography
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+internal val LightColorScheme = AgroswitColor(
+    brandPrimaryNormal = LightBrandPrimaryNormal,
+    brandPrimaryExtraLight = LightBrandPrimaryExtraLight,
+    brandPrimaryLight = LightBrandPrimaryLight,
+    brandPrimaryMedium = LightBrandPrimaryMedium,
+    brandPrimaryDark = LightBrandPrimaryDark,
+    brandSecondaryNormal = LightBrandSecondaryNormal,
+    neutralPrimaryNormal = LightNeutralPrimaryNormal,
+    neutralPrimaryLight = LightNeutralPrimaryLight,
+    neutralPrimaryDark = LightNeutralPrimaryDark,
+    neutralSecondaryNormal = LightNeutralSecondaryNormal,
+    neutralSecondaryLight = LightNeutralSecondaryLight,
+    neutralSecondaryDark = LightNeutralSecondaryDark,
+    errorNormal = LightErrorNormal,
+    errorLight = LightErrorLight,
+    errorDark = LightErrorDark,
+    neutralSecondaryMedium = LightNeutralSecondaryMedium,
+    herbicideColor = LightHerbicideColor,
+    desiccantColor = LightDesiccantColor,
+    insecticideColor = LightInsecticideColor,
+    poisonerColor = LightPoisonerColor,
+    fungicideColor = LightFungicideColor,
+    microFertilizerColor = LightMicroFertilizerColor,
+    bioProductColor = LightBioProductColor,
+    labelToDo = LightLabelTodo,
+    labelInProgress = LightLabelInProgress
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
-)
+internal val LocalColors = compositionLocalOf { LightColorScheme }
 
 @Composable
 fun FleetWisorTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
+    colors: AgroswitColor = FleetWisorTheme.colors,
+    typography: AgroswitTypography = FleetWisorTheme.typography,
+    dimensions: AgroswitDimensions = FleetWisorTheme.dimensions,
+    icons: AgroswitIcon = FleetWisorTheme.icons,
+    content: @Composable () -> Unit,
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
+    val rememberedColors = remember { colors.copy() }.apply { updateColors(colors) }
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+
+    CompositionLocalProvider(
+        LocalColors provides rememberedColors,
+        LocalDimensions provides dimensions,
+        LocalTypography provides typography,
+        LocaleIcon provides icons,
+        LocalIndication provides ripple(),
+    ) {
+        content()
     }
+}
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+object FleetWisorTheme {
+
+    val colors: AgroswitColor
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalColors.current
+
+    val typography: AgroswitTypography
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalTypography.current
+
+    val dimensions: AgroswitDimensions
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalDimensions.current
+
+    val icons: AgroswitIcon
+        @Composable
+        @ReadOnlyComposable
+        get() = LocaleIcon.current
 }
