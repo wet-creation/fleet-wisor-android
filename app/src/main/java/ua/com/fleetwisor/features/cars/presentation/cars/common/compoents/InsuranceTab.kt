@@ -56,6 +56,8 @@ inline fun <reified Action> InsuranceTab(
     ) { uri: Uri? ->
         if (uri != null) {
             if (editMode) {
+                onAction(CarEditAction.SelectPhoto(uri) as Action)
+
             } else {
                 onAction(CarCreateAction.SelectPhoto(uri) as Action)
             }
@@ -69,12 +71,13 @@ inline fun <reified Action> InsuranceTab(
     if (showDateDialog) {
         DateRangePickerModal(
             dateRangePickerState = rememberDateRangePickerState(
-                initialSelectedStartDateMillis = insurance.startDate.toMillis(),
-                initialSelectedEndDateMillis = insurance.endDate.toMillis(),
+                initialSelectedStartDateMillis = insurance.startDate?.toMillis(),
+                initialSelectedEndDateMillis = insurance.endDate?.toMillis(),
             ),
             onDateRangeSelected = {
                 if (it.first != null && it.second != null) {
                     if (editMode) {
+                        onAction(CarEditAction.SelectPeriod(it.first!!, it.second!!) as Action)
 
                     } else {
                         onAction(CarCreateAction.SelectPeriod(it.first!!, it.second!!) as Action)

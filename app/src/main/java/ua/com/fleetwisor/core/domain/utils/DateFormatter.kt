@@ -25,6 +25,11 @@ fun LocalDateTime.formatTime(): String {
     return this.format(formatter)
 }
 
+fun String.parseDateOrNull(): LocalDate? {
+    if (this.isNotEmptyOrBlank())
+        return LocalDate.parse(this)
+    return null
+}
 
 fun String.parseTime(): LocalDateTime {
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.getDefault())

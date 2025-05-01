@@ -94,17 +94,17 @@ inline fun <reified Action> CarInfoTab(
                 itemsList = { drivers.map { it.fullName } },
                 inputSearchValue = driverSearchValue,
                 inputSearch = {
-                    if (editMode)
-                    else {
+                    if (editMode) {
+                        onAction(CarEditAction.SearchDriver(it) as Action)
+                    } else {
                         onAction(CarCreateAction.SearchDriver(it) as Action)
-
                     }
                 },
                 onSave = {
-                    if (editMode)
-                    else {
+                    if (editMode) {
+                        onAction(CarEditAction.SelectDriver(it) as Action)
+                    } else {
                         onAction(CarCreateAction.SelectDriver(it) as Action)
-
                     }
                     showModalSheet = false
                 }
@@ -134,8 +134,9 @@ inline fun <reified Action> CarInfoTab(
                     placeholder = "BMW",
                     titleText = stringResource(R.string.brand_name) + "*",
                     onChange = {
-                        if (editMode)
-                        else {
+                        if (editMode) {
+                            onAction(CarEditAction.InputBrandName(it) as Action)
+                        } else {
                             onAction(CarCreateAction.InputBrandName(it) as Action)
 
                         }
@@ -147,8 +148,9 @@ inline fun <reified Action> CarInfoTab(
                     placeholder = stringResource(R.string.color_hint),
                     titleText = stringResource(R.string.car_color_text),
                     onChange = {
-                        if (editMode)
-                        else {
+                        if (editMode) {
+                            onAction(CarEditAction.InputColor(it) as Action)
+                        } else {
                             onAction(CarCreateAction.InputColor(it) as Action)
                         }
                     })
@@ -159,8 +161,9 @@ inline fun <reified Action> CarInfoTab(
                     placeholder = "X5",
                     titleText = stringResource(R.string.car_model),
                     onChange = {
-                        if (editMode)
-                        else {
+                        if (editMode) {
+                            onAction(CarEditAction.InputModel(it) as Action)
+                        } else {
                             onAction(CarCreateAction.InputModel(it) as Action)
                         }
                     })
@@ -173,8 +176,10 @@ inline fun <reified Action> CarInfoTab(
                     onChange = {
                         if (it.toLongOrNull() == null)
                             return@TitledLabelTextField
-                        if (editMode)
-                        else {
+                        if (editMode) {
+                            onAction(CarEditAction.InputOdometer(it) as Action)
+
+                        } else {
                             onAction(CarCreateAction.InputOdometer(it) as Action)
                         }
                     })
@@ -209,6 +214,7 @@ inline fun <reified Action> CarInfoTab(
                     }
                 ) {
                     if (editMode)
+                        onAction(CarEditAction.SelectCarBody(it) as Action)
                     else {
                         onAction(CarCreateAction.SelectCarBody(it) as Action)
                     }
@@ -246,8 +252,10 @@ inline fun <reified Action> CarInfoTab(
                                     }
                                 }
                             ) {
-                                if (editMode)
-                                else {
+                                if (editMode) {
+                                    onAction(CarEditAction.SelectFuelType(index, it) as Action)
+
+                                } else {
                                     onAction(CarCreateAction.SelectFuelType(index, it) as Action)
                                 }
                             }
@@ -256,6 +264,7 @@ inline fun <reified Action> CarInfoTab(
                                     modifier = Modifier
                                         .clickable {
                                             if (editMode) {
+                                                onAction(CarEditAction.DeleteFuelType(index) as Action)
 
                                             } else
                                                 onAction(CarCreateAction.DeleteFuelType(index) as Action)
@@ -276,6 +285,8 @@ inline fun <reified Action> CarInfoTab(
                     color = FleetWisorTheme.colors.brandPrimaryNormal
                 ) {
                     if (editMode) {
+                        onAction(CarEditAction.AddFuelType as Action)
+
                     } else {
                         onAction(CarCreateAction.AddFuelType as Action)
                     }
@@ -304,6 +315,7 @@ inline fun <reified Action> CarInfoTab(
                     titleText = stringResource(R.string.vin_number),
                     onChange = {
                         if (editMode)
+                            onAction(CarEditAction.InputVin(it) as Action)
                         else {
                             onAction(CarCreateAction.InputVin(it) as Action)
 
@@ -316,8 +328,9 @@ inline fun <reified Action> CarInfoTab(
                     placeholder = "КА 2387 СТ",
                     titleText = stringResource(R.string.car_number_text) + "*",
                     onChange = {
-                        if (editMode)
-                        else {
+                        if (editMode) {
+                            onAction(CarEditAction.InputLicensePlate(it) as Action)
+                        } else {
                             onAction(CarCreateAction.InputLicensePlate(it) as Action)
 
                         }
@@ -356,6 +369,7 @@ inline fun <reified Action> CarInfoTab(
                     contentPadding = PaddingValues(vertical = 12.dp, horizontal = 24.dp),
                     text = stringResource(R.string.save_text)
                 ) {
+                    onAction(CarEditAction.EditCar(context) as Action)
 
                 }
                 SecondaryOnlyIconButton(
@@ -363,7 +377,10 @@ inline fun <reified Action> CarInfoTab(
                     tint = FleetWisorTheme.colors.errorDark,
                     icon = FleetWisorTheme.icons.delete,
                     contentDescription = "delete"
-                ) { }
+                ) {
+                    onAction(CarEditAction.DeleteCar as Action)
+
+                }
             }
         } else {
             PrimaryButton(

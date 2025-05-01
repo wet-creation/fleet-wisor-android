@@ -17,23 +17,27 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.collections.immutable.toImmutableList
+import org.koin.androidx.compose.koinViewModel
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.FleetWisorScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
+import ua.com.fleetwisor.core.presentation.ui.utils.ObserverAsEvents
 import ua.com.fleetwisor.core.presentation.ui.utils.TabInfo
 import ua.com.fleetwisor.features.cars.presentation.cars.common.compoents.CarInfoTab
 import ua.com.fleetwisor.features.cars.presentation.cars.common.compoents.InsuranceTab
 
 @Composable
 fun CarEditRoot(
-    viewModel: CarEditViewModel = viewModel(),
+    viewModel: CarEditViewModel = koinViewModel(),
     navigateBack: () -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-
+    ObserverAsEvents(viewModel.events) { event ->
+        if (event)
+            navigateBack()
+    }
     CarEditScreen(
         state = state,
         onAction = {
@@ -60,7 +64,7 @@ fun CarEditScreen(
             title = stringResource(R.string.general_tab_name),
             content = {
                 CarInfoTab(
-                    canBeSaved = true,
+                    canBeSaved = state.canBeSaved,
                     paddingValue = paddingValue,
                     drivers = state.driversFilter.toImmutableList(),
                     car = state.car, onAction = onAction,

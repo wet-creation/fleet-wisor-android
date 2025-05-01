@@ -15,7 +15,7 @@ import ua.com.fleetwisor.core.presentation.theme.components.dropdown.SelectedDro
 import java.time.LocalDate
 
 @Composable
-fun DatePeriod(modifier: Modifier = Modifier, startDate: LocalDate, endDate: LocalDate) {
+fun DatePeriod(modifier: Modifier = Modifier, startDate: LocalDate?, endDate: LocalDate?) {
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -33,7 +33,7 @@ fun DatePeriod(modifier: Modifier = Modifier, startDate: LocalDate, endDate: Loc
                 SelectedDropDownElement(
                     modifier = Modifier.weight(1f),
                     active = false,
-                    textItem = startDate.dayOfMonth.toString()
+                    textItem = (startDate?.dayOfMonth ?: "").toString()
                 ) {}
                 SelectedDropDownElement(
                     modifier = Modifier.weight(1f),
@@ -43,7 +43,7 @@ fun DatePeriod(modifier: Modifier = Modifier, startDate: LocalDate, endDate: Loc
                 SelectedDropDownElement(
                     modifier = Modifier.weight(1f),
                     active = false,
-                    textItem = startDate.year.toString()
+                    textItem = (startDate?.year ?: "").toString()
                 ) {}
             }
             Row(
@@ -53,7 +53,7 @@ fun DatePeriod(modifier: Modifier = Modifier, startDate: LocalDate, endDate: Loc
                 SelectedDropDownElement(
                     modifier = Modifier.weight(1f),
                     active = false,
-                    textItem = endDate.dayOfMonth.toString()
+                    textItem = (endDate?.dayOfMonth ?: "").toString()
                 ) {}
                 SelectedDropDownElement(
                     modifier = Modifier.weight(1f),
@@ -63,7 +63,7 @@ fun DatePeriod(modifier: Modifier = Modifier, startDate: LocalDate, endDate: Loc
                 SelectedDropDownElement(
                     modifier = Modifier.weight(1f),
                     active = false,
-                    textItem = endDate.year.toString()
+                    textItem = (endDate?.year ?: "").toString()
                 ) {}
             }
         }

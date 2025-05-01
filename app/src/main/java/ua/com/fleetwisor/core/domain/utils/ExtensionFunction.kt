@@ -1,7 +1,6 @@
 package ua.com.fleetwisor.core.domain.utils
 
 import java.io.ByteArrayOutputStream
-import java.io.IOException
 import java.io.InputStream
 import java.text.DateFormatSymbols
 import java.time.Instant
@@ -28,7 +27,9 @@ fun LocalDate.firstDayOfMonth(): LocalDate {
     return LocalDate.of(year, month, 1)
 }
 
-fun LocalDate.monthToString(locale: Locale = Locale.getDefault()): String {
+fun LocalDate?.monthToString(locale: Locale = Locale.getDefault()): String {
+    if (this == null)
+        return ""
     return DateFormatSymbols(locale).months[this.month.ordinal]
 }
 

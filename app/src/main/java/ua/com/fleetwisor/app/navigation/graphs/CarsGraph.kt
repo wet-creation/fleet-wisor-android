@@ -11,7 +11,9 @@ data object CarsGraph {
     @Serializable
     data object CarCreate
     @Serializable
-    data object CarEdit
+    data class CarEdit(
+        val carId: Int
+    )
     @Serializable
     data object FillUp
     @Serializable

@@ -17,6 +17,18 @@ data class CarDto(
     val drivers: List<DriverDto> = listOf(),
     val fuelTypes: List<SimpleFuelTypeDto> = listOf(),
     val carBody: CarBodyDto
+)@Serializable
+data class CarUpdate(
+    val id: Int,
+    val brandName: String,
+    val color: String?,
+    val vin: String?,
+    val model: String?,
+    val licensePlate: String?,
+    val mileAge: Long,
+    val drivers: List<Int>,
+    val fuelTypes: List<Int>,
+    val carBodyId: Int,
 )
 @Serializable
 data class CarCreate(
