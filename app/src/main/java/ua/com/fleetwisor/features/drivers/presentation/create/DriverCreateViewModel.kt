@@ -2,7 +2,9 @@ package ua.com.fleetwisor.features.drivers.presentation.create
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -98,8 +100,8 @@ class DriverCreateViewModel(
 
             is DriverCreateAction.SaveDriver -> {
                 val contentResolver = action.context.contentResolver
-                var frontPhoto: Pair<String, ByteArray>? = null
-                var backPhoto: Pair<String, ByteArray>? = null
+                var frontPhoto: Deferred<Pair<String, ByteArray>?>? = null
+                var backPhoto: Deferred<Pair<String, ByteArray>?>? = null
                 _state.update {
                     it.copy(savingInProgress = true)
                 }
@@ -111,25 +113,31 @@ class DriverCreateViewModel(
                     birthdayDate = state.value.selectedBirthDay,
                     salary = state.value.salary
                 )
+                viewModelScope.launch {
+                    if (state.value.frontPhoto != null) {
+                        frontPhoto = async(Dispatchers.IO) {
+                            Pair(
+                                contentResolver.getType(state.value.frontPhoto!!)!!,
+                                contentResolver.openInputStream(state.value.frontPhoto!!)
+                                    ?.toByteArray()!!
+                            )
+                        }
+                    }
+                    if (state.value.backPhoto != null)
+                        backPhoto = async(Dispatchers.IO) {
+                            Pair(
+                                contentResolver.getType(state.value.backPhoto!!)!!,
+                                contentResolver.openInputStream(state.value.backPhoto!!)
+                                    ?.toByteArray()!!
+                            )
+                        }
 
-                if (state.value.frontPhoto != null) {
-                    frontPhoto =
-                        Pair(
-                            contentResolver.getType(state.value.frontPhoto!!)!!,
-                            contentResolver.openInputStream(state.value.frontPhoto!!)
-                                ?.toByteArray()!!
-                        )
-                }
-                if (state.value.backPhoto != null)
-                    backPhoto =
-                        Pair(
-                            contentResolver.getType(state.value.backPhoto!!)!!,
-                            contentResolver.openInputStream(state.value.backPhoto!!)
-                                ?.toByteArray()!!
-                        )
 
-                viewModelScope.launch(Dispatchers.IO) {
-                    when (val res = repository.createDriver(createDriver, frontPhoto, backPhoto)) {
+                    when (val res = repository.createDriver(
+                        createDriver,
+                        frontPhoto?.await(),
+                        backPhoto?.await()
+                    )) {
                         is FullResult.Error -> {
                             _state.update {
                                 it.copy(

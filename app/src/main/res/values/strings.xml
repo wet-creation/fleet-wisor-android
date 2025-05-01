@@ -342,5 +342,6 @@
     <string name="download_succes">Файл збережено в Загрузки</string>
     <string name="want_delete_driver_text">Бажаєте видалити водія?  \nЦю дію неможливо буде скасувати.</string>
     <string name="fuel_type_settings">Налаштування од. вим.</string>
+    <string name="color_hint">Червоний</string>
 
 </resources>

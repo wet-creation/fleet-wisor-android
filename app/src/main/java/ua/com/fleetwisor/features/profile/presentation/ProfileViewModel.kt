@@ -83,13 +83,13 @@ class ProfileViewModel(
 
     fun onAction(action: ProfileAction) {
         when (action) {
-            ProfileAction.OnLogOut -> viewModelScope.launch(Dispatchers.IO) {
+            ProfileAction.OnLogOut -> viewModelScope.launch {
                 localAuthService.logout()
             }
 
             ProfileAction.ChangeInfo -> {
 
-                viewModelScope.launch(Dispatchers.IO) {
+                viewModelScope.launch {
                     _state.update { it.copy(savingInProgress = true) }
 
                     when (val res = repository.changeInfo(state.value.newOwner)) {
@@ -154,9 +154,7 @@ class ProfileViewModel(
 
             ProfileAction.SaveNewPassword -> {
                 if (state.value.newPassword == state.value.confirmPassword)
-                    viewModelScope.launch(
-                        Dispatchers.IO
-                    ) {
+                    viewModelScope.launch {
                         _state.update { it.copy(savingInProgress = true) }
 
                         when (val res = repository.changePassword(
@@ -198,7 +196,7 @@ class ProfileViewModel(
             ProfileAction.SaveFuelTypeSettings -> {
                 val map =
                     state.value.fuelTypeSettings.entries.associate { (key, value) -> key.id to value }
-                viewModelScope.launch(Dispatchers.IO) {
+                viewModelScope.launch {
                     _state.update { it.copy(savingInProgress = true) }
 
                     when (val res = repository.saveUserSettings(map)) {

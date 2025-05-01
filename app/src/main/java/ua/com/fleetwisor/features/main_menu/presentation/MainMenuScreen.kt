@@ -17,7 +17,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -33,16 +32,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.koinViewModel
-import ua.com.fleetwisor.core.presentation.theme.components.dropdown.SelectedDropDownElement
 import ua.com.agroswit.theme.components.scaffold.modal_botton_sheet.AgroswitModalBottomSheet
 import ua.com.fleetwisor.R
-import ua.com.fleetwisor.core.domain.utils.monthToString
 import ua.com.fleetwisor.core.domain.utils.toMillis
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.bottom_sheets.SearchElements
 import ua.com.fleetwisor.core.presentation.theme.components.buttons.standart.CarSelectionButton
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.FleetWisorScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
+import ua.com.fleetwisor.core.presentation.theme.components.select_controls.DatePeriod
 import ua.com.fleetwisor.core.presentation.theme.components.select_controls.DateRangePickerModal
 import ua.com.fleetwisor.core.presentation.ui.utils.UiText
 import ua.com.fleetwisor.features.main_menu.presentation.components.ReportTile
@@ -208,57 +206,10 @@ private fun MainMenuScreen(
 
                 }) {
                 HorizontalDivider()
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
-                        Text("Від:", style = FleetWisorTheme.typography.bodyLarge)
-                        Text("До:", style = FleetWisorTheme.typography.bodyLarge)
-                    }
-                    Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(12.dp),
-
-                            ) {
-                            SelectedDropDownElement(
-                                modifier = Modifier.weight(1f),
-                                active = false,
-                                textItem = state.startDate.dayOfMonth.toString()
-                            ) {}
-                            SelectedDropDownElement(
-                                modifier = Modifier.weight(1f),
-                                active = false,
-                                textItem = state.startDate.monthToString()
-                            ) {}
-                            SelectedDropDownElement(
-                                modifier = Modifier.weight(1f),
-                                active = false,
-                                textItem = state.startDate.year.toString()
-                            ) {}
-                        }
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(12.dp),
-
-                            ) {
-                            SelectedDropDownElement(
-                                modifier = Modifier.weight(1f),
-                                active = false,
-                                textItem = state.endDate.dayOfMonth.toString()
-                            ) {}
-                            SelectedDropDownElement(
-                                modifier = Modifier.weight(1f),
-                                active = false,
-                                textItem = state.endDate.monthToString()
-                            ) {}
-                            SelectedDropDownElement(
-                                modifier = Modifier.weight(1f),
-                                active = false,
-                                textItem = state.endDate.year.toString()
-                            ) {}
-                        }
-                    }
-                }
+                DatePeriod(
+                    startDate = state.startDate,
+                    endDate = state.endDate
+                )
                 HorizontalDivider()
             }
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {

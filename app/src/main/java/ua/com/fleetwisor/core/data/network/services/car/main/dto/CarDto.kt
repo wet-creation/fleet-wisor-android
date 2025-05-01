@@ -18,4 +18,21 @@ data class CarDto(
     val fuelTypes: List<SimpleFuelTypeDto> = listOf(),
     val carBody: CarBodyDto
 )
+@Serializable
+data class CarCreate(
+    val brandName: String,
+    val color: String?,
+    val vin: String?,
+    val model: String?,
+    val licensePlate: String?,
+    val mileAge: Long,
+    val drivers: List<Int>,
+    val fuelTypes: List<Int>,
+    val carBodyId: Int,
+)
+@Serializable
+data class CarCreateWithInsurance(
+    val carCreate: CarCreate,
+    val insuranceCreate: InsuranceDto?
+)
 

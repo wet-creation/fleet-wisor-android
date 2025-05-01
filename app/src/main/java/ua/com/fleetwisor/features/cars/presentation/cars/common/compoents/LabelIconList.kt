@@ -13,7 +13,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ua.com.fleetwisor.core.presentation.theme.components.dropdown.SelectedDropDown
 import ua.com.agroswit.theme.components.select_controls.DropDownItemState
-import ua.com.fleetwisor.core.domain.utils.Index
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 
 @Composable
@@ -21,7 +20,7 @@ fun LabelIconList(
     modifier: Modifier = Modifier,
     titleText: String,
     icon: Painter,
-    selectedItemIndex: Index,
+    selectedItem: Int,
     items: () -> List<DropDownItemState>,
     onItemSelected: (Int) -> Unit
 ) {
@@ -42,7 +41,7 @@ fun LabelIconList(
             )
             SelectedDropDown(
                 modifier = Modifier,
-                selectedItem = selectedItemIndex,
+                selectedItem = selectedItem,
                 displayedItemsCount = 5,
                 items = items,
                 onItemChange = onItemSelected
@@ -58,7 +57,7 @@ private fun LabelIconListPrev() {
     LabelIconList(
         titleText = "Hello",
         icon = FleetWisorTheme.icons.tool,
-        selectedItemIndex = 0,
+        selectedItem = 0,
         items = {
             listOf(
                 DropDownItemState(

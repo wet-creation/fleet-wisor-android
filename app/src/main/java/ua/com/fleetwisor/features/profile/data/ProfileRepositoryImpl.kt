@@ -1,9 +1,5 @@
 package ua.com.fleetwisor.features.profile.data
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import ua.com.fleetwisor.core.data.local.settings.LocalSettingsService
 import ua.com.fleetwisor.core.data.network.services.common.FuelTypeNCarBodyService
 import ua.com.fleetwisor.core.data.network.services.common.dto.UnitsUpdate
@@ -11,7 +7,6 @@ import ua.com.fleetwisor.core.data.network.services.profile.ProfileService
 import ua.com.fleetwisor.core.data.network.services.profile.dto.OwnerDto
 import ua.com.fleetwisor.core.data.network.services.profile.dto.UserSettingsDto
 import ua.com.fleetwisor.core.data.network.services.profile.dto.UserSettingsUpdate
-import ua.com.fleetwisor.core.domain.utils.Log
 import ua.com.fleetwisor.core.domain.utils.network.DataError
 import ua.com.fleetwisor.core.domain.utils.network.EmptyDataAndErrorResult
 import ua.com.fleetwisor.core.domain.utils.network.FullResult
