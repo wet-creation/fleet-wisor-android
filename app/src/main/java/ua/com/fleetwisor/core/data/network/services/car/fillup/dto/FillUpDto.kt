@@ -24,3 +24,11 @@ data class FillUpCreate(
     val unitId: Int,
     val amount: Double
 )
+@Serializable
+data class FillUpUpdate(
+    val id: Int,
+    val time: String,
+    val price: Double,
+    val checkUrl: String,
+    val amount: Double
+)

@@ -31,6 +31,7 @@ import ua.com.fleetwisor.features.cars.presentation.cars.edit.CarEditViewModel
 import ua.com.fleetwisor.features.cars.presentation.cars.list.CarsListRoot
 import ua.com.fleetwisor.features.cars.presentation.fill_up.create.FillUpCreateRoot
 import ua.com.fleetwisor.features.cars.presentation.fill_up.edit.FillUpEditRoot
+import ua.com.fleetwisor.features.cars.presentation.fill_up.edit.FillUpEditViewModel
 import ua.com.fleetwisor.features.cars.presentation.fill_up.list.FilUpListRoot
 import ua.com.fleetwisor.features.cars.presentation.main.CarMainRoot
 import ua.com.fleetwisor.features.cars.presentation.maintenance.create.MaintenanceCreateRoot
@@ -170,7 +171,7 @@ private fun NavGraphBuilder.carsGraph(
                     navController.navigateUp()
                 },
                 navigateEdit = {
-                    navController.navigate(CarsGraph.FillUpEdit)
+                    navController.navigate(CarsGraph.FillUpEdit(it))
 
                 },
                 navigateCreate = {
@@ -187,7 +188,12 @@ private fun NavGraphBuilder.carsGraph(
             )
         }
         composable<CarsGraph.FillUpEdit> {
+            val id = it.toRoute<CarsGraph.FillUpEdit>().fillUpId
+            val viewModel = koinViewModel<FillUpEditViewModel>(parameters = { parametersOf(id) })
+
+
             FillUpEditRoot(
+                viewModel = viewModel,
                 navigateBack = {
                     navController.navigateUp()
                 },

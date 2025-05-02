@@ -22,6 +22,7 @@ fun SelectionButton(
     modifier: Modifier = Modifier,
     icon: Painter,
     text: String,
+    enabled: Boolean = true,
     onClick: () -> Unit
 ) {
     Row(
@@ -33,8 +34,8 @@ fun SelectionButton(
                 color = FleetWisorTheme.colors.brandPrimaryNormal,
                 shape = RoundedCornerShape(5.dp)
             )
-            .clickable(onClick = onClick)
             .padding(horizontal = 6.dp, vertical = 8.dp)
+            .then(if (enabled) Modifier.clickable(onClick = onClick) else Modifier)
     ) {
         Icon(
             painter = icon,
@@ -60,10 +61,12 @@ fun SelectionButton(
 fun CarSelectionButton(
     modifier: Modifier = Modifier,
     text: String,
+    enabled: Boolean = true,
     onClick: () -> Unit
 ) {
     SelectionButton(
         modifier = modifier,
+        enabled = enabled,
         icon = FleetWisorTheme.icons.car,
         text = text,
         onClick = onClick

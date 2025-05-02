@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ua.com.fleetwisor.R
+import ua.com.fleetwisor.core.domain.utils.isNotEmptyOrBlank
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.buttons.standart.SecondaryLongIconButton
 import ua.com.fleetwisor.core.presentation.theme.components.images.BorderImage
@@ -69,7 +70,7 @@ inline fun <reified Action> FillUpCheckTab(
                 image = rememberAsyncImagePainter(selectedPhoto),
                 contentDescription = ""
             )
-        } else if (fillUp.checkUrl != null) {
+        } else if (fillUp.checkUrl != null && fillUp.checkUrl.isNotEmptyOrBlank()) {
             BorderImage(
                 modifier = Modifier
                     .size(150.dp)

@@ -43,6 +43,7 @@ fun SelectedDropDown(
     selectedItem: Int,
     displayedItemsCount: Int = 3,
     containerHeight: Dp = 20.dp,
+    enabled: Boolean = true,
     overlapping: Boolean = true,
     items: () -> List<DropDownItemState>,
     onItemChange: (Int) -> Unit
@@ -70,6 +71,7 @@ fun SelectedDropDown(
                 it.id == selectedItem
             }?.text ?: "",
             containerHeight = containerHeight,
+            active = enabled,
             expanded = expanded,
             onClick = {
                 expanded = !expanded

@@ -9,12 +9,12 @@ sealed interface FillUpCreateAction {
 
     companion object : FillUpCreateAction
     data object NavigateBack : FillUpCreateAction
-    data class SelectPhoto(val uri: Uri) : FillUpCreateAction
 
+    data class SelectPhoto(val uri: Uri) : FillUpCreateAction
     data class SelectedCarIndex(val car: Index) : FillUpCreateAction
     data class InputPrice(val value: String) : FillUpCreateAction
-    data class InputAmount(val value: String) : FillUpCreateAction
 
+    data class InputAmount(val value: String) : FillUpCreateAction
     data class SelectFuelType(val id: Int) : FillUpCreateAction
     data class Save(val context: Context) : FillUpCreateAction
     data class SelectTimeDate(val dateTime: LocalDateTime) : FillUpCreateAction

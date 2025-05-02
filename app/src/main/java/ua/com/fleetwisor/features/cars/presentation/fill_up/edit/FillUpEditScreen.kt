@@ -22,6 +22,7 @@ import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.FleetWisorScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
+import ua.com.fleetwisor.core.presentation.ui.utils.ObserverAsEvents
 import ua.com.fleetwisor.core.presentation.ui.utils.TabInfo
 import ua.com.fleetwisor.features.cars.presentation.fill_up.common.components.FillUpCheckTab
 import ua.com.fleetwisor.features.cars.presentation.fill_up.common.components.FillUpInfo
@@ -32,7 +33,10 @@ fun FillUpEditRoot(
     navigateBack: () -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-
+    ObserverAsEvents(viewModel.events) { event ->
+        if (event)
+            navigateBack()
+    }
     FillUpEditScreen(
         state = state,
         onAction = {
@@ -53,6 +57,7 @@ fun FillUpEditScreen(
     var paddingValue by remember {
         mutableStateOf(PaddingValues())
     }
+
     val tabs = listOf(
         TabInfo(
             title = stringResource(R.string.general_tab_name),

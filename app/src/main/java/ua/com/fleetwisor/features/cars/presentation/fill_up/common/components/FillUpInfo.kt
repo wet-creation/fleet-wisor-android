@@ -28,8 +28,7 @@ import ua.com.agroswit.theme.components.scaffold.modal_botton_sheet.AgroswitModa
 import ua.com.agroswit.theme.components.select_controls.DropDownItemState
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.domain.utils.formatTime
-import ua.com.fleetwisor.core.domain.utils.toPriceString
-import ua.com.fleetwisor.core.domain.utils.toVolumeString
+import ua.com.fleetwisor.core.domain.utils.isDouble
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.bottom_sheets.SearchElements
 import ua.com.fleetwisor.core.presentation.theme.components.buttons.only_icon.SecondaryOnlyIconButton
@@ -66,6 +65,14 @@ inline fun <reified Action> FillUpInfo(
             paddingValues.calculateBottomPadding() / 2
         }
     }
+
+    var inputPrice = remember(fillUp.price) {
+        mutableStateOf(fillUp.price.toString())
+    }
+    var inputAmount = remember(fillUp.amount) {
+        mutableStateOf(fillUp.amount.toString())
+    }
+
     var filteredCars by remember(cars) {
         mutableStateOf(cars)
     }
@@ -82,6 +89,7 @@ inline fun <reified Action> FillUpInfo(
             showDateTimePicker = false
 
             if (editMode) {
+                onAction(FillUpEditAction.SelectTimeDate(it) as Action)
 
             } else {
                 onAction(FillUpCreateAction.SelectTimeDate(it) as Action)
@@ -112,6 +120,7 @@ inline fun <reified Action> FillUpInfo(
             showBottomSheet = false
             if (editMode) {
 
+                onAction(FillUpEditAction.SelectedCarIndex(it) as Action)
             } else {
 
                 onAction(FillUpCreateAction.SelectedCarIndex(it) as Action)
@@ -130,13 +139,17 @@ inline fun <reified Action> FillUpInfo(
         ) {
             CarSelectionButton(
                 text = fillUp.car.name,
+                enabled = !editMode
             ) {
-                showBottomSheet = true
+                if (!editMode)
+                    showBottomSheet = true
             }
             SelectedDropDown(
+                modifier = Modifier.fillMaxWidth(0.5f),
                 selectedItem = fillUp.fuelType.id,
                 displayedItemsCount = fillUp.car.fuelTypes.size + 1,
                 overlapping = true,
+                enabled = !editMode,
                 items = {
                     fillUp.car.fuelTypes.map {
                         DropDownItemState(
@@ -145,6 +158,7 @@ inline fun <reified Action> FillUpInfo(
                     }
                 }) {
                 if (editMode) {
+                    onAction(FillUpEditAction.SelectFuelType(it) as Action)
 
                 } else {
                     onAction(FillUpCreateAction.SelectFuelType(it) as Action)
@@ -166,29 +180,37 @@ inline fun <reified Action> FillUpInfo(
                 TitledLabelTextField(
                     modifier = Modifier.fillMaxWidth(0.5f),
                     icon = FleetWisorTheme.icons.paid,
-                    text = fillUp.price.toPriceString(),
+                    text = inputPrice.value,
                     unitText = stringResource(R.string.currency_uah_text),
                     placeholder = "1290",
                     titleText = stringResource(R.string.sum_text) + "*",
                 ) {
-                    if (editMode) {
+                    if (it.isDouble()) {
+                        inputPrice.value = it
+                        if (editMode) {
+                            onAction(FillUpEditAction.InputPrice(it) as Action)
 
-                    } else {
-                        onAction(FillUpCreateAction.InputPrice(it) as Action)
+                        } else {
+                            onAction(FillUpCreateAction.InputPrice(it) as Action)
+                        }
                     }
                 }
                 TitledLabelTextField(
                     modifier = Modifier.fillMaxWidth(0.5f),
                     icon = FleetWisorTheme.icons.gasMeter,
-                    text = fillUp.amount.toVolumeString(),
+                    text = inputAmount.value,
                     placeholder = "",
                     unitText = fillUp.fuelUnits.name,
                     titleText = stringResource(R.string.fill_up_volume_text) + "*",
                 ) {
-                    if (editMode) {
+                    if (it.isDouble()) {
+                        inputAmount.value = it
+                        if (editMode) {
+                            onAction(FillUpEditAction.InputAmount(it) as Action)
 
-                    } else {
-                        onAction(FillUpCreateAction.InputAmount(it) as Action)
+                        } else {
+                            onAction(FillUpCreateAction.InputAmount(it) as Action)
+                        }
                     }
                 }
 
@@ -203,6 +225,7 @@ inline fun <reified Action> FillUpInfo(
                         contentPadding = PaddingValues(vertical = 12.dp, horizontal = 24.dp),
                         text = stringResource(R.string.save_text)
                     ) {
+                        onAction(FillUpEditAction.Save(context) as Action)
 
                     }
                     SecondaryOnlyIconButton(
@@ -210,7 +233,10 @@ inline fun <reified Action> FillUpInfo(
                         tint = FleetWisorTheme.colors.errorDark,
                         icon = FleetWisorTheme.icons.delete,
                         contentDescription = "delete"
-                    ) { }
+                    ) {
+                        onAction(FillUpEditAction.Delete as Action)
+
+                    }
                 }
             } else {
                 PrimaryButton(
