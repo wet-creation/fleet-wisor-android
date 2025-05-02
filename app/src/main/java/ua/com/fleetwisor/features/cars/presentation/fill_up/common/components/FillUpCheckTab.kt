@@ -1,24 +1,26 @@
 package ua.com.fleetwisor.features.cars.presentation.fill_up.common.components
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ua.com.fleetwisor.core.presentation.theme.components.buttons.standart.SecondaryLongIconButton
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
+import ua.com.fleetwisor.core.presentation.theme.components.buttons.standart.SecondaryLongIconButton
+import ua.com.fleetwisor.core.presentation.theme.components.images.BorderImage
 import ua.com.fleetwisor.core.presentation.ui.utils.rememberAsyncImagePainter
 import ua.com.fleetwisor.features.cars.domain.models.FillUp
 import ua.com.fleetwisor.features.cars.presentation.fill_up.create.FillUpCreateAction
@@ -27,6 +29,7 @@ import ua.com.fleetwisor.features.cars.presentation.fill_up.edit.FillUpEditActio
 @Composable
 inline fun <reified Action> FillUpCheckTab(
     fillUp: FillUp,
+    selectedPhoto: Uri?,
     crossinline onAction: (Action) -> Unit,
 ) {
     val editMode =
@@ -35,6 +38,20 @@ inline fun <reified Action> FillUpCheckTab(
         else if (FillUpEditAction is Action)
             true
         else return
+
+    val pickPhoto = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            if (editMode) {
+                onAction(FillUpEditAction.SelectPhoto(uri) as Action)
+
+            } else {
+                onAction(FillUpCreateAction.SelectPhoto(uri) as Action)
+            }
+
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -42,43 +59,48 @@ inline fun <reified Action> FillUpCheckTab(
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(28.dp)
     ) {
-        if (fillUp.checkUrl == null) {
+        if (selectedPhoto != null) {
+            BorderImage(
+                modifier = Modifier
+                    .size(150.dp)
+                    .clickable {
+                        pickPhoto.launch("image/*")
+                    },
+                image = rememberAsyncImagePainter(selectedPhoto),
+                contentDescription = ""
+            )
+        } else if (fillUp.checkUrl != null) {
+            BorderImage(
+                modifier = Modifier
+                    .size(150.dp)
+                    .clickable {
+                        pickPhoto.launch("image/*")
+                    },
+                image = rememberAsyncImagePainter(fillUp.checkUrl),
+                contentDescription = ""
+            )
+        } else {
             SecondaryLongIconButton(
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(R.string.add_check),
                 icon = FleetWisorTheme.icons.logout,
                 contentDescription = ""
-            ) { }
-        } else {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(
-                    stringResource(R.string.fill_up_check_text) + ":",
-                    color = FleetWisorTheme.colors.brandPrimaryLight,
-                    style = FleetWisorTheme.typography.titleMedium
-                )
-                Image(
-                    modifier = Modifier
-                        .border(
-                            width = 1.dp,
-                            color = FleetWisorTheme.colors.neutralSecondaryDark,
-                            shape = RoundedCornerShape(size = 5.dp)
-                        ),
-                    painter = rememberAsyncImagePainter(
-                        fillUp.checkUrl,
-                        //todo replace placeholder
-                        placeholder = R.drawable.product_placeholder
-                    ), contentDescription = ""
-                )
+            ) {
+                pickPhoto.launch("image/*")
+
             }
+
         }
     }
 }
+
 
 @Preview
 @Composable
 private fun FillUpCheckTabPrev() {
     FillUpCheckTab<FillUpCreateAction>(
         fillUp = FillUp(),
+        selectedPhoto = null,
         onAction = {}
     )
 }
