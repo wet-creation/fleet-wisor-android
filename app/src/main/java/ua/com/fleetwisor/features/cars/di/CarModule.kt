@@ -16,6 +16,8 @@ import ua.com.fleetwisor.features.cars.presentation.cars.list.CarsListViewModel
 import ua.com.fleetwisor.features.cars.presentation.fill_up.create.FillUpCreateViewModel
 import ua.com.fleetwisor.features.cars.presentation.fill_up.edit.FillUpEditViewModel
 import ua.com.fleetwisor.features.cars.presentation.fill_up.list.FillUpListViewModel
+import ua.com.fleetwisor.features.cars.presentation.maintenance.create.MaintenanceCreateViewModel
+import ua.com.fleetwisor.features.cars.presentation.maintenance.edit.MaintenanceEditViewModel
 import ua.com.fleetwisor.features.cars.presentation.maintenance.list.MaintenanceListViewModel
 
 val carModule = module {
@@ -29,4 +31,6 @@ val carModule = module {
     viewModelOf(::CarEditViewModel)
     viewModelOf(::FillUpCreateViewModel)
     viewModelOf(::FillUpEditViewModel)
+    viewModelOf(::MaintenanceCreateViewModel)
+    viewModelOf(::MaintenanceEditViewModel)
 }

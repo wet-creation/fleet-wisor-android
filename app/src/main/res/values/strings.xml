@@ -345,5 +345,6 @@
     <string name="fuel_type_settings">Налаштування од. вим.</string>
     <string name="color_hint">Червоний</string>
     <string name="select_time">Виберіть час</string>
+    <string name="maintenance_description_hint">Опис виконаної роботи..</string>
 
 </resources>
