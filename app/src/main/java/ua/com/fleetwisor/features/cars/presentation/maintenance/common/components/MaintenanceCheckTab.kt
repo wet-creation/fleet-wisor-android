@@ -1,24 +1,27 @@
 package ua.com.fleetwisor.features.cars.presentation.maintenance.common.components
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ua.com.fleetwisor.core.presentation.theme.components.buttons.standart.SecondaryLongIconButton
 import ua.com.fleetwisor.R
+import ua.com.fleetwisor.core.domain.utils.isNotEmptyOrBlank
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
+import ua.com.fleetwisor.core.presentation.theme.components.buttons.standart.SecondaryLongIconButton
+import ua.com.fleetwisor.core.presentation.theme.components.images.BorderImage
 import ua.com.fleetwisor.core.presentation.ui.utils.rememberAsyncImagePainter
 import ua.com.fleetwisor.features.cars.domain.models.Maintenance
 import ua.com.fleetwisor.features.cars.presentation.maintenance.create.MaintenanceCreateAction
@@ -27,6 +30,7 @@ import ua.com.fleetwisor.features.cars.presentation.maintenance.edit.Maintenance
 @Composable
 inline fun <reified Action> MaintenanceCheckTab(
     maintenance: Maintenance,
+    selectedPhoto: Uri?,
     crossinline onAction: (Action) -> Unit,
 ) {
     val editMode =
@@ -35,6 +39,20 @@ inline fun <reified Action> MaintenanceCheckTab(
         else if (MaintenanceEditAction is Action)
             true
         else return
+
+    val pickPhoto = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            if (editMode) {
+                onAction(MaintenanceEditAction.SelectPhoto(uri) as Action)
+
+            } else {
+                onAction(MaintenanceCreateAction.SelectPhoto(uri) as Action)
+            }
+
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -42,34 +60,37 @@ inline fun <reified Action> MaintenanceCheckTab(
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(28.dp)
     ) {
-        if (maintenance.checkUrl == null) {
+        if (selectedPhoto != null) {
+            BorderImage(
+                modifier = Modifier
+                    .size(150.dp)
+                    .clickable {
+                        pickPhoto.launch("image/*")
+                    },
+                image = rememberAsyncImagePainter(selectedPhoto),
+                contentDescription = ""
+            )
+        } else if (maintenance.checkUrl != null && maintenance.checkUrl.isNotEmptyOrBlank()) {
+            BorderImage(
+                modifier = Modifier
+                    .size(150.dp)
+                    .clickable {
+                        pickPhoto.launch("image/*")
+                    },
+                image = rememberAsyncImagePainter(maintenance.checkUrl),
+                contentDescription = ""
+            )
+        } else {
             SecondaryLongIconButton(
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(R.string.add_check),
                 icon = FleetWisorTheme.icons.logout,
                 contentDescription = ""
-            ) { }
-        } else {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(
-                    stringResource(R.string.fill_up_check_text) + ":",
-                    color = FleetWisorTheme.colors.brandPrimaryLight,
-                    style = FleetWisorTheme.typography.titleMedium
-                )
-                Image(
-                    modifier = Modifier
-                        .border(
-                            width = 1.dp,
-                            color = FleetWisorTheme.colors.neutralSecondaryDark,
-                            shape = RoundedCornerShape(size = 5.dp)
-                        ),
-                    painter = rememberAsyncImagePainter(
-                        maintenance.checkUrl,
-                        //todo replace placeholder
-                        placeholder = R.drawable.product_placeholder
-                    ), contentDescription = ""
-                )
+            ) {
+                pickPhoto.launch("image/*")
+
             }
+
         }
     }
 }
@@ -79,6 +100,7 @@ inline fun <reified Action> MaintenanceCheckTab(
 private fun FillUpCheckTabPrev() {
     MaintenanceCheckTab<MaintenanceCreateAction>(
         maintenance = Maintenance(),
+        selectedPhoto = null,
         onAction = {}
     )
 }

@@ -112,6 +112,7 @@
     <string name="fop_choose">Я ФОП</string>
     <string name="create_account">Створити акаунт</string>
     <string name="select_user_type">Виберіть тип користувача</string>
+    <string name="select_date">Виберіть дату</string>
     <string name="person">Я фізична особа</string>
     <string name="legal_entity">Я юридична особа</string>
     <string name="have_an_account">Вже є акаунт?</string>
@@ -343,5 +344,7 @@
     <string name="want_delete_driver_text">Бажаєте видалити водія?  \nЦю дію неможливо буде скасувати.</string>
     <string name="fuel_type_settings">Налаштування од. вим.</string>
     <string name="color_hint">Червоний</string>
+    <string name="select_time">Виберіть час</string>
+    <string name="maintenance_description_hint">Опис виконаної роботи..</string>
 
 </resources>

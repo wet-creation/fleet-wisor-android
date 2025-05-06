@@ -31,10 +31,12 @@ import ua.com.fleetwisor.features.cars.presentation.cars.edit.CarEditViewModel
 import ua.com.fleetwisor.features.cars.presentation.cars.list.CarsListRoot
 import ua.com.fleetwisor.features.cars.presentation.fill_up.create.FillUpCreateRoot
 import ua.com.fleetwisor.features.cars.presentation.fill_up.edit.FillUpEditRoot
+import ua.com.fleetwisor.features.cars.presentation.fill_up.edit.FillUpEditViewModel
 import ua.com.fleetwisor.features.cars.presentation.fill_up.list.FilUpListRoot
 import ua.com.fleetwisor.features.cars.presentation.main.CarMainRoot
 import ua.com.fleetwisor.features.cars.presentation.maintenance.create.MaintenanceCreateRoot
 import ua.com.fleetwisor.features.cars.presentation.maintenance.edit.MaintenanceEditRoot
+import ua.com.fleetwisor.features.cars.presentation.maintenance.edit.MaintenanceEditViewModel
 import ua.com.fleetwisor.features.cars.presentation.maintenance.list.MaintenanceListRoot
 import ua.com.fleetwisor.features.drivers.presentation.create.DriverCreateRoot
 import ua.com.fleetwisor.features.drivers.presentation.edit.DriversEditRoot
@@ -170,7 +172,7 @@ private fun NavGraphBuilder.carsGraph(
                     navController.navigateUp()
                 },
                 navigateEdit = {
-                    navController.navigate(CarsGraph.FillUpEdit)
+                    navController.navigate(CarsGraph.FillUpEdit(it))
 
                 },
                 navigateCreate = {
@@ -187,7 +189,12 @@ private fun NavGraphBuilder.carsGraph(
             )
         }
         composable<CarsGraph.FillUpEdit> {
+            val id = it.toRoute<CarsGraph.FillUpEdit>().fillUpId
+            val viewModel = koinViewModel<FillUpEditViewModel>(parameters = { parametersOf(id) })
+
+
             FillUpEditRoot(
+                viewModel = viewModel,
                 navigateBack = {
                     navController.navigateUp()
                 },
@@ -200,7 +207,7 @@ private fun NavGraphBuilder.carsGraph(
                     navController.navigateUp()
                 },
                 navigateEdit = {
-                    navController.navigate(CarsGraph.MaintenanceEdit)
+                    navController.navigate(CarsGraph.MaintenanceEdit(it))
 
                 },
                 navigateCreate = {
@@ -217,7 +224,10 @@ private fun NavGraphBuilder.carsGraph(
             )
         }
         composable<CarsGraph.MaintenanceEdit> {
+            val id = it.toRoute<CarsGraph.MaintenanceEdit>().maintenanceId
+            val viewModel = koinViewModel<MaintenanceEditViewModel>(parameters = { parametersOf(id) })
             MaintenanceEditRoot(
+                viewModel = viewModel,
                 navigateBack = {
                     navController.navigateUp()
                 },

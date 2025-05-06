@@ -156,7 +156,7 @@ fun TitledLabelTextField(
             )
             if (unitText != "")
                 Text(
-                    modifier = Modifier.weight(0.3f),
+                    modifier = Modifier.weight(0.5f),
                     text = unitText,
                     style = FleetWisorTheme.typography.titleLarge,
                     color = FleetWisorTheme.colors.brandPrimaryNormal
