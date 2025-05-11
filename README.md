@@ -17,15 +17,15 @@ FleetWisor is a mobile application designed for managing private vehicle fleets.
 ```
 .
 ├── app/                     # Single application module
-│   ├── features/            # features package
-        ├── auth/            # Authorization screens and logic
+│   └── features/            # features package
+│       ├── auth/            # Authorization screens and logic
 │       ├── drivers/         # Driver management features
 │       ├── cars/            # Vehicle management features
 │       ├── profile/         # User profile and settings
-│       ├── mainmenu/        # Main dashboard
+│       └── mainmenu/        # Main dashboard
 │   ├── core/                # Networking, ui, theme, utilities
 │   ├── app/                 # app level
-│   ├── build.gradle.kts     # App-level Gradle config
+│   └──build.gradle.kts     # App-level Gradle config
 ├── build.gradle.kts         # Root Gradle config
 ├── settings.gradle.kts
 ├── .env.local               # Environment variables (not committed)
