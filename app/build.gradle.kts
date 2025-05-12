@@ -1,10 +1,19 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinSerialization)
 }
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
+}
 
+val url = localProperties.getProperty("URL") ?: ""
+val devUrl = localProperties.getProperty("DEV_URL") ?: ""
 android {
     namespace = "ua.com.fleetwisor"
     compileSdk = 35
@@ -18,14 +27,18 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    android.buildFeatures.buildConfig =  true
     buildTypes {
         release {
+            buildConfigField("String", "URL", "\"$url\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        debug {
+            buildConfigField("String", "URL", "\"$devUrl\"")
         }
     }
     compileOptions {

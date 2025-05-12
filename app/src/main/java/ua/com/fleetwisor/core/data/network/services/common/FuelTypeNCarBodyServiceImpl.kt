@@ -7,8 +7,8 @@ import ua.com.fleetwisor.core.data.network.services.common.dto.FuelTypeDto
 import ua.com.fleetwisor.core.domain.utils.network.DataError
 import ua.com.fleetwisor.core.domain.utils.network.Results
 
-private const val getAllFuelType = "/api/v1/cars/fuel-type"
-private const val getAllCarBody = "/api/v1/cars/car-body"
+private const val getAllFuelType = "/api/v1/{lang}/cars/fuel-type"
+private const val getAllCarBody = "/api/v1/{lang}/cars/car-body"
 
 class FuelTypeNCarBodyServiceImpl(
     private val httpClientFactory: HttpClientFactory

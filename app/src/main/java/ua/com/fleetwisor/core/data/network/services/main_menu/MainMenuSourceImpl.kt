@@ -7,8 +7,8 @@ import ua.com.fleetwisor.core.domain.utils.network.DataError
 import ua.com.fleetwisor.core.domain.utils.network.Results
 import java.time.LocalDate
 
-private const val getReports = "/api/v1/reports"
-private const val getReportsExcel = "/api/v1/reports/excel"
+private const val getReports = "/api/v1/{lang}/reports"
+private const val getReportsExcel = "/api/v1/{lang}/reports/excel"
 
 class MainMenuSourceImpl(
     private val httpClientFactory: HttpClientFactory

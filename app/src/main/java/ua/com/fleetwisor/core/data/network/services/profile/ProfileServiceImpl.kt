@@ -11,11 +11,11 @@ import ua.com.fleetwisor.core.domain.utils.network.DataError
 import ua.com.fleetwisor.core.domain.utils.network.EmptyDataAndErrorResult
 import ua.com.fleetwisor.core.domain.utils.network.Results
 
-private const val getOwner = "/api/v1/owners/me"
-private const val getOwnerSettings = "/api/v1/owners/me/settings"
-private const val putInfo = "/api/v1/owners/update/info"
-private const val putPassword = "/api/v1/owners/update/password"
-private const val putUserSettings = "/api/v1/owners/update/settings"
+private const val getOwner = "/api/v1/{lang}/owners/me"
+private const val getOwnerSettings = "/api/v1/{lang}/owners/me/settings"
+private const val putInfo = "/api/v1/{lang}/owners/update/info"
+private const val putPassword = "/api/v1/{lang}/owners/update/password"
+private const val putUserSettings = "/api/v1/{lang}/owners/update/settings"
 
 class ProfileServiceImpl(
     private val httpClientFactory: HttpClientFactory

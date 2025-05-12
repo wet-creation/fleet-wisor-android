@@ -125,7 +125,10 @@ fun CarsListScreen(
 
                 }
             ) {
-                LazyColumn(verticalArrangement = Arrangement.spacedBy(16.dp), modifier = Modifier.fillMaxSize()) {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    modifier = Modifier.fillMaxSize()
+                ) {
                     item {
                         Spacer(Modifier)
                     }
@@ -137,7 +140,7 @@ fun CarsListScreen(
                                     onAction(CarsListAction.NavigateEdit(car.id))
                                 },
                             title = car.name,
-                            firstText = car.mileAge.toString() + " км",
+                            firstText = car.mileAge.toString() + " " + stringResource(R.string.km_text),
                             secondText = car.licensePlate
                         )
                     }

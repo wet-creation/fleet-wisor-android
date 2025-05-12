@@ -1,12 +1,13 @@
 package ua.com.fleetwisor.features.main_menu.presentation
 
+import android.app.Application
 import android.content.ContentValues
 import android.content.Context
 import android.provider.MediaStore
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -21,8 +22,9 @@ import ua.com.fleetwisor.features.main_menu.domain.MainMenuRepository
 import ua.com.fleetwisor.features.main_menu.domain.models.CarReport
 
 class MainMenuViewModel(
+    private val application: Application,
     private val repository: MainMenuRepository
-) : ViewModel() {
+) : AndroidViewModel(application) {
     var state by mutableStateOf(MainMenuState())
         private set
 
@@ -83,13 +85,15 @@ class MainMenuViewModel(
             filteredReports = state.reports
         )
     }
+
     private fun changeDownloadState(dState: DownloadState) {
         state = state.copy(downloadState = dState)
 
     }
+
     private fun downloadReport(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
-           changeDownloadState(DownloadState.Downloading)
+            changeDownloadState(DownloadState.Downloading)
             when (val res = repository.downloadReport(state.startDate, state.endDate)) {
                 is FullResult.Error -> {
                     changeDownloadState(DownloadState.Error(res.asErrorUiText()))
@@ -97,7 +101,10 @@ class MainMenuViewModel(
 
                 is FullResult.Success -> {
                     try {
-                        val fileName = "report.xlsx"
+                        val fileName = UiText.StringResource(
+                            R.string.report_file_name,
+                            arrayOf(state.startDate.toString(), state.startDate.toString())
+                        ).asString(context)
                         val resolver = context.contentResolver
                         val contentValues = ContentValues().apply {
                             put(MediaStore.Downloads.DISPLAY_NAME, fileName)
@@ -145,7 +152,8 @@ class MainMenuViewModel(
                 is FullResult.Success -> {
                     val summary = res.data.fold(
                         CarReport(
-                            brandName = "Усі авто",
+                            brandName = UiText.StringResource(R.string.all_cars)
+                                .asString(application),
                             fillUpCount = 0,
                             totalFillUp = 0.0,
                             maintenanceCount = 0,

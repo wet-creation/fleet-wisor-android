@@ -216,15 +216,15 @@ private fun MainMenuScreen(
                 Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
                     ReportTile(
                         modifier = Modifier.weight(1f),
-                        reportText = "Сума витрат",
+                        reportText = stringResource(R.string.expenditure),
                         value = state.selectedReport.totalSpending.toString(),
-                        unit = "грн",
+                        unit = stringResource(R.string.currency_uah_text),
                         icon = FleetWisorTheme.icons.money,
                         iconColor = FleetWisorTheme.colors.brandSecondaryNormal,
                     )
                     ReportTile(
                         modifier = Modifier.weight(1f),
-                        reportText = "К-сть заправок ",
+                        reportText = stringResource(R.string.fill_up_count),
                         value = state.selectedReport.fillUpCount.toString(),
                         icon = FleetWisorTheme.icons.gasMeter,
                         iconColor = FleetWisorTheme.colors.labelInProgress,
@@ -233,16 +233,16 @@ private fun MainMenuScreen(
                 Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
                     ReportTile(
                         modifier = Modifier.weight(1f),
-                        reportText = "Вартість заправок",
+                        reportText = stringResource(R.string.total_fill_up),
                         value = state.selectedReport.totalFillUp.toString(),
-                        unit = "грн",
+                        unit = stringResource(R.string.currency_uah_text),
                         icon = FleetWisorTheme.icons.gasStation,
                         iconColor = FleetWisorTheme.colors.herbicideColor,
                     )
                     ReportTile(
                         modifier = Modifier.weight(1f),
-                        reportText = "К-сть обслуговувань",
-                        value = state.selectedReport.fillUpCount.toString(),
+                        reportText = stringResource(R.string.maintenance_count),
+                        value = state.selectedReport.maintenanceCount.toString(),
                         icon = FleetWisorTheme.icons.tool,
                         iconColor = FleetWisorTheme.colors.brandPrimaryLight,
                     )
@@ -252,9 +252,9 @@ private fun MainMenuScreen(
 
                     ReportTile(
                         modifier = Modifier.weight(1f),
-                        reportText = "Вартість обслуговувань",
+                        reportText = stringResource(R.string.total_maintenance),
                         value = state.selectedReport.totalMaintenance.toString(),
-                        unit = "грн",
+                        unit = stringResource(R.string.currency_uah_text),
                         icon = FleetWisorTheme.icons.homeService,
                         iconColor = FleetWisorTheme.colors.neutralSecondaryDark,
                     )

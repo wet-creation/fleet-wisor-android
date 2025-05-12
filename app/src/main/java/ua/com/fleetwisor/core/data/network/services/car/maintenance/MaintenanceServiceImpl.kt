@@ -17,11 +17,11 @@ import ua.com.fleetwisor.core.domain.utils.network.DataError
 import ua.com.fleetwisor.core.domain.utils.network.EmptyDataAndErrorResult
 import ua.com.fleetwisor.core.domain.utils.network.Results
 
-private const val getAll = "/api/v1/cars/maintenance"
-private val getById: PathParamRoute = { "/api/v1/cars/maintenance/$it" }
-private val deleteById: PathParamRoute = { "/api/v1/cars/maintenance/$it" }
-private const val post = "/api/v1/cars/maintenance"
-private val put: PathParamRoute = { "/api/v1/cars/maintenance/$it" }
+private const val getAll = "/api/v1/{lang}/cars/maintenance"
+private val getById: PathParamRoute = { "/api/v1/{lang}/cars/maintenance/$it" }
+private val deleteById: PathParamRoute = { "/api/v1/{lang}/cars/maintenance/$it" }
+private const val post = "/api/v1/{lang}/cars/maintenance"
+private val put: PathParamRoute = { "/api/v1/{lang}/cars/maintenance/$it" }
 
 class MaintenanceServiceImpl(
     private val httpClientFactory: HttpClientFactory

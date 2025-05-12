@@ -17,11 +17,11 @@ import ua.com.fleetwisor.core.domain.utils.network.DataError
 import ua.com.fleetwisor.core.domain.utils.network.EmptyDataAndErrorResult
 import ua.com.fleetwisor.core.domain.utils.network.Results
 
-private const val getAll = "api/v1/cars/fill-up"
-private val getFillUp: PathParamRoute = { "api/v1/cars/fill-up/$it" }
-private val deleteFillUp: PathParamRoute = { "api/v1/cars/fill-up/$it" }
-private val putFillUp: PathParamRoute = { "api/v1/cars/fill-up/$it" }
-private const val postFillUp = "api/v1/cars/fill-up"
+private const val getAll = "api/v1/{lang}/cars/fill-up"
+private val getFillUp: PathParamRoute = { "api/v1/{lang}/cars/fill-up/$it" }
+private val deleteFillUp: PathParamRoute = { "api/v1/{lang}/cars/fill-up/$it" }
+private val putFillUp: PathParamRoute = { "api/v1/{lang}/cars/fill-up/$it" }
+private const val postFillUp = "api/v1/{lang}/cars/fill-up"
 
 
 class FillUpServiceImpl(
