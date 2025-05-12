@@ -3,11 +3,10 @@ package ua.com.fleetwisor.core.presentation.theme.components.images
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
@@ -28,10 +27,10 @@ fun BorderImage(modifier: Modifier = Modifier, image: Painter, contentDescriptio
         )
     ) {
         Image(
-            contentScale = ContentScale.Inside,
+            contentScale = ContentScale.Crop,
             painter = image,
             contentDescription = contentDescription,
-            modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(5.dp))
+            modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(5.dp)).align(Alignment.Center)
         )
     }
 }

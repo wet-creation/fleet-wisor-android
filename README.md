@@ -1,6 +1,8 @@
 # FleetWisor Android App
 
-FleetWisor is a mobile application designed for managing private vehicle fleets. It provides functionality for vehicle tracking, maintenance management, driver profiles, trip monitoring, and fuel expense tracking.
+FleetWisor is a mobile application designed for managing private vehicle fleets. It provides
+functionality for vehicle tracking, maintenance management, driver profiles, trip monitoring, and
+fuel expense tracking.
 
 ## 📱 Technologies Used
 
@@ -9,7 +11,7 @@ FleetWisor is a mobile application designed for managing private vehicle fleets.
 - **MVVM** – Architecture pattern
 - **Koin** – Dependency injection
 - **Navigation Compose** – App navigation
-- **DataStore** –  local preferences
+- **DataStore** – local preferences
 - **Ktor Client** – API communication
 
 ## 📁 Project Structure
@@ -31,6 +33,66 @@ FleetWisor is a mobile application designed for managing private vehicle fleets.
 ├── .env.local               # Environment variables (not committed)
 └── README.md
 ```
+
+## 🖼️ Screenshots
+
+### Main Screen
+
+<p float="left">
+    <img src="images/en/main_screen.png" width="45%"  alt=""/>
+    <img src="images/uk/main_screen.png" width="45%" alt="" />
+</p>
+
+### Car Screen
+
+#### Main menu
+
+<p float="left">
+    <img src="images/en/car_main.png" width="45%"  alt=""/>
+    <img src="images/uk/car_main.png" width="45%" alt="" />
+</p>
+
+#### Cars list
+
+<p float="left">
+    <img src="images/en/car_list.png" width="45%"  alt=""/>
+    <img src="images/uk/car_list.png" width="45%" alt="" />
+</p>
+
+#### Car detailed
+
+<p float="left">
+    <img src="images/en/car_edit1.png" width="45%"  alt=""/>
+    <img src="images/uk/car_edit1.png" width="45%" alt="" />
+</p>
+
+<p float="left">
+    <img src="images/en/car_edit2.png" width="45%"  alt=""/>
+    <img src="images/uk/car_edit2.png" width="45%" alt="" />
+</p>
+
+### Driver Screen
+
+#### Drivers list
+
+<p float="left">
+    <img src="images/en/driver_list.png" width="45%"  alt=""/>
+    <img src="images/uk/driver_list.png" width="45%" alt="" />
+</p>
+
+#### Driver detailed
+
+<p float="left">
+    <img src="images/en/driver.png" width="45%"  alt=""/>
+    <img src="images/uk/driver.png" width="45%" alt="" />
+</p>
+
+### Profile
+
+<p float="left">
+    <img src="images/en/profile.png" width="45%"  alt=""/>
+    <img src="images/uk/profile.png" width="45%" alt="" />
+</p>
 
 ## 🚀 Getting Started
 
