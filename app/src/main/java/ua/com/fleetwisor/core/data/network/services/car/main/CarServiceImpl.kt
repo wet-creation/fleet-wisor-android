@@ -20,13 +20,13 @@ import ua.com.fleetwisor.core.domain.utils.network.DataError
 import ua.com.fleetwisor.core.domain.utils.network.EmptyDataAndErrorResult
 import ua.com.fleetwisor.core.domain.utils.network.Results
 
-private const val getAll = "/api/v1/cars"
-private const val postCar = "/api/v1/cars"
-private val deleteCar: PathParamRoute = { "/api/v1/cars/$it" }
-private const val putCar = "/api/v1/cars"
-private val getCar: PathParamRoute = { "/api/v1/cars/$it" }
-private val getInsuranceRoute: PathParamRoute = { "/api/v1/cars/insurance/$it" }
-private val putInsuranceRoute: PathParamRoute = { "/api/v1/cars/insurance/$it" }
+private const val getAll = "/api/v1/{lang}/cars"
+private const val postCar = "/api/v1/{lang}/cars"
+private val deleteCar: PathParamRoute = { "/api/v1/cars/{lang}/$it" }
+private const val putCar = "/api/v1/{lang}/cars"
+private val getCar: PathParamRoute = { "/api/v1/{lang}/cars/$it" }
+private val getInsuranceRoute: PathParamRoute = { "/api/v1/{lang}/cars/insurance/$it" }
+private val putInsuranceRoute: PathParamRoute = { "/api/v1/{lang}/cars/insurance/$it" }
 
 class CarServiceImpl(
     private val httpClientFactory: HttpClientFactory

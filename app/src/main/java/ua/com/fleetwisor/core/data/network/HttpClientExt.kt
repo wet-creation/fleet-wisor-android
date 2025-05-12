@@ -219,7 +219,7 @@ suspend inline fun <reified T, reified E> safeCall(execute: () -> HttpResponse):
     }
 
     Log.d(response.body())
-    Log.d(response.headers.get("Authorization"))
+    Log.d(response.headers["Authorization"])
     Log.d(response.status.value.toString())
     Log.d(response.bodyAsText())
     return responseToResult(response)

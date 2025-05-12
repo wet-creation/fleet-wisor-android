@@ -1,10 +1,13 @@
 package ua.com.fleetwisor.core.domain.utils
 
-object  Config {
-    var isDebug: Boolean = true
-    var applicationId: String = ""
-    var buildType: String = ""
-    var versionCode: Int = 0
-    var versionName: String = ""
-    var baseUrl: String = "http://10.0.2.2:8080"
-}//"http://192.168.0.106:8080"
+import ua.com.fleetwisor.BuildConfig
+
+object Config {
+    var isDebug: Boolean = BuildConfig.DEBUG
+    var applicationId: String = BuildConfig.APPLICATION_ID
+    var buildType: String = BuildConfig.BUILD_TYPE
+    var versionCode: Int = BuildConfig.VERSION_CODE
+    var versionName: String = BuildConfig.VERSION_NAME
+    var baseUrl: String = BuildConfig.URL
+    var locale: String = "uk"
+}

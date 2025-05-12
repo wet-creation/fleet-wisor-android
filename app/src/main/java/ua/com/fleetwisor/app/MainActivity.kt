@@ -21,12 +21,14 @@ import ua.com.fleetwisor.app.navigation.graphs.MainMenuGraph
 import ua.com.fleetwisor.app.navigation.routeClass
 import ua.com.fleetwisor.core.data.local.auth.LocalAuthService
 import ua.com.fleetwisor.core.data.local.auth.LocalAuthServiceImpl
+import ua.com.fleetwisor.core.domain.utils.Config
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.FleetWisorScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottomBar
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar.AgroswitBottomBarScreen
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.bottom_bar.screens
 import ua.com.fleetwisor.core.presentation.ui.utils.emptyUiText
+import java.util.Locale
 
 
 class MainActivity : ComponentActivity() {
@@ -41,6 +43,7 @@ class MainActivity : ComponentActivity() {
         }
         super.onCreate(savedInstanceState)
         localAuthService = LocalAuthServiceImpl(this)
+        Config.locale = Locale.getDefault().language
         enableEdgeToEdge()
         setContent {
             val navController = rememberNavController()
