@@ -9,6 +9,7 @@ sealed interface FillUpCreateAction {
 
     companion object : FillUpCreateAction
     data object NavigateBack : FillUpCreateAction
+    data object DismissErrorDialog : FillUpCreateAction
 
     data class SelectPhoto(val uri: Uri) : FillUpCreateAction
     data class SelectedCarIndex(val car: Index) : FillUpCreateAction

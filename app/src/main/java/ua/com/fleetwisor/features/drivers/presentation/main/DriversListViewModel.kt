@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.com.fleetwisor.core.domain.utils.network.FullResult
 import ua.com.fleetwisor.core.presentation.ui.utils.asErrorUiText
+import ua.com.fleetwisor.core.presentation.ui.utils.emptyUiText
 import ua.com.fleetwisor.features.drivers.domain.DriverRepository
 
 class DriversListViewModel(
@@ -37,6 +38,13 @@ class DriversListViewModel(
         when (action) {
             DriversListAction.Refresh -> {
                 init()
+            }
+            DriversListAction.DismissErrorDialog -> {
+                _state.update {
+                    it.copy(
+                        error = emptyUiText
+                    )
+                }
             }
 
             is DriversListAction.SearchDriver -> {

@@ -17,6 +17,7 @@ import ua.com.fleetwisor.core.domain.utils.isDouble
 import ua.com.fleetwisor.core.domain.utils.network.FullResult
 import ua.com.fleetwisor.core.domain.utils.toByteArray
 import ua.com.fleetwisor.core.presentation.ui.utils.asErrorUiText
+import ua.com.fleetwisor.core.presentation.ui.utils.emptyUiText
 import ua.com.fleetwisor.features.cars.domain.CarRepository
 import ua.com.fleetwisor.features.cars.domain.FillUpRepository
 import ua.com.fleetwisor.features.cars.domain.models.FuelType
@@ -105,6 +106,14 @@ class FillUpEditViewModel(
                         fillUp = fillUp.fillUp.copy(
                             time = action.dateTime
                         )
+                    )
+                }
+            }
+
+            FillUpEditAction.DismissErrorDialog -> {
+                _state.update { fillUp ->
+                    fillUp.copy(
+                        error = emptyUiText
                     )
                 }
             }

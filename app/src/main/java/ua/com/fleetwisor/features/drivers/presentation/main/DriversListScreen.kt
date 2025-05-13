@@ -30,9 +30,11 @@ import org.koin.androidx.compose.koinViewModel
 import ua.com.agroswit.theme.components.fields.TextFieldAgroswit
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
+import ua.com.fleetwisor.core.presentation.theme.components.dialogs.ConfirmationDialog
 import ua.com.fleetwisor.core.presentation.theme.components.items.DriverListItem
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.FleetWisorScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
+import ua.com.fleetwisor.core.presentation.ui.utils.emptyUiText
 import ua.com.fleetwisor.features.drivers.domain.models.Driver
 
 @Composable
@@ -65,6 +67,15 @@ fun DriversListScreen(
     onAction: (DriversListAction) -> Unit,
 ) {
     val pullToRefreshState = rememberPullToRefreshState()
+
+    if (state.error != emptyUiText)
+        ConfirmationDialog(
+            text = state.error.asString(),
+            buttonText = stringResource(id = R.string.confirm)
+        ) {
+            onAction(DriversListAction.DismissErrorDialog)
+        }
+
     FleetWisorScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(

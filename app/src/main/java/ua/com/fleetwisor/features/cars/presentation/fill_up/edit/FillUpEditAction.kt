@@ -12,6 +12,7 @@ sealed interface FillUpEditAction {
     data class ChangeTabIndex(val index: Int) : FillUpEditAction
     data class SelectPhoto(val uri: Uri) : FillUpEditAction
     data object Delete : FillUpEditAction
+    data object DismissErrorDialog : FillUpEditAction
 
     data class SelectedCarIndex(val car: Index) : FillUpEditAction
     data class InputPrice(val value: String) : FillUpEditAction

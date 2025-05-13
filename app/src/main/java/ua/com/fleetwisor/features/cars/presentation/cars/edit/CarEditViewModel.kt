@@ -19,6 +19,7 @@ import ua.com.fleetwisor.core.domain.utils.network.FullResult
 import ua.com.fleetwisor.core.domain.utils.toByteArray
 import ua.com.fleetwisor.core.presentation.ui.utils.UiText
 import ua.com.fleetwisor.core.presentation.ui.utils.asErrorUiText
+import ua.com.fleetwisor.core.presentation.ui.utils.emptyUiText
 import ua.com.fleetwisor.features.cars.domain.CarRepository
 import ua.com.fleetwisor.features.cars.domain.models.CarBody
 import ua.com.fleetwisor.features.cars.domain.models.FuelType
@@ -51,6 +52,10 @@ class CarEditViewModel(
         when (action) {
             is CarEditAction.ChangeTabIndex -> {
                 _state.update { it.copy(selectedTab = action.index) }
+            }
+
+            CarEditAction.DismissErrorDialog -> {
+                _state.update { it.copy(error = emptyUiText) }
             }
 
             is CarEditAction.DeleteFuelType -> {

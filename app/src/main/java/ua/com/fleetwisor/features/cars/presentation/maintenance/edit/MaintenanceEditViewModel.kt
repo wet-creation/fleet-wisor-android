@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import ua.com.fleetwisor.core.domain.utils.network.FullResult
 import ua.com.fleetwisor.core.domain.utils.toByteArray
 import ua.com.fleetwisor.core.presentation.ui.utils.asErrorUiText
+import ua.com.fleetwisor.core.presentation.ui.utils.emptyUiText
 import ua.com.fleetwisor.features.cars.domain.MaintenanceRepository
 
 class MaintenanceEditViewModel(
@@ -45,6 +46,10 @@ class MaintenanceEditViewModel(
         when (action) {
             is MaintenanceEditAction.ChangeTabIndex -> {
                 _state.update { it.copy(selectedTab = action.index) }
+            }
+
+            MaintenanceEditAction.DismissErrorDialog -> {
+                _state.update { it.copy(error = emptyUiText) }
             }
 
             MaintenanceEditAction.Delete -> {

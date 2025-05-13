@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.com.fleetwisor.core.domain.utils.network.FullResult
 import ua.com.fleetwisor.core.presentation.ui.utils.asErrorUiText
+import ua.com.fleetwisor.core.presentation.ui.utils.emptyUiText
 import ua.com.fleetwisor.features.cars.domain.FillUpRepository
 
 class FillUpListViewModel(
@@ -44,6 +45,13 @@ class FillUpListViewModel(
             }
             FilUpListAction.Refresh -> {
                 init()
+            }
+            FilUpListAction.DismissErrorDialog -> {
+                _state.update {
+                    it.copy(
+                        error = emptyUiText
+                    )
+                }
             }
             else -> {}
         }

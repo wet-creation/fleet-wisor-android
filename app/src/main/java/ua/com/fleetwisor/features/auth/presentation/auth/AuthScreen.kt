@@ -31,7 +31,6 @@ fun AuthScreenRoot(
     navigateRegister: () -> Unit,
 ) {
     AuthScreen(
-        state = viewModel.state,
         onAction = {
             when (it) {
                 AuthAction.NavigateLogin -> navigateLogin()
@@ -45,7 +44,6 @@ fun AuthScreenRoot(
 
 @Composable
 private fun AuthScreen(
-    state: AuthState,
     onAction: (AuthAction) -> Unit
 ) {
     AgroswitBackground {
@@ -77,7 +75,7 @@ private fun AuthScreen(
                     HorizontalDivider(modifier = Modifier.weight(1f))
                     Text(
                         modifier = Modifier.weight(0.2f),
-                        text = "aбо",
+                        text = stringResource(R.string.or_text),
                         textAlign = TextAlign.Center,
                         style = FleetWisorTheme.typography.titleLarge,
                         color = FleetWisorTheme.colors.neutralSecondaryNormal
@@ -103,7 +101,6 @@ private fun AuthScreen(
 private fun AuthStateScreenPreview() {
     FleetWisorTheme {
         AuthScreen(
-            state = AuthState(),
             onAction = {}
         )
     }

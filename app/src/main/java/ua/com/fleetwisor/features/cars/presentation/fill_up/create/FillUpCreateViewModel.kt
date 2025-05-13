@@ -17,6 +17,7 @@ import ua.com.fleetwisor.core.domain.utils.isDouble
 import ua.com.fleetwisor.core.domain.utils.network.FullResult
 import ua.com.fleetwisor.core.domain.utils.toByteArray
 import ua.com.fleetwisor.core.presentation.ui.utils.asErrorUiText
+import ua.com.fleetwisor.core.presentation.ui.utils.emptyUiText
 import ua.com.fleetwisor.features.cars.domain.CarRepository
 import ua.com.fleetwisor.features.cars.domain.FillUpRepository
 import ua.com.fleetwisor.features.cars.domain.models.FuelType
@@ -49,6 +50,7 @@ class FillUpCreateViewModel(
     fun onAction(action: FillUpCreateAction) {
         when (action) {
             is FillUpCreateAction.ChangeTabIndex -> _state.update { it.copy(selectedTab = action.index) }
+             FillUpCreateAction.DismissErrorDialog -> _state.update { it.copy(error = emptyUiText) }
             is FillUpCreateAction.InputAmount -> {
                 if (action.value.isDouble())
                     _state.update {
@@ -188,6 +190,7 @@ class FillUpCreateViewModel(
                         error = cars.asErrorUiText()
                     )
                 }
+                return@launch
             }
 
             if (fuels is FullResult.Error) {
@@ -196,6 +199,8 @@ class FillUpCreateViewModel(
                         error = fuels.asErrorUiText()
                     )
                 }
+                return@launch
+
             }
             if (userSettings is FullResult.Error) {
                 _state.update {
@@ -203,6 +208,8 @@ class FillUpCreateViewModel(
                         error = userSettings.asErrorUiText()
                     )
                 }
+                return@launch
+
             }
 //todo check if cars is not empty
             val carsData = (cars as FullResult.Success).data

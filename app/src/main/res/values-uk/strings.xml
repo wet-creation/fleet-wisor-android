@@ -354,5 +354,6 @@
     <string name="all_cars">Усі авто</string>
     <string name="km_text">км</string>
     <string name="report_file_name">Звіт з %1$s по %2$s</string>
+    <string name="or_text">aбо</string>
 
 </resources>

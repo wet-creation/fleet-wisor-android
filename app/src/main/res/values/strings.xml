@@ -346,6 +346,7 @@
     <string name="all_cars">All cars</string>
     <string name="km_text">km</string>
     <string name="report_file_name">Report from %1$s to %2$s</string>
+    <string name="or_text">or</string>
 
 
 </resources>

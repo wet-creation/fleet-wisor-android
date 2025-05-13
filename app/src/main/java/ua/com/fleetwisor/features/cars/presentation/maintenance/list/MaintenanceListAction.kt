@@ -5,6 +5,7 @@ sealed interface MaintenanceListAction {
     data object NavigateCreate : MaintenanceListAction
     data object Refresh : MaintenanceListAction
     data object NavigateBack : MaintenanceListAction
+    data object DismissErrorDialog : MaintenanceListAction
 
     data class NavigateEdit(val id: Int) : MaintenanceListAction
     data class InputSearch(val value: String) : MaintenanceListAction

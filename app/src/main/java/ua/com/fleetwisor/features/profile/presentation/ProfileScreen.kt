@@ -70,8 +70,9 @@ fun ProfileScreen(
         )
     }
 
-    if (state.error != emptyUiText) ConfirmationDialog(
-        text = state.error.asString(), buttonText = stringResource(id = R.string.retry_text)
+    if (state.error != emptyUiText)
+        ConfirmationDialog(
+        text = state.error.asString(), buttonText = stringResource(id = R.string.confirm)
     ) {
         onAction(ProfileAction.OnErrorCloseClick)
     }

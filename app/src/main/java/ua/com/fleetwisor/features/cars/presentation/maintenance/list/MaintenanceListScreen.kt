@@ -30,9 +30,11 @@ import ua.com.agroswit.theme.components.fields.TextFieldAgroswit
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.domain.utils.formatTime
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
+import ua.com.fleetwisor.core.presentation.theme.components.dialogs.ConfirmationDialog
 import ua.com.fleetwisor.core.presentation.theme.components.items.MaintenanceListItem
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.FleetWisorScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
+import ua.com.fleetwisor.core.presentation.ui.utils.emptyUiText
 
 @Composable
 fun MaintenanceListRoot(
@@ -64,6 +66,14 @@ fun MaintenanceListScreen(
     onAction: (MaintenanceListAction) -> Unit,
 ) {
     val pullToRefreshState = rememberPullToRefreshState()
+
+    if (state.error != emptyUiText)
+        ConfirmationDialog(
+            text = state.error.asString(),
+            buttonText = stringResource(id = R.string.confirm)
+        ) {
+            onAction(MaintenanceListAction.DismissErrorDialog)
+        }
     FleetWisorScaffold(
         topAppBar = {
             SimpleFilledAgroswitTopAppBar(

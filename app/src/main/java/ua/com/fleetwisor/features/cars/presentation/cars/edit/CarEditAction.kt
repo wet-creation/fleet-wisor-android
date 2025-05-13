@@ -8,6 +8,7 @@ sealed interface CarEditAction {
     data object NavigateBack : CarEditAction
     data object AddFuelType : CarEditAction
     data object DeleteCar : CarEditAction
+    data object DismissErrorDialog : CarEditAction
 
 
     data class SelectPeriod(val start: Long, val end: Long) : CarEditAction

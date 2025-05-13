@@ -8,6 +8,7 @@ sealed interface MaintenanceEditAction {
     companion object : MaintenanceEditAction
     data object NavigateBack : MaintenanceEditAction
     data object Delete : MaintenanceEditAction
+    data object DismissErrorDialog : MaintenanceEditAction
     data class ChangeTabIndex(val index: Int) : MaintenanceEditAction
     data class SelectTimeDate(val time: LocalDateTime) : MaintenanceEditAction
     data class InputPrice(val value: Double) : MaintenanceEditAction

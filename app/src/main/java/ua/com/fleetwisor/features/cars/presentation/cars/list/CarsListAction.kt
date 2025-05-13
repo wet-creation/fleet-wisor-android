@@ -4,6 +4,8 @@ sealed interface CarsListAction {
     data object NavigateCreate : CarsListAction
     data object NavigateBack : CarsListAction
     data object Refresh : CarsListAction
+    data object DismissErrorDialog : CarsListAction
+
 
     data class NavigateEdit(val id: Int) : CarsListAction
 

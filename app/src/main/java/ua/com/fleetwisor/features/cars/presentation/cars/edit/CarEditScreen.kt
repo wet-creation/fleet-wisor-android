@@ -21,10 +21,12 @@ import kotlinx.collections.immutable.toImmutableList
 import org.koin.androidx.compose.koinViewModel
 import ua.com.fleetwisor.R
 import ua.com.fleetwisor.core.presentation.theme.FleetWisorTheme
+import ua.com.fleetwisor.core.presentation.theme.components.dialogs.ConfirmationDialog
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.FleetWisorScaffold
 import ua.com.fleetwisor.core.presentation.theme.components.scaffold.SimpleFilledAgroswitTopAppBar
 import ua.com.fleetwisor.core.presentation.ui.utils.ObserverAsEvents
 import ua.com.fleetwisor.core.presentation.ui.utils.TabInfo
+import ua.com.fleetwisor.core.presentation.ui.utils.emptyUiText
 import ua.com.fleetwisor.features.cars.presentation.cars.common.compoents.CarInfoTab
 import ua.com.fleetwisor.features.cars.presentation.cars.common.compoents.InsuranceTab
 
@@ -59,6 +61,15 @@ fun CarEditScreen(
     onAction: (CarEditAction) -> Unit,
 ) {
     var paddingValue by remember { mutableStateOf(PaddingValues()) }
+
+    if (state.error != emptyUiText)
+        ConfirmationDialog(
+            text = state.error.asString(),
+            buttonText = stringResource(id = R.string.confirm)
+        ) {
+            onAction(CarEditAction.DismissErrorDialog)
+        }
+
     val tabs = listOf(
         TabInfo(
             title = stringResource(R.string.general_tab_name),
