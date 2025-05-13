@@ -181,6 +181,7 @@ class DriversEditViewModel(
                 is FullResult.Success -> {
                     _state.update {
                         it.copy(
+                            inputSalary = res.data.salary.toString(),
                             driver = res.data,
                             editDriver = res.data
                         )

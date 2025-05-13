@@ -22,7 +22,7 @@ import ua.com.fleetwisor.core.domain.utils.network.Results
 
 private const val getAll = "/api/v1/{lang}/cars"
 private const val postCar = "/api/v1/{lang}/cars"
-private val deleteCar: PathParamRoute = { "/api/v1/cars/{lang}/$it" }
+private val deleteCar: PathParamRoute = { "/api/v1/{lang}/cars/$it" }
 private const val putCar = "/api/v1/{lang}/cars"
 private val getCar: PathParamRoute = { "/api/v1/{lang}/cars/$it" }
 private val getInsuranceRoute: PathParamRoute = { "/api/v1/{lang}/cars/insurance/$it" }
